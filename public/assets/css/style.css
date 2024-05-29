@@ -1,0 +1,60 @@
+/* Definições do Body */
+body{
+    margin: 0;
+    padding: 0;
+}
+
+/* Definições do Papel de Parede */
+main{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Estilos para o vídeo de plano de fundo */
+video {
+    margin: 0;
+    padding: 0;
+    z-index: -99;
+    position: fixed;
+    top: -200px;
+    height: calc(100vh + 200px);
+}
+
+/* Estilos para seções do conteúdo */
+section {
+    padding: 2em;
+}
+
+
+/* Estilos para inputs Checkeds */
+input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="checkbox"] + label::before {
+    content: attr(data-text);
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    display: flex;
+    background-color: #ffffff;
+    color: #6b7280; /* cor do texto */
+    transition: all 0.3s ease-in-out;
+    padding: 5px;
+    width: 100%;
+}
+
+input[type="checkbox"]:checked + label::before {
+    background-color: var(--green); /* cor de fundo quando marcado */
+    color: white; /* cor do texto quando marcado */
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+

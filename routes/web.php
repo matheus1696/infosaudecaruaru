@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
 use App\Http\Controllers\Admin\Consumable\ConsumableUnitController;
+use App\Http\Controllers\Admin\Inventory\InventoryWarehouseStandardRequestController;
+use App\Http\Controllers\Admin\Inventory\InventoryWarehouseStandardRequestListController;
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
@@ -128,6 +130,23 @@ Route::middleware('auth')->group(function () {
                 //Rota - Produtos
                     Route::put('medications/status/{medication}',[MedicationController::class,'status'])->name('medications.status');
                     Route::resource('medications',MedicationController::class);
+            });
+
+            //Grupo de Rotas - Configuração de Inventários
+            Route::prefix('inventory')->group(function (){
+
+                //Grupo de Rotas - Configuração de Almoxarifados e Depósitos
+                Route::prefix('warehouse')->group(function (){
+
+                    //Grupo de Rotas - Configuração de Almoxarifados e Depósitos
+                    Route::prefix('standard')->group(function (){
+
+                        //Rota - Lista de Materiais Padrões                        
+                        Route::resource('standard_request_lists',InventoryWarehouseStandardRequestListController::class);
+                        Route::put('standard_requests/status/{standard_request}',[InventoryWarehouseStandardRequestController::class,'status'])->name('standard_requests.status');
+                        Route::resource('standard_requests',InventoryWarehouseStandardRequestController::class);
+                    });
+                });
             });
         });
     });

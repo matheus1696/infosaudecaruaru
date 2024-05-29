@@ -19,10 +19,6 @@ return new class extends Migration
             $table->string('extension')->nullable();
             $table->string('type_contact')->nullable()->default('Without');
             $table->unsignedBigInteger('establishment_id');
-            $table->boolean('has_inventory_warehouse')->default(false);
-            $table->boolean('has_inventory_warehouse_center')->default(false);
-            $table->boolean('has_inventory_pharmacy')->default(false);
-            $table->boolean('has_inventory_pharmacy_center')->default(false);
             $table->timestamps();
 
             $table->foreign('establishment_id')->references('id')->on('company_establishments');

@@ -301,6 +301,32 @@ return [
             'type'    => 'sidebar-menu-search',
             'text'    => 'Buscar Menu',
         ], 
+
+        //Inventário
+        [
+            'text'    => 'Estoque',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-boxes pr-2',
+            'can'     => ['user'],
+            'submenu' => [
+                
+                [
+                    'text'    => 'Almoxarifado',
+                    'classes' => 'btn-sm',
+                    'route'   => 'store_rooms.index',
+                    'icon'    => 'fas fa-warehouse pr-2',
+                    'can'     => ['user'],
+                ],
+                
+                [
+                    'text'    => 'Farmácia',
+                    'classes' => 'btn-sm',
+                    'route'   => 'standard_requests.index',
+                    'icon'    => 'fas fa-pills pr-2',
+                    'can'     => ['user'],
+                ],
+            ]
+        ],
         
         //Lista Telefônica
         [
@@ -523,12 +549,11 @@ return [
                     ]
                 ],
 
-
                 //Configuração de Inventário
                 [
                     'text'    => 'Configuração de Inventários',
                     'classes' => 'btn-sm',
-                    'icon'    => 'fas fa-boxes pr-2',
+                    'icon'    => 'fas fa-clipboard-list pr-2',
                     'icon_color' => 'info',
                     'can'     => ['sysadmin','admin'],
                     'submenu' => [
@@ -539,7 +564,7 @@ return [
                             'text'    => 'Lista de Pedidos',
                             'classes' => 'btn-sm',
                             'route'   => 'standard_requests.index',
-                            'icon'    => 'fas fa-pills pr-2',
+                            'icon'    => 'fas fa-list pr-2',
                             'can'     => ['sysadmin','admin'],
                         ],
                     ]

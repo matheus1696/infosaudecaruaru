@@ -25,14 +25,8 @@ use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\User\UsersController;
-use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseController;
-use App\Http\Controllers\Inventory\Warehouse\InventoryWarehousePermissionController;
-use App\Http\Controllers\Inventory\WarehouseCenter\InventoryWarehouseCenterController;
-use App\Http\Controllers\Inventory\WarehouseCenter\InventoryWarehouseCenterPermissionController;
-use App\Http\Controllers\Inventory\Pharmacy\InventoryPharmacyController;
-use App\Http\Controllers\Inventory\Pharmacy\InventoryPharmacyPermissionController;
-use App\Http\Controllers\Inventory\PharmacyCenter\InventoryPharmacyCenterController;
-use App\Http\Controllers\Inventory\PharmacyCenter\InventoryPharmacyCenterPermissionController;
+use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomController;
+use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomHistoryController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 
@@ -147,6 +141,16 @@ Route::middleware('auth')->group(function () {
                         Route::resource('standard_request_lists',InventoryWarehouseStandardRequestListController::class);
                     });
                 });
+            });
+        });        
+
+        //Grupo de Rotas - Inventários/Estoques
+        Route::prefix('inventory')->group(function (){
+            //Grupo de Rotas - 
+            Route::prefix('warehouse')->group(function (){
+                //Rota - 
+                Route::resource('store_rooms',InventoryWarehouseStoreRoomController::class);
+                Route::resource('store_room_histories',InventoryWarehouseStoreRoomHistoryController::class);
             });
         });
     });

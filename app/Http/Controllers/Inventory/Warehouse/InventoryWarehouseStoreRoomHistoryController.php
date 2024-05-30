@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory\Warehouse;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomHistoryRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\UpdateInventoryWarehouseStoreRoomHistoryRequest;
 use App\Models\Inventory\InventoryWarehouseStoreRoomHistory;
-use App\Http\Requests\StoreInventoryWarehouseStoreRoomHistoryRequest;
-use App\Http\Requests\UpdateInventoryWarehouseStoreRoomHistoryRequest;
 
 class InventoryWarehouseStoreRoomHistoryController extends Controller
 {

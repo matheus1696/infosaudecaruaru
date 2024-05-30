@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory\Warehouse;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreroomRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\UpdateInventoryWarehouseStoreRoomRequest;
+use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
-use App\Http\Requests\StoreInventoryWarehouseStoreRoomRequest;
-use App\Http\Requests\UpdateInventoryWarehouseStoreRoomRequest;
 
 class InventoryWarehouseStoreRoomController extends Controller
 {
@@ -14,6 +16,10 @@ class InventoryWarehouseStoreRoomController extends Controller
     public function index()
     {
         //
+        $db = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
+            ->with('CompanyEstablishment')->paginate(20);
+
+        return view('inventory.warehouse.store_room.store_room_index', compact('db'));
     }
 
     /**
@@ -27,7 +33,7 @@ class InventoryWarehouseStoreRoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInventoryWarehouseStoreRoomRequest $request)
+    public function store(StoreInventoryWarehouseStoreroomRequest $request)
     {
         //
     }

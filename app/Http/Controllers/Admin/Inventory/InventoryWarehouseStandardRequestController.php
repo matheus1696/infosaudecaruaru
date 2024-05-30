@@ -20,7 +20,7 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function index()
     {
         //
-        $db = InventoryWarehouseStandardRequest::with('ConsumableType')->paginate(20);
+        $db = InventoryWarehouseStandardRequest::with('ConsumableType')->orderBy('title')->paginate(20);
         return view('admin.inventory.warehouse.standard_request.standard_request_index', compact('db'));
     }
 
@@ -30,7 +30,7 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function create()
     {
         //
-        $dbConsumableTypes = ConsumableType::all();
+        $dbConsumableTypes = ConsumableType::orderBy('title')->get();
         return view('admin.inventory.warehouse.standard_request.standard_request_create',compact('dbConsumableTypes'));
     }
 
@@ -69,6 +69,11 @@ class InventoryWarehouseStandardRequestController extends Controller
     {
         //
         $db = InventoryWarehouseStandardRequest::find($id);
+
+        if (!$db) {
+            return redirect(route('standard_requests.index'));
+        }
+
         $dbConsumableTypes = ConsumableType::all();
 
         return view('admin.inventory.warehouse.standard_request.standard_request_edit',compact('db','dbConsumableTypes'));
@@ -93,11 +98,7 @@ class InventoryWarehouseStandardRequestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InventoryWarehouseStandardRequest $inventoryWarehouseStandardRequest)
-    {
-        //
-        return redirect(route('standard_requests.index'));
-    }
+    public function destroy(){ return redirect(route('standard_requests.index'));}
 
     /**
      * Update the status of the specified item in storage.

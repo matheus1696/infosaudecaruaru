@@ -3,8 +3,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header 
-            title="{{$db->title}}" 
-            routeEdit="{{route('standard_requests.edit',['standard_request'=>$db->id])}}"
+            title="{{$db->title}}"
             routeBack="{{route('standard_requests.index')}}"
         />
     @endslot        
@@ -18,10 +17,9 @@
         </x-conteiner>
         
         <hr class="mb-2.5">
+        
+        @include('admin.inventory.warehouse.standard_request.partials.show.standard_request_show_table')
 
-        <x-conteiner>
-            @include('admin.inventory.warehouse.standard_request.partials.show.standard_request_show_table')
-        </x-conteiner>
     @endslot
     
 </x-pages.index>

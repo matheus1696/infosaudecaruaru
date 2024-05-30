@@ -40,7 +40,6 @@ class InventoryWarehouseStandardRequestListController extends Controller
             return redirect()->back()->with('error','Suprimento existente nessa lista');
         }
 
-
         $db = InventoryWarehouseStandardRequestList::create($request->all());        
 
         return redirect()->route('standard_requests.show',['standard_request'=>$db->standard_request_id]);
@@ -65,16 +64,39 @@ class InventoryWarehouseStandardRequestListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInventoryWarehouseStandardRequestListRequest $request, InventoryWarehouseStandardRequestList $inventoryWarehouseStandardRequestList)
+    public function update(UpdateInventoryWarehouseStandardRequestListRequest $request, string $id)
     {
         //
+        $db = InventoryWarehouseStandardRequestList::find($id);        
+
+        if (!$db) {
+            return redirect()->route('standard_requests.index')->with('error','Lista de Materiais não cadastrada.');
+        }
+
+        if ($request['quantity'] < 0) {
+            return redirect()->route('standard_requests.show',['standard_request'=>$db->standard_request_id])
+                ->with('error','Quantidade informada menor que zero.');
+        }
+
+        $db->update($request->only('quantity'));
+
+        return redirect()->route('standard_requests.show',['standard_request'=>$db->standard_request_id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InventoryWarehouseStandardRequestList $inventoryWarehouseStandardRequestList)
+    public function destroy(string $id)
     {
         //
+        $db = InventoryWarehouseStandardRequestList::find($id);        
+
+        if (!$db) {
+            return redirect(route('standard_requests.index'));
+        }
+
+        $db->delete();
+
+        return redirect()->route('standard_requests.show',['standard_request'=>$db->standard_request_id]);
     }
 }

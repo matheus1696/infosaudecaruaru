@@ -15,6 +15,7 @@
                     <x-button.buttonStatus condition="{{$item->status}}" route="{{route('standard_requests.status',['standard_request'=>$item->id])}}" name="status" />
                 </x-table.td>
                 <x-table.td>
+                    <x-button.minButtonEdit route="{{route('standard_requests.edit',['standard_request'=>$item->id])}}" />
                     <x-button.minButtonShow route="{{route('standard_requests.show',['standard_request'=>$item->id])}}" />
                 </x-table.td>
             </x-table.tr>

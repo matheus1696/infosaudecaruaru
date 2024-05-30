@@ -8,5 +8,5 @@
     @endforeach
 </x-form.select>
 
-<x-form.input col="2" label="Quantidade" id="quantity" name="quantity" value="{{$db->quantity ?? ''}}" />
+<x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" value="{{$db->quantity ?? ''}}" />
 

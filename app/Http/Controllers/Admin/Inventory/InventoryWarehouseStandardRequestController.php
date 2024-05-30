@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Admin\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\InventoryWarehouse\StoreInventoryWarehouseStandardRequestRequest;
-use App\Http\Requests\InventoryWarehouse\UpdateInventoryWarehouseStandardRequestRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\StoreInventoryWarehouseStandardRequestRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\UpdateInventoryWarehouseStandardRequestRequest;
+use App\Models\Consumable\Consumable;
+use App\Models\Consumable\ConsumableType;
 use App\Models\Inventory\InventoryWarehouseStandardRequest;
+use App\Models\Inventory\InventoryWarehouseStandardRequestList;
+use App\Services\Logger;
+use Illuminate\Http\Request;
 
 class InventoryWarehouseStandardRequestController extends Controller
 {
@@ -15,6 +20,8 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function index()
     {
         //
+        $db = InventoryWarehouseStandardRequest::with('ConsumableType')->paginate(20);
+        return view('admin.inventory.warehouse.standard_request.standard_request_index', compact('db'));
     }
 
     /**
@@ -23,6 +30,8 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function create()
     {
         //
+        $dbConsumableTypes = ConsumableType::all();
+        return view('admin.inventory.warehouse.standard_request.standard_request_create',compact('dbConsumableTypes'));
     }
 
     /**
@@ -31,30 +40,54 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function store(StoreInventoryWarehouseStandardRequestRequest $request)
     {
         //
+        $db = InventoryWarehouseStandardRequest::create($request->all());
+        return redirect()->route('standard_requests.show',['standard_request'=>$db->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(InventoryWarehouseStandardRequest $inventoryWarehouseStandardRequest)
+    public function show(string $id)
     {
         //
+        $db = InventoryWarehouseStandardRequest::find($id);
+
+        if (!$db) {
+            return redirect(route('standard_requests.index'));
+        }
+
+        $dbConsumables = Consumable::where('status',TRUE)->where('consumable_type_id',$db->consumable_type_id)->get();
+        $dbStandardRequestLists = InventoryWarehouseStandardRequestList::where('standard_request_id',$db->id)->paginate(20);
+
+        return view('admin.inventory.warehouse.standard_request.standard_request_show',compact('db','dbConsumables','dbStandardRequestLists'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(InventoryWarehouseStandardRequest $inventoryWarehouseStandardRequest)
+    public function edit(string $id)
     {
         //
+        $db = InventoryWarehouseStandardRequest::find($id);
+        $dbConsumableTypes = ConsumableType::all();
+
+        return view('admin.inventory.warehouse.standard_request.standard_request_edit',compact('db','dbConsumableTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInventoryWarehouseStandardRequestRequest $request, InventoryWarehouseStandardRequest $inventoryWarehouseStandardRequest)
+    public function update(UpdateInventoryWarehouseStandardRequestRequest $request, string $id)
     {
         //
+        $db = InventoryWarehouseStandardRequest::find($id);        
+
+        if (!$db) {
+            return redirect(route('standard_requests.index'));
+        }
+
+        $db->update($request->all());
+        return redirect()->route('standard_requests.show',['standard_request'=>$db->id]);
     }
 
     /**
@@ -63,5 +96,21 @@ class InventoryWarehouseStandardRequestController extends Controller
     public function destroy(InventoryWarehouseStandardRequest $inventoryWarehouseStandardRequest)
     {
         //
+        return redirect(route('standard_requests.index'));
+    }
+
+    /**
+     * Update the status of the specified item in storage.
+     */
+    public function status(Request $request, string $id)
+    {
+        //Salvando Dados
+        $db = InventoryWarehouseStandardRequest::find($id);
+        $db->update($request->only('status'));
+
+        //Log do Sistema
+        Logger::status($db->id, $db->status);
+
+        return redirect(route('standard_requests.index'))->with('success','Status alterado com sucesso.');
     }
 }

@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\InventoryWarehouse;
+namespace App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateInventoryWarehouseStandardRequestListRequest extends FormRequest
+class UpdateInventoryWarehouseStandardRequestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +24,11 @@ class UpdateInventoryWarehouseStandardRequestListRequest extends FormRequest
     {
         return [
             //
+            'title' => [
+                'required',
+                Rule::unique('inventory_warehouse_standard_requests')->ignore($this->standard_request),
+            ],
+            'consumable_type_id'=>'required',
         ];
     }
 }

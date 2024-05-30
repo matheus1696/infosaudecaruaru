@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('inventory_warehouse_standard_requests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedBigInteger('consumable_type_id');
+            $table->boolean('status')->default(TRUE);
             $table->timestamps();
+                        
+            $table->foreign('consumable_type_id')->references('id')->on('consumable_types');
         });
     }
 

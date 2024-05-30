@@ -141,10 +141,10 @@ Route::middleware('auth')->group(function () {
                     //Grupo de Rotas - Configuração de Almoxarifados e Depósitos
                     Route::prefix('standard')->group(function (){
 
-                        //Rota - Lista de Materiais Padrões                        
-                        Route::resource('standard_request_lists',InventoryWarehouseStandardRequestListController::class);
+                        //Rota - Lista de Materiais Padrões
                         Route::put('standard_requests/status/{standard_request}',[InventoryWarehouseStandardRequestController::class,'status'])->name('standard_requests.status');
                         Route::resource('standard_requests',InventoryWarehouseStandardRequestController::class);
+                        Route::resource('standard_request_lists',InventoryWarehouseStandardRequestListController::class);
                     });
                 });
             });

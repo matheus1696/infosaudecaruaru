@@ -522,10 +522,32 @@ return [
                         ],
                     ]
                 ],
+
+
+                //Configuração de Inventário
+                [
+                    'text'    => 'Configuração de Inventários',
+                    'classes' => 'btn-sm',
+                    'icon'    => 'fas fa-boxes pr-2',
+                    'icon_color' => 'info',
+                    'can'     => ['sysadmin','admin'],
+                    'submenu' => [
+
+                        //Configurações de Lista de Pedidos Padrões
+                        
+                        [
+                            'text'    => 'Lista de Pedidos',
+                            'classes' => 'btn-sm',
+                            'route'   => 'standard_requests.index',
+                            'icon'    => 'fas fa-pills pr-2',
+                            'can'     => ['sysadmin','admin'],
+                        ],
+                    ]
+                ],
             ],
         ],
 
-    ],
+    ],    
 
     /*
     |--------------------------------------------------------------------------

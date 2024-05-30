@@ -14,7 +14,8 @@ class ConsumableTypeSeeder extends Seeder
     public function run(): void
     {
         //
-        ConsumableType::create(['title'=>'Papelaria', 'filter'=>'papelaria' ]);
+        ConsumableType::create(['title'=>'Apoio', 'filter'=>'apoio' ]);
+        ConsumableType::create(['title'=>'Expediente', 'filter'=>'expediente' ]);
         ConsumableType::create(['title'=>'Limpeza', 'filter'=>'limpeza' ]);
     }
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\StoreInventoryWarehouseStandardRequestListRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\UpdateInventoryWarehouseStandardRequestListRequest;
+use App\Models\Inventory\InventoryWarehouseStandardRequest;
 use App\Models\Inventory\InventoryWarehouseStandardRequestList;
-use App\Http\Requests\StoreInventoryWarehouseStandardRequestListRequest;
-use App\Http\Requests\UpdateInventoryWarehouseStandardRequestListRequest;
 
 class InventoryWarehouseStandardRequestListController extends Controller
 {
@@ -31,6 +32,18 @@ class InventoryWarehouseStandardRequestListController extends Controller
     public function store(StoreInventoryWarehouseStandardRequestListRequest $request)
     {
         //
+        $VerifyConsumable = InventoryWarehouseStandardRequestList::where('standard_request_id',$request['standard_request_id'])
+        ->where('consumable_id',$request['consumable_id'])
+        ->first();
+
+        if ($VerifyConsumable) {            
+            return redirect()->back()->with('error','Suprimento existente nessa lista');
+        }
+
+
+        $db = InventoryWarehouseStandardRequestList::create($request->all());        
+
+        return redirect()->route('standard_requests.show',['standard_request'=>$db->standard_request_id]);
     }
 
     /**

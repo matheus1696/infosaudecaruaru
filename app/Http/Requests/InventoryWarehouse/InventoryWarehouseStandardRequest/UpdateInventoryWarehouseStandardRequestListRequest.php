@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\InventoryWarehouse;
+namespace App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInventoryWarehouseStandardRequestRequest extends FormRequest
+class UpdateInventoryWarehouseStandardRequestListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

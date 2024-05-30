@@ -14,8 +14,8 @@ class InventoryWarehouseStandardRequestSeeder extends Seeder
     public function run(): void
     {
         //
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista materiais de expediente']);
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista materiais de limpeza']);
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista materiais de apoio']);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Expedientes','consumable_type_id'=>2]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Limpeza','consumable_type_id'=>3]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Apoio','consumable_type_id'=>1]);
     }
 }

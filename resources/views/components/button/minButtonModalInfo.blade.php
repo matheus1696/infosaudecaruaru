@@ -7,7 +7,7 @@
         type="button"
     >
         <i class="{{$icon ?? "fas fa-eye"}}"></i>
-        @isset($btnTitle) <span class="font-semibold">{{$btnTitle}}</span> @endisset
+        @isset($btnTitle) <span class="ml-1 font-semibold">{{$btnTitle}}</span> @endisset
     </button>
 
     <div id="modalInfo_{{$id}}" class="modal fade"  role="dialog" aria-labelledby="modalLabelInfo_{{$id}}" aria-hidden="true">

@@ -8,10 +8,10 @@
     @slot('tbody')
         @foreach ($db as $item)
             <x-table.tr>
-                <x-table.td>{{$db->title}}</x-table.td>
-                <x-table.td>{{$db->CompanyEstablishment->title}}</x-table.td>
+                <x-table.td>{{$item->department}}</x-table.td>
+                <x-table.td>{{$item->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>
-                    <x-button.minButtonShow route="{{route('show_.show',['standard_request'=>$item->id])}}" />
+                    <x-button.minButtonShow route="{{route('store_rooms.show',['store_room'=>$item->id])}}" />
                 </x-table.td>
             </x-table.tr>
         @endforeach

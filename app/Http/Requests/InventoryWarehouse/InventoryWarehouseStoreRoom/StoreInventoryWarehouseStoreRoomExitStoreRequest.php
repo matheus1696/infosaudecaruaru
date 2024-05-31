@@ -4,14 +4,14 @@ namespace App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInventoryWarehouseStoreroomRequest extends FormRequest
+class StoreInventoryWarehouseStoreRoomExitStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreInventoryWarehouseStoreroomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'quantity'=>'required|integer|min_digits:1',
         ];
     }
 }

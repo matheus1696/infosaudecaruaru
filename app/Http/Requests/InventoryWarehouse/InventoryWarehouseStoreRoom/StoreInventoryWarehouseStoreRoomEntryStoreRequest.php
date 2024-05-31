@@ -4,7 +4,7 @@ namespace App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInventoryWarehouseStoreRoomHistoryRequest extends FormRequest
+class StoreInventoryWarehouseStoreRoomEntryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

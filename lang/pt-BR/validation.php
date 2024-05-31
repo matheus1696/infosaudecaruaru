@@ -88,7 +88,7 @@ return [
         'string'  => 'O campo :attribute não pode ser superior a :max caracteres.',
         'array'   => 'O campo :attribute não pode ter mais do que :max itens.',
     ],
-    'max_digits'           => 'O campo :attribute não pode ser superior a :max dígitos',
+    'max_digits'           => 'O campo :attribute não pode ser superior a :max',
     'mimes'                => 'O campo :attribute deve ser um arquivo do tipo: :values.',
     'mimetypes'            => 'O campo :attribute deve ser um arquivo do tipo: :values.',
     'min' => [
@@ -98,7 +98,7 @@ return [
         'array'   => 'O campo :attribute deve ter pelo menos :min itens.',
     ],
     'missing_with' => 'O campo :attribute não deve estar presente quando houver :values.',
-    'min_digits'           => 'O campo :attribute deve ter pelo menos :min dígitos',
+    'min_digits'           => 'O campo :attribute não pode ser inferior a :min',
     'not_in'               => 'O campo :attribute selecionado é inválido.',
     'multiple_of'          => 'O campo :attribute deve ser um múltiplo de :value.',
     'not_regex'            => 'O campo :attribute possui um formato inválido.',

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consumable_classifications', function (Blueprint $table) {
+        Schema::create('inventory_warehouse_store_room_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('filter');       
-            $table->boolean('status')->default(TRUE);
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consumable_classifications');
+        Schema::dropIfExists('inventory_warehouse_store_room_requests');
     }
 };

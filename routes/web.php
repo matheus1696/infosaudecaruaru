@@ -148,10 +148,15 @@ Route::middleware('auth')->group(function () {
             //Grupo de Rotas - 
             Route::prefix('warehouse')->group(function (){
                 //Rota - 
-                Route::get('store_rooms/entryShow/{store_room}',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
-                Route::put('store_rooms/entryStore/{store_room}',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
-                Route::put('store_rooms/exitStore/{store_room}',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
-                Route::resource('store_rooms',InventoryWarehouseStoreRoomController::class);
+                Route::get('store_rooms',[InventoryWarehouseStoreRoomController::class,'index'])->name('store_rooms.index');
+                Route::get('store_rooms/{store_room}',[InventoryWarehouseStoreRoomController::class,'show'])->name('store_rooms.show');
+                Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
+                Route::get('store_rooms/{store_room}/requests/create',[InventoryWarehouseStoreRoomController::class,'requestCreate'])->name('store_rooms.requestCreate');
+                Route::get('store_rooms/{store_room}/requests/{request}/edit',[InventoryWarehouseStoreRoomController::class,'requestEdit'])->name('store_rooms.requestEdit');
+                Route::put('store_rooms/{store_room}/requests/{request}',[InventoryWarehouseStoreRoomController::class,'requestUpdate'])->name('store_rooms.requestUpdate');
+                Route::get('store_rooms/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
+                Route::put('store_rooms/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
+                Route::put('store_rooms/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
             });
         });
     });

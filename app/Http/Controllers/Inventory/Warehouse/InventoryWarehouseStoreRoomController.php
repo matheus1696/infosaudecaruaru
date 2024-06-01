@@ -9,6 +9,7 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseStoreRoomHistory;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseStoreRoomController extends Controller
@@ -42,25 +43,25 @@ class InventoryWarehouseStoreRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function exitStore(StoreInventoryWarehouseStoreRoomExitStoreRequest $request, string $id)
+    public function requestShow(string $id)
     {
         //
-        $db = InventoryWarehouseStoreRoom::find($id);
-        $db->quantity -= $request['quantity'];
-        $db->save();
+        $db = CompanyEstablishmentDepartment::find($id);
 
         //
-        InventoryWarehouseStoreRoomHistory::create([
-            'quantity'=>$request['quantity'],
-            'movement'=>'Saída',
-            'consumable_id'=>$db->consumable_id,
-            'department_id'=>$db->department_id,
-            'establishment_id'=>$db->establishment_id,
-            'user_id'=>Auth::user()->id,
-        ]);
+        return view('inventory.warehouse.store_room.request.store_room_request_show', compact('db'));
+    }    
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestCreate(string $id)
+    {
+        //
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
 
         //
-        return redirect()->back();
+        return view('inventory.warehouse.store_room.request.store_room_request_create', compact('dbDepartment'));
     }
 
     /**
@@ -71,9 +72,10 @@ class InventoryWarehouseStoreRoomController extends Controller
         //
         $db = CompanyEstablishmentDepartment::find($id);
         $dbConsumables = Consumable::orderBy('title')->get();
+        $dbHistories = InventoryWarehouseStoreRoomHistory::where('movement','Entrada')->orderBy('created_at','DESC')->limit(20)->get();
 
         //
-        return view('inventory.warehouse.store_room.store_room_entry', compact('db','dbConsumables'));
+        return view('inventory.warehouse.store_room.store_room_entry', compact('db','dbHistories','dbConsumables'));
     }
 
     /**
@@ -95,7 +97,6 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         if (!$db) {
             InventoryWarehouseStoreRoom::create($request->all());
-
             return redirect()->back()->with('success','Cadastro realizado com sucesso');
         }
 
@@ -107,20 +108,29 @@ class InventoryWarehouseStoreRoomController extends Controller
         
         //
         return redirect()->back()->with('success','Cadastro realizado com sucesso');;
-    }    
+    }
 
-    /** * Show the form for creating a new resource. */
-    public function create(){ return redirect()->route('home');}
+    /**
+     * Display the specified resource.
+     */
+    public function exitStore(StoreInventoryWarehouseStoreRoomExitStoreRequest $request, string $id)
+    {
+        //
+        $db = InventoryWarehouseStoreRoom::find($id);
+        $db->quantity -= $request['quantity'];
+        $db->save();
 
-    /** * Store a newly created resource in storage. */
-    public function store(){ return redirect()->route('home');} 
+        //
+        InventoryWarehouseStoreRoomHistory::create([
+            'quantity'=>$request['quantity'],
+            'movement'=>'Saída',
+            'consumable_id'=>$db->consumable_id,
+            'department_id'=>$db->department_id,
+            'establishment_id'=>$db->establishment_id,
+            'user_id'=>Auth::user()->id,
+        ]);
 
-    /** * Show the form for editing the specified resource. */
-    public function edit(){ return redirect()->route('home');}
-
-    /** * Update the specified resource in storage. */
-    public function update(){ return redirect()->route('home');}
-
-    /** * Remove the specified resource from storage. */
-    public function destroy(){ return redirect()->route('home');}
+        //
+        return redirect()->back();
+    }
 }

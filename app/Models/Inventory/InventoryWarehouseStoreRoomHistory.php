@@ -15,6 +15,7 @@ class InventoryWarehouseStoreRoomHistory extends Model
 
     protected $fillable = [
         'quantity',
+        'movement',
         'consumable_id',
         'department_id',
         'establishment_id',

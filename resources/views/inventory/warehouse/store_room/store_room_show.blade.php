@@ -3,7 +3,7 @@
     @slot('header')
         <x-header
             title="Almoxarifado: {{$dbDepartment->department}}"
-            routeJoker="{{route('store_rooms.index')}}" btnTitleJoker="Entrada Avulsa" iconJoker="fas fa-plus"
+            routeJoker="{{route('store_rooms.entryShow',['store_room'=>$dbDepartment->id])}}" btnTitleJoker="Entrada Avulsa" iconJoker="fas fa-plus"
             routeBack="{{route('store_rooms.index')}}"
         />
     @endslot

@@ -148,7 +148,7 @@ Route::middleware('auth')->group(function () {
             //Grupo de Rotas - 
             Route::prefix('warehouse')->group(function (){
                 //Rota - 
-                Route::put('store_rooms/entryShow/{store_room}',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
+                Route::get('store_rooms/entryShow/{store_room}',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
                 Route::put('store_rooms/entryStore/{store_room}',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
                 Route::put('store_rooms/exitStore/{store_room}',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
                 Route::resource('store_rooms',InventoryWarehouseStoreRoomController::class);

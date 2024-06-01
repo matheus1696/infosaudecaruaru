@@ -11,7 +11,7 @@ class StoreInventoryWarehouseStoreRoomEntryStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreInventoryWarehouseStoreRoomEntryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'consumable_id'=>'required',
+            'quantity'=>'required|integer|min_digits:1',
         ];
     }
 }

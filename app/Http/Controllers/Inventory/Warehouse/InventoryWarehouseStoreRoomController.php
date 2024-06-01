@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Inventory\Warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomEntryStoreRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseStoreRoomHistory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseStoreRoomController extends Controller
@@ -21,6 +22,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         $db = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
             ->with('CompanyEstablishment')->paginate(20);
 
+        //
         return view('inventory.warehouse.store_room.store_room_index', compact('db'));
     }
 
@@ -33,6 +35,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         $db = InventoryWarehouseStoreRoom::where('department_id',$id)->paginate(20);
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
 
+        //
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbDepartment'));
     }
 
@@ -63,17 +66,47 @@ class InventoryWarehouseStoreRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function entryShow(Request $request, string $id)
+    public function entryShow(string $id)
     {
         //
+        $db = CompanyEstablishmentDepartment::find($id);
+        $dbConsumables = Consumable::orderBy('title')->get();
+
+        //
+        return view('inventory.warehouse.store_room.store_room_entry', compact('db','dbConsumables'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function entryStore(Request $request, string $id)
+    public function entryStore(StoreInventoryWarehouseStoreRoomEntryStoreRequest $request, string $id)
     {
         //
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+        $request['movement'] = 'Entrada';
+        $request['department_id'] = $dbDepartment->id;
+        $request['establishment_id'] = $dbDepartment->establishment_id;
+        $request['user_id'] = Auth::user()->id;
+
+        //
+        $db = InventoryWarehouseStoreRoom::where('consumable_id',$request['consumable_id'])
+        ->where('department_id',$request['department_id'])
+        ->first();
+
+        if (!$db) {
+            InventoryWarehouseStoreRoom::create($request->all());
+
+            return redirect()->back()->with('success','Cadastro realizado com sucesso');
+        }
+
+        $db->quantity += $request['quantity'];
+        $db->save();
+
+        //
+        InventoryWarehouseStoreRoomHistory::create($request->all());
+        
+        //
+        return redirect()->back()->with('success','Cadastro realizado com sucesso');;
     }    
 
     /** * Show the form for creating a new resource. */

@@ -152,8 +152,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('store_rooms/{store_room}',[InventoryWarehouseStoreRoomController::class,'show'])->name('store_rooms.show');
                 Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
                 Route::get('store_rooms/{store_room}/requests/create',[InventoryWarehouseStoreRoomController::class,'requestCreate'])->name('store_rooms.requestCreate');
+                Route::put('store_rooms/{store_room}/requests/status',[InventoryWarehouseStoreRoomController::class,'requestStatus'])->name('store_rooms.requestStatus');
                 Route::get('store_rooms/requests/{request}/edit',[InventoryWarehouseStoreRoomController::class,'requestEdit'])->name('store_rooms.requestEdit');
                 Route::put('store_rooms/requests/{request}',[InventoryWarehouseStoreRoomController::class,'requestUpdate'])->name('store_rooms.requestUpdate');
+                Route::delete('store_rooms/requests/{request}',[InventoryWarehouseStoreRoomController::class,'requestDelete'])->name('store_rooms.requestDelete');
+                Route::post('store_rooms/requests/{request}/standard_requests',[InventoryWarehouseStoreRoomController::class,'requestStandardRequest'])->name('store_rooms.requestStandardRequest');
                 Route::get('store_rooms/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
                 Route::put('store_rooms/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
                 Route::put('store_rooms/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');

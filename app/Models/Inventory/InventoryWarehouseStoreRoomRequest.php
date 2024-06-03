@@ -3,7 +3,6 @@
 namespace App\Models\Inventory;
 
 use App\Models\Company\CompanyEstablishmentDepartment;
-use App\Models\Consumable\Consumable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +18,7 @@ class InventoryWarehouseStoreRoomRequest extends Model
         'user_contact_1',
         'user_contact_2',
         'count',
+        'status',
         'department_id',
         'user_id',
     ];

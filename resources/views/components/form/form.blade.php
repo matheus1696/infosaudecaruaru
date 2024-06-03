@@ -13,22 +13,25 @@
 <form method="POST" action="{{$route}}" class="preventForms">
     @csrf @if($method == "edit") @method('PUT') @endif
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-12">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-12">
         {{$slot}}
     </div>
 
-    <div class="flex items-center justify-center gap-3 my-3">
-
-        @if ($method == "create")
-            <div class="w-full">
-                <button type="submit" class="w-full my-2 text-sm text-white transition duration-300 bg-{{$color ?? 'green'}}-800 rounded-lg shadow-md h-9 hover:bg-{{$color ?? 'green'}}-700 preventSubmitBtn">{{$title ?? 'Cadastrar'}}</button>
-            </div>
-        @else
-            <div class="w-full">
-                <button type="submit" class="w-full my-2 text-sm text-white transition duration-300 rounded-lg shadow-md bg-{{$color ?? 'sky'}}-600 h-9 hover:bg-{{$color ?? 'sky'}}-700 preventSubmitBtn">{{$title ?? 'Salvar Alteração'}}</button>
-            </div>
-        @endif
-    </div>
+    @if (isset($btnHidden))
+        
+    @else
+        <div class="flex items-center justify-center gap-3 my-3">
+            @if ($method == "create")
+                <div class="w-full">
+                    <button type="submit" class="w-full my-2 text-sm text-white transition duration-300 bg-{{$color ?? 'green'}}-800 rounded-lg shadow-md h-9 hover:bg-{{$color ?? 'green'}}-700 preventSubmitBtn">{{$title ?? 'Cadastrar'}}</button>
+                </div>
+            @else
+                <div class="w-full">
+                    <button type="submit" class="w-full my-2 text-sm text-white transition duration-300 rounded-lg shadow-md bg-{{$color ?? 'sky'}}-600 h-9 hover:bg-{{$color ?? 'sky'}}-700 preventSubmitBtn">{{$title ?? 'Salvar Alteração'}}</button>
+                </div>
+            @endif
+        </div>
+    @endif
 </form>
 
 <script>

@@ -7,6 +7,8 @@ use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInvent
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
+use App\Models\Inventory\InventoryWarehouseStandardRequest;
+use App\Models\Inventory\InventoryWarehouseStandardRequestList;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseStoreRoomHistory;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
@@ -49,7 +51,7 @@ class InventoryWarehouseStoreRoomController extends Controller
     {
         //
         $db = CompanyEstablishmentDepartment::find($id);
-        $dbRequests = InventoryWarehouseStoreRoomRequest::where('department_id',$id)->paginate(20);
+        $dbRequests = InventoryWarehouseStoreRoomRequest::where('department_id',$id)->where('status','!=','Cancelado')->paginate(20);
 
         //
         return view('inventory.warehouse.store_room.request.store_room_request_show', compact('db','dbRequests'));
@@ -64,12 +66,13 @@ class InventoryWarehouseStoreRoomController extends Controller
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
 
         $db = InventoryWarehouseStoreRoomRequest::create([
-            'code'=>'SMS'.date('YmdHis'),
+            'code'=>date('ymdHis'),
             'department_contact'=>$dbDepartment->contact,
             'department_extension'=>$dbDepartment->extension,
             'user_contact_1'=>Auth::user()->contact_1,
             'user_contact_2'=>Auth::user()->contact_2,
             'count'=>0,
+            'status'=>'Aberto',
             'department_id'=>$id,
             'user_id'=>Auth::user()->id,
         ]);
@@ -88,10 +91,47 @@ class InventoryWarehouseStoreRoomController extends Controller
         $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->paginate(50);
         $dbStoreRoomInventories = InventoryWarehouseStoreRoom::where('department_id',$db->department_id)->get();
         $dbConsumables = Consumable::orderBy('title')->get();
+        $dbStandardRequests = InventoryWarehouseStandardRequest::orderBy('title')->get();
 
         //
-        return view('inventory.warehouse.store_room.request.store_room_request_create', compact('db','dbRequestDetails','dbStoreRoomInventories','dbConsumables'));
-    }    
+        return view('inventory.warehouse.store_room.request.store_room_request_edit', compact('db','dbRequestDetails','dbStoreRoomInventories','dbConsumables','dbStandardRequests'));
+    }   
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestStandardRequest(Request $request, string $id)
+    {
+        //
+        $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id',$request['standard_request'])->get();
+
+        foreach ($dbStandardRequests as $key => $dbStandardRequest) {
+
+            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)
+            ->where('consumable_id',$dbStandardRequest->consumable_id)
+            ->first();
+
+            if (!$dbRequestDetails) {
+                InventoryWarehouseStoreRoomRequestDetail::create([
+                    'quantity'=>$dbStandardRequest->quantity,
+                    'consumable_id'=>$dbStandardRequest->consumable_id,
+                    'store_room_request_id'=>$id,
+                ]);
+            }
+        }
+
+        if ($request['standardRequestDestroy']) {
+
+            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->get();
+
+            foreach ($dbRequestDetails as $key => $dbRequestDetail) {
+                $dbRequestDetail->delete();
+            }
+        }
+
+        //
+        return redirect()->back();
+    }
 
     /**
      * Display the specified resource.
@@ -134,6 +174,33 @@ class InventoryWarehouseStoreRoomController extends Controller
             $dbRequestDetailsEdit->quantity = $request['quantityEdit'];
             $dbRequestDetailsEdit->save();
         }
+
+        //
+        return redirect()->back();
+    }    
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestStatus(string $id)
+    {
+        //
+        $dbRequest = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequest->status = "Cancelado";
+        $dbRequest->save();
+
+        //
+        return redirect()->route('store_rooms.show',['store_room'=>$dbRequest->department_id]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestDelete(string $id)
+    {
+        //
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::find($id);
+        $dbRequestDetails->delete();
 
         //
         return redirect()->back();

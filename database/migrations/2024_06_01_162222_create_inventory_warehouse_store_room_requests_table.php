@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('user_contact_1')->nullable();
             $table->string('user_contact_2')->nullable();
             $table->integer('count');
+            $table->string('status');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

@@ -2,7 +2,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Solicitações Nº {{$db->code}}"
+            title="Solicitação {{$db->code}}"
             routeBack="{{route('store_rooms.requestShow',['store_room'=>$db->department_id])}}"
         />
     @endslot
@@ -11,9 +11,6 @@
     @slot('body')
         <x-conteiner>
             @include('inventory.warehouse.store_room.partials.request.edit.store_room_request_description')
-        </x-conteiner>
-        <x-conteiner>
-            @include('inventory.warehouse.store_room.partials.request.edit.store_room_request_form')
         </x-conteiner>
         @include('inventory.warehouse.store_room.partials.request.edit.store_room_request_table')
     @endslot

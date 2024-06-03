@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_store_room_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
+            $table->string('department_contact')->nullable();
+            $table->string('department_extension')->nullable();
+            $table->string('user_contact_1')->nullable();
+            $table->string('user_contact_2')->nullable();
+            $table->integer('count');
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

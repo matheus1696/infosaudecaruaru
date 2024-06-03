@@ -9,7 +9,9 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseStoreRoomHistory;
-use Illuminate\Cache\RateLimiting\Limit;
+use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
+use App\Models\Inventory\InventoryWarehouseStoreRoomRequestDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseStoreRoomController extends Controller
@@ -47,9 +49,10 @@ class InventoryWarehouseStoreRoomController extends Controller
     {
         //
         $db = CompanyEstablishmentDepartment::find($id);
+        $dbRequests = InventoryWarehouseStoreRoomRequest::where('department_id',$id)->paginate(20);
 
         //
-        return view('inventory.warehouse.store_room.request.store_room_request_show', compact('db'));
+        return view('inventory.warehouse.store_room.request.store_room_request_show', compact('db','dbRequests'));
     }    
 
     /**
@@ -60,8 +63,80 @@ class InventoryWarehouseStoreRoomController extends Controller
         //
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
 
+        $db = InventoryWarehouseStoreRoomRequest::create([
+            'code'=>'SMS'.date('YmdHis'),
+            'department_contact'=>$dbDepartment->contact,
+            'department_extension'=>$dbDepartment->extension,
+            'user_contact_1'=>Auth::user()->contact_1,
+            'user_contact_2'=>Auth::user()->contact_2,
+            'count'=>0,
+            'department_id'=>$id,
+            'user_id'=>Auth::user()->id,
+        ]);
+
         //
-        return view('inventory.warehouse.store_room.request.store_room_request_create', compact('dbDepartment'));
+        return redirect()->route('store_rooms.requestEdit',['request'=>$db->id]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestEdit(string $id)
+    {
+        //
+        $db = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->paginate(50);
+        $dbStoreRoomInventories = InventoryWarehouseStoreRoom::where('department_id',$db->department_id)->get();
+        $dbConsumables = Consumable::orderBy('title')->get();
+
+        //
+        return view('inventory.warehouse.store_room.request.store_room_request_create', compact('db','dbRequestDetails','dbStoreRoomInventories','dbConsumables'));
+    }    
+
+    /**
+     * Display the specified resource.
+     */
+    public function requestUpdate(Request $request, string $id)
+    {
+        //
+        if ($request['department_contact'] || $request['department_extension'] || $request['user_contat_1'] || $request['user_contat_2']) {
+            $db = InventoryWarehouseStoreRoomRequest::find($id);
+            $db->update($request->all());
+        }
+
+        //
+        if ($request['quantity'] && $request['consumable_id']) {
+
+            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)
+            ->where('consumable_id',$request['consumable_id'])
+            ->first();
+
+            if ($dbRequestDetails) {
+                return redirect()->back()->with('error','O suprimento '. $dbRequestDetails->Consumable->title .' existente na tabela abaixo');
+            }
+
+            $request['store_room_request_id'] = $id;
+            InventoryWarehouseStoreRoomRequestDetail::create($request->all());
+
+            //
+            $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->count();
+            $db = InventoryWarehouseStoreRoomRequest::find($id);            
+            $db->count = $dbRequestCount;
+            $db->save();
+        }
+        
+        //
+        if ($request['quantityEdit'] && $request['consumableEdit']) {
+            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)
+            ->where('consumable_id',$request['consumableEdit'])
+            ->first();
+            
+            $dbRequestDetailsEdit->quantity = $request['quantityEdit'];
+            $dbRequestDetailsEdit->save();
+        }
+
+        //
+        return redirect()->back();
     }
 
     /**
@@ -85,10 +160,15 @@ class InventoryWarehouseStoreRoomController extends Controller
     {
         //
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        //
         $request['movement'] = 'Entrada';
         $request['department_id'] = $dbDepartment->id;
         $request['establishment_id'] = $dbDepartment->establishment_id;
         $request['user_id'] = Auth::user()->id;
+
+        //
+        InventoryWarehouseStoreRoomHistory::create($request->all());
 
         //
         $db = InventoryWarehouseStoreRoom::where('consumable_id',$request['consumable_id'])
@@ -102,9 +182,6 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         $db->quantity += $request['quantity'];
         $db->save();
-
-        //
-        InventoryWarehouseStoreRoomHistory::create($request->all());
         
         //
         return redirect()->back()->with('success','Cadastro realizado com sucesso');;

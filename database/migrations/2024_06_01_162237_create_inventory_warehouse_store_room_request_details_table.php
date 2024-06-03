@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_store_room_request_details', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('quantity');
+            $table->unsignedBigInteger('consumable_id');
+            $table->unsignedBigInteger('store_room_request_id');
+            $table->timestamps();            
+
+            $table->foreign('consumable_id')->references('id')->on('consumables');
+            $table->foreign('store_room_request_id')->references('id')->on('inventory_warehouse_store_room_requests');
         });
     }
 

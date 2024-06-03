@@ -2,7 +2,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Almoxarifado: {{$dbDepartment->department}}"
+            title="{{$dbDepartment->department}} - {{$dbDepartment->CompanyEstablishment->title}}"
             routeCreate="{{route('store_rooms.requestShow',['store_room'=>$dbDepartment->id])}}" btnTitleCreate="Solicitações"
             routeBack="{{route('store_rooms.index')}}"
         />

@@ -14,8 +14,12 @@ class InventoryWarehouseStandardRequestSeeder extends Seeder
     public function run(): void
     {
         //
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Expedientes','consumable_type_id'=>2]);
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Limpeza','consumable_type_id'=>3]);
-        InventoryWarehouseStandardRequest::create(['title'=>'Lista Padrão para Pedido de Materiais de Apoio','consumable_type_id'=>1]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Expedientes (Unidades Básicas)','consumable_type_id'=>1]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Expedientes (Unidades 24Hrs)','consumable_type_id'=>1]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Expedientes (AMEs)','consumable_type_id'=>1]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Expedientes (Departamentos)','consumable_type_id'=>1]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Apoio','consumable_type_id'=>2]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Apoio (Unidades 24Hrs)','consumable_type_id'=>2]);
+        InventoryWarehouseStandardRequest::create(['title'=>'Lista Materiais de Limpeza','consumable_type_id'=>3]);
     }
 }

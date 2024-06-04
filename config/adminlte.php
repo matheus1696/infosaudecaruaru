@@ -307,7 +307,7 @@ return [
             'text'    => 'Estoque',
             'classes' => 'btn-sm',
             'icon'    => 'fas fa-boxes pr-2',
-            'can'     => ['user'],
+            'can'     => ['inventory_warehouse_store_room','inventory_pharmacy_store_room'],
             'submenu' => [
                 
                 [
@@ -315,7 +315,7 @@ return [
                     'classes' => 'btn-sm',
                     'route'   => 'store_rooms.index',
                     'icon'    => 'fas fa-warehouse pr-2',
-                    'can'     => ['user'],
+                    'can'     => ['inventory_warehouse_store_room'],
                 ],
                 
                 [
@@ -323,7 +323,7 @@ return [
                     'classes' => 'btn-sm',
                     'route'   => 'standard_requests.index',
                     'icon'    => 'fas fa-pills pr-2',
-                    'can'     => ['user'],
+                    'can'     => ['inventory_pharmacy_store_room'],
                 ],
             ]
         ],

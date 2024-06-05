@@ -26,7 +26,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Rgistros com relacionamentos paginando os resultados
         $db = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
             ->with('CompanyEstablishment')
-            ->paginate(20);
+            ->paginate(50);
 
         // Retorna a view com os dados
         return view('inventory.warehouse.store_room.store_room_index', compact('db'));
@@ -47,7 +47,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         }
 
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
-        $db = InventoryWarehouseStoreRoom::where('department_id',$id)->paginate(20);
+        $db = InventoryWarehouseStoreRoom::where('department_id',$id)->paginate(50);
 
         // Retorna a view com os dados do departamento e do almoxarifado
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbDepartment'));
@@ -70,7 +70,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Busca as solicitações de almoxarifado do departamento, excluindo as canceladas, com paginação
         $dbRequests = InventoryWarehouseStoreRoomRequest::where('department_id',$id)
         ->where('status','!=','Cancelado')
-        ->paginate(20);
+        ->paginate(50);
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
         return view('inventory.warehouse.store_room.request.store_room_request_show', compact('dbDepartment','dbRequests'));
@@ -115,6 +115,9 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Busca a solicitação de almoxarifado pelo ID
         $db = InventoryWarehouseStoreRoomRequest::find($id);
 
+        // Permissão somente para o usuário vinculado ao setor //
+        // InventoryWarehouseStoreRoomRequest === PermissãoInventory //
+
         // Busca os detalhes da solicitação de almoxarifado pelo ID, com paginação
         $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->paginate(50);
 
@@ -140,7 +143,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id', $request['standard_request'])->get();
 
         // Para cada item padrão encontrado
-        foreach ($dbStandardRequests as $key => $dbStandardRequest) {
+        foreach ($dbStandardRequests as $dbStandardRequest) {
 
             // Verifica se já existe um detalhe da solicitação para o item padrão atual
             $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
@@ -164,12 +167,10 @@ class InventoryWarehouseStoreRoomController extends Controller
             $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)->get();
 
             // Para cada detalhe encontrado, exclui-o
-            foreach ($dbRequestDetails as $key => $dbRequestDetail) {
+            foreach ($dbRequestDetails as $dbRequestDetail) {
                 $dbRequestDetail->delete();
             }
-        }
-
-        
+        }        
 
         // Atualiza a contagem de itens na solicitação de almoxarifado
         $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)->count();
@@ -269,8 +270,14 @@ class InventoryWarehouseStoreRoomController extends Controller
      */
     public function entryShow(string $id)
     {
-        // Encontra o departamento pelo ID
+        // Busca o registro do departamento pelo ID
         $db = CompanyEstablishmentDepartment::find($id);
+
+        // Verifica se o departamento existe e tem almoxarifado vinculado
+        if (!$db || !$db->has_inventory_warehouse_store_room) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
+        }
         
         // Busca todos os consumíveis ordenados por título
         $dbConsumables = Consumable::orderBy('title')->get();
@@ -289,9 +296,15 @@ class InventoryWarehouseStoreRoomController extends Controller
      * Display the specified resource.
      */
     public function entryStore(StoreInventoryWarehouseStoreRoomEntryStoreRequest $request, string $id)
-    {
-        // Encontra o departamento pelo ID
+    {        
+        // Busca o registro do departamento pelo ID
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        // Verifica se o departamento existe e tem almoxarifado vinculado
+        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
+        }
 
         // Define os dados da entrada no estoque
         $request['movement'] = 'Entrada';

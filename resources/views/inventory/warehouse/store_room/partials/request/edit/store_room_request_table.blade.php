@@ -112,7 +112,7 @@
         @foreach ($dbRequestDetails as $dbRequestDetail)
             <x-table.tr>
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
-                <x-table.td>
+                <x-table.td class="bg-teal-100">
                     @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
                         @if ($dbRequestDetail->consumable_id == $dbStoreRoomInventory->consumable_id)
                             {{$dbStoreRoomInventory->quantity}}
@@ -121,11 +121,15 @@
                         @endif
                     @endforeach
                 </x-table.td>
-                <x-table.td>{{$dbRequestDetail->quantity}}</x-table.td>
-                <x-table.td>
+                <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity}}</x-table.td>
+                <x-table.td class="bg-sky-100">
                     @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
                         @if ($dbRequestDetail->consumable_id === $dbStoreRoomInventory->consumable_id)
-                            {{$dbRequestDetail->quantity - $dbStoreRoomInventory->quantity}}
+                            @if ($dbRequestDetail->quantity > $dbStoreRoomInventory->quantity)
+                                {{$dbRequestDetail->quantity - $dbStoreRoomInventory->quantity}}
+                            @else
+                                0
+                            @endif
                         @else
                             {{$dbRequestDetail->quantity}}
                         @endif

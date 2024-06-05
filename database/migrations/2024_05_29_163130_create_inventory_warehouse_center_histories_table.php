@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('invoice');
             $table->string('supply_order');
-            $table->integer('supply_company');
+            $table->string('supply_company');
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');

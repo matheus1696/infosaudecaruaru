@@ -3,7 +3,7 @@
     @slot('header')
         <x-header
             title="{{$dbDepartment->department}} - {{$dbDepartment->CompanyEstablishment->title}}"
-            routeCreate="{{route('warehouse_centers.requestShow',['warehouse_center'=>$dbDepartment->id])}}" btnTitleCreate="Solicitações"
+            routeCreate="{{route('warehouse_centers.entryShow',['warehouse_center'=>$dbDepartment->id])}}" btnTitleCreate="Entrada"
             routeBack="{{route('warehouse_centers.index')}}"
         />
     @endslot

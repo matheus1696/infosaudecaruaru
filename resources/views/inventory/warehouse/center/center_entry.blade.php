@@ -2,8 +2,8 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Entrada Avulsa de Suprimento"
-            routeBack="{{route('warehouse_centers.requestShow',['warehouse_center'=>$db->id])}}"
+            title="Entrada de Suprimento"
+            routeBack="{{route('warehouse_centers.show',['warehouse_center'=>$db->id])}}"
         />
     @endslot
         

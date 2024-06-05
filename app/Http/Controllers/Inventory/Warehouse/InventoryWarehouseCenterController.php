@@ -38,7 +38,7 @@ class InventoryWarehouseCenterController extends Controller
         // Verifica se o departamento existe e se tem almoxarifado vinculado
         if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_center) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error','Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse_centers.index')->with('error','Setor sem almoxarifado central vinculado.');
         }        
 
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
@@ -59,7 +59,7 @@ class InventoryWarehouseCenterController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$db || !$db->has_inventory_warehouse_center) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado central vinculado.');
         }
         
         // Busca todos os consumíveis ordenados por título
@@ -86,7 +86,7 @@ class InventoryWarehouseCenterController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_center) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado central vinculado.');
         }
 
         // Define os dados da entrada no estoque

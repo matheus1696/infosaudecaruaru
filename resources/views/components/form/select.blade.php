@@ -3,7 +3,7 @@
     <select
         name="{{$name}}"
         id="{{$id ?? $name}}"
-        class="w-full select2"
+        class="w-full outline-none select2"
         @isset($onchange) onchange="{{$onchange}}" @endisset
         required
     >

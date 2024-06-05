@@ -14,6 +14,9 @@ class InventoryWarehouseCenterHistory extends Model
     use HasFactory;
 
     protected $fillable = [
+        'invoice',
+        'supply_order',
+        'supply_company',
         'quantity',
         'movement',
         'consumable_id',

@@ -22,7 +22,11 @@ class StoreInventoryWarehouseCenterEntryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'invoice'=>'required',
+            'supply_order'=>'required',
+            'supply_company'=>'required',
             'consumable_id'=>'required',
+            'financial_block_id'=>'required',
             'quantity'=>'required|integer|min_digits:1',
         ];
     }

@@ -22,6 +22,7 @@ class InventoryWarehouseCenterHistory extends Model
         'consumable_id',
         'department_id',
         'establishment_id',
+        'financial_block_id',
         'user_id'
     ];
 

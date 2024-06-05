@@ -110,8 +110,10 @@
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
                 <x-table.td>
                     @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
-                        @if ($dbRequestDetail->consumable_id === $dbStoreRoomInventory->consumable_id)
+                        @if ($dbRequestDetail->consumable_id == $dbStoreRoomInventory->consumable_id)
                             {{$dbStoreRoomInventory->quantity}}
+                        @else
+                            0
                         @endif
                     @endforeach
                 </x-table.td>

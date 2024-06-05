@@ -37,8 +37,15 @@ class InventoryWarehouseStoreRoomController extends Controller
     public function show(string $id)
     {
         //
-        $db = InventoryWarehouseStoreRoom::where('department_id',$id)->paginate(20);
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        //
+        if (!$dbDepartment->has_inventory_warehouse_store_room) {
+            return redirect()->route('store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
+        }
+
+        //
+        $db = InventoryWarehouseStoreRoom::where('department_id',$id)->paginate(20);
 
         //
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbDepartment'));
@@ -50,11 +57,17 @@ class InventoryWarehouseStoreRoomController extends Controller
     public function requestShow(string $id)
     {
         //
-        $db = CompanyEstablishmentDepartment::find($id);
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        //
+        if (!$dbDepartment->has_inventory_warehouse_store_room) {            
+            return redirect()->route('store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
+        }
+
         $dbRequests = InventoryWarehouseStoreRoomRequest::where('department_id',$id)->where('status','!=','Cancelado')->paginate(20);
 
         //
-        return view('inventory.warehouse.store_room.request.store_room_request_show', compact('db','dbRequests'));
+        return view('inventory.warehouse.store_room.request.store_room_request_show', compact('dbDepartment','dbRequests'));
     }    
 
     /**
@@ -65,6 +78,12 @@ class InventoryWarehouseStoreRoomController extends Controller
         //
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
 
+        //
+        if (!$dbDepartment->has_inventory_warehouse_store_room) {            
+            return redirect()->route('store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
+        }
+
+        //
         $db = InventoryWarehouseStoreRoomRequest::create([
             'code'=>date('ymdHis'),
             'department_contact'=>$dbDepartment->contact,
@@ -138,7 +157,6 @@ class InventoryWarehouseStoreRoomController extends Controller
      */
     public function requestUpdate(Request $request, string $id)
     {
-        //
         if ($request['department_contact'] || $request['department_extension'] || $request['user_contat_1'] || $request['user_contat_2']) {
             $db = InventoryWarehouseStoreRoomRequest::find($id);
             $db->update($request->all());

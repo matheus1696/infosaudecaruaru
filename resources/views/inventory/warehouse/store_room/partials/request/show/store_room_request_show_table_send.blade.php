@@ -6,7 +6,7 @@
     @endslot
 
     @slot('tbody')
-        @foreach ($db as $item)
+        @foreach ($dbDepartment as $item)
             <x-table.tr>
                 <x-table.td></x-table.td>
                 <x-table.td></x-table.td>

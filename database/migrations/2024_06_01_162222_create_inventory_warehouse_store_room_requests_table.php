@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inventory_warehouse_store_room_requests', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('title')->nullable();
             $table->string('department_contact')->nullable();
             $table->string('department_extension')->nullable();
             $table->string('user_contact_1')->nullable();

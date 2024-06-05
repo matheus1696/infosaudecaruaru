@@ -2,7 +2,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Solicitação {{$db->code}}"
+            title="Solicitação Nº: {{$db->code}}"
             routeBack="{{route('store_rooms.requestShow',['store_room'=>$db->department_id])}}"
         />
     @endslot

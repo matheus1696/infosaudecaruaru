@@ -2,7 +2,7 @@
 <div>    
     <div class="flex flex-col items-center justify-between gap-4 px-2 pt-2 md:flex-row">
         <div class="flex-1">
-            <p class="text-lg font-semibold">{{$title ?? ''}}</p>
+            <p class="text-[28px] font-semibold">{{$title ?? ''}}</p>
         </div>
 
         <div class="flex flex-wrap items-center justify-center gap-4">

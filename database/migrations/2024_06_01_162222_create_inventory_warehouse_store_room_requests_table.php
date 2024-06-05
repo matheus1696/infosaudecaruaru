@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('department_extension')->nullable();
             $table->string('user_contact_1')->nullable();
             $table->string('user_contact_2')->nullable();
-            $table->integer('count');
-            $table->string('status');
+            $table->integer('count')->default(0);
+            $table->string('status')->default('Aberto');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

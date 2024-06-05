@@ -18,6 +18,20 @@
                     <x-button.minButtonEdit route="{{route('store_rooms.requestEdit',['request'=>$dbRequest->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequest->id}}" title="Solicitação Nº {{$dbRequest->code}}">
+                        <div>
+                            <p><strong>Nº da Solicitação:</strong> {{$dbRequest->code}}</p>
+                            <p><strong>Título:</strong> {{$dbRequest->title ?? ""}}</p>
+                            <p><strong>Estabelecimento:</strong> {{$dbRequest->Establishment->title}}</p>
+                            <p><strong>Departamento:</strong> {{$dbRequest->EstablishmentDepartment->title}}</p>
+                            <p><strong>Contato:</strong> {{$dbRequest->department_contact ?? ""}}</p>
+                            <p><strong>Ramal:</strong> {{$dbRequest->department_extension ?? ""}}</p>
+                            <p><strong>Quantidade de Itens:</strong> {{$dbRequest->count}}</p>
+                            <p><strong>Status:</strong> {{$dbRequest->status}}</p>
+                            <hr>
+                            <p><strong>Usuário Solicitante:</strong> {{$dbRequest->User->name}}</p>
+                            <p><strong>Contato 01:</strong> {{$dbRequest->user_contact_1 ?? ""}}</p>
+                            <p><strong>Contato 02:</strong> {{$dbRequest->user_contact_2 ?? ""}}</p>
+                        </div>
                     </x-button.minButtonModalInfo>
                 </x-table.td>
             </x-table.tr>

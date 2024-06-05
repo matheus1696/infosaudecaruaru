@@ -13,6 +13,7 @@ class InventoryWarehouseStoreRoomRequest extends Model
 
     protected $fillable = [
         'code',
+        'title',
         'department_contact',
         'department_extension',
         'user_contact_1',

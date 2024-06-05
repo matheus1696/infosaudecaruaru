@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_center_histories', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity');
+            $table->string('movement');
+            $table->unsignedInteger('consumable_id');
+            $table->unsignedInteger('department_id');
+            $table->unsignedInteger('establishment_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+            
+            $table->foreign('consumable_id')->references('id')->on('consumables');
+            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('establishment_id')->references('id')->on('company_establishments');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

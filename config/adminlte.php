@@ -302,7 +302,7 @@ return [
             'text'    => 'Buscar Menu',
         ], 
 
-        //Inventário
+        //Estoque
         [
             'text'    => 'Estoque',
             'classes' => 'btn-sm',
@@ -314,7 +314,7 @@ return [
                     'text'    => 'Almoxarifado',
                     'classes' => 'btn-sm',
                     'route'   => 'store_rooms.index',
-                    'icon'    => 'fas fa-warehouse pr-2',
+                    'icon'    => 'fas fa-box pr-2',
                     'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
                 ],
                 
@@ -324,6 +324,32 @@ return [
                     'route'   => 'standard_requests.index',
                     'icon'    => 'fas fa-pills pr-2',
                     'can'     => ['inventory_pharmacy_store_room','sysadmin','admin'],
+                ],
+            ]
+        ],
+        
+        //Centros de Distribuições
+        [
+            'text'    => 'Centros de Distribuição',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-truck-moving pr-2',
+            'can'     => ['inventory_warehouse_center','inventory_pharmacy_center','sysadmin','admin'],
+            'submenu' => [
+                
+                [
+                    'text'    => 'Almoxarifado Central',
+                    'classes' => 'btn-sm',
+                    'route'   => 'warehouse_centers.index',
+                    'icon'    => 'fas fa-warehouse pr-2',
+                    'can'     => ['inventory_warehouse_center','sysadmin','admin'],
+                ],
+                
+                [
+                    'text'    => 'Abastecimento Farmacêutico',
+                    'classes' => 'btn-sm',
+                    'route'   => 'standard_requests.index',
+                    'icon'    => 'fas fa-pills pr-2',
+                    'can'     => ['inventory_pharmacy_center','sysadmin','admin'],
                 ],
             ]
         ],

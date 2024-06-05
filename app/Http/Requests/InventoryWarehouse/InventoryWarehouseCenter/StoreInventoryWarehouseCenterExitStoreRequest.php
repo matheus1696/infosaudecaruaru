@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\InventoryWarehouse\InventoryWarehouseCenter;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateInventoryWarehouseCenterHistoryRequest extends FormRequest
+class StoreInventoryWarehouseCenterExitStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateInventoryWarehouseCenterHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'quantity'=>'required|integer|min_digits:1',
         ];
     }
 }

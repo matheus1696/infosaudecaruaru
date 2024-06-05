@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\User\UsersController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomController;
+use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseCenterController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 
@@ -160,6 +161,13 @@ Route::middleware('auth')->group(function () {
                 Route::get('store_rooms/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
                 Route::put('store_rooms/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
                 Route::put('store_rooms/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
+
+                //Rota - 
+                Route::get('warehouse_centers',[InventoryWarehouseCenterController::class,'index'])->name('warehouse_centers.index');
+                Route::get('warehouse_centers/{warehouse_center}',[InventoryWarehouseCenterController::class,'show'])->name('warehouse_centers.show');
+                Route::get('warehouse_centers/{warehouse_center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse_centers.entryShow');
+                Route::put('warehouse_centers/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
+                Route::put('warehouse_centers/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
             });
         });
     });

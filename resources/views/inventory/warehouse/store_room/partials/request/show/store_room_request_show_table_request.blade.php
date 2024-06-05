@@ -21,8 +21,8 @@
                         <div>
                             <p><strong>Nº da Solicitação:</strong> {{$dbRequest->code}}</p>
                             <p><strong>Título:</strong> {{$dbRequest->title ?? ""}}</p>
-                            <p><strong>Estabelecimento:</strong> {{$dbRequest->Establishment->title}}</p>
-                            <p><strong>Departamento:</strong> {{$dbRequest->EstablishmentDepartment->title}}</p>
+                            <p><strong>Estabelecimento:</strong> {{$dbRequest->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</p>
+                            <p><strong>Departamento:</strong> {{$dbRequest->CompanyEstablishmentDepartment->title}}</p>
                             <p><strong>Contato:</strong> {{$dbRequest->department_contact ?? ""}}</p>
                             <p><strong>Ramal:</strong> {{$dbRequest->department_extension ?? ""}}</p>
                             <p><strong>Quantidade de Itens:</strong> {{$dbRequest->count}}</p>

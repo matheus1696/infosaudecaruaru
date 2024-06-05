@@ -20,8 +20,10 @@ class InventoryWarehouseCenterHistory extends Model
         'quantity',
         'movement',
         'consumable_id',
-        'department_id',
-        'establishment_id',
+        'incoming_department_id',
+        'incoming_establishment_id',
+        'output_department_id',
+        'output_establishment_id',
         'financial_block_id',
         'user_id'
     ];
@@ -30,12 +32,20 @@ class InventoryWarehouseCenterHistory extends Model
         return $this->belongsTo(Consumable::class,'consumable_id','id');
     }
 
-    public function CompanyEstablishment(){
-        return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id');
+    public function CompanyEstablishmentIncoming(){
+        return $this->belongsTo(CompanyEstablishment::class,'incoming_establishment_id','id');
     }
     
-    public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id');
+    public function CompanyEstablishmentDepartmentIncoming(){
+        return $this->belongsTo(CompanyEstablishmentDepartment::class,'incoming_department_id','id');
+    }
+
+    public function CompanyEstablishmentOutput(){
+        return $this->belongsTo(CompanyEstablishment::class,'output_establishment_id','id');
+    }
+    
+    public function CompanyEstablishmentDepartmentOutput(){
+        return $this->belongsTo(CompanyEstablishmentDepartment::class,'output_department_id','id');
     }
     
     public function User(){

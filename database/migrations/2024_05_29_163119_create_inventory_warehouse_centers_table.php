@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_centers', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice');
+            $table->string('supply_order');
+            $table->string('supply_company');
             $table->integer('quantity');
             $table->integer('quantity_minimum')->nullable();
             $table->integer('quantity_maximum')->nullable();

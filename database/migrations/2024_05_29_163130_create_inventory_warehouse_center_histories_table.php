@@ -15,19 +15,24 @@ return new class extends Migration
             $table->id();
             $table->string('invoice');
             $table->string('supply_order');
+            $table->string('supply_order_parcel');
             $table->string('supply_company');
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('department_id');
-            $table->unsignedInteger('establishment_id');
+            $table->unsignedInteger('incoming_department_id');
+            $table->unsignedInteger('incoming_establishment_id');
+            $table->unsignedInteger('output_department_id')->nullable();
+            $table->unsignedInteger('output_establishment_id')->nullable();
             $table->unsignedInteger('financial_block_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
             
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
-            $table->foreign('establishment_id')->references('id')->on('company_establishments');
+            $table->foreign('incoming_department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('incoming_establishment_id')->references('id')->on('company_establishments');
+            $table->foreign('output_department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('output_establishment_id')->references('id')->on('company_establishments');
             $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
             $table->foreign('user_id')->references('id')->on('users');
         });

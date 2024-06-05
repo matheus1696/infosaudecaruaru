@@ -23,6 +23,7 @@ class StoreInventoryWarehouseCenterExitStoreRequest extends FormRequest
     {
         return [
             'quantity'=>'required|integer|min_digits:1',
+            'incoming_department_id'=>'required'
         ];
     }
 }

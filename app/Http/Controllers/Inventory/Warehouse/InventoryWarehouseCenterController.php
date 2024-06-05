@@ -45,8 +45,14 @@ class InventoryWarehouseCenterController extends Controller
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
         $db = InventoryWarehouseCenter::where('department_id',$id)->paginate(50);
 
+        // Obtém os registros do almoxarifado ativos
+        $dbStoreRooms = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
+        ->orderBy('department')
+        ->with('CompanyEstablishment')
+        ->get();
+
         // Retorna a view com os dados do departamento e do almoxarifado
-        return view('inventory.warehouse.center.center_show', compact('db','dbDepartment'));
+        return view('inventory.warehouse.center.center_show', compact('db','dbDepartment','dbStoreRooms'));
     }
 
     /**
@@ -95,16 +101,23 @@ class InventoryWarehouseCenterController extends Controller
 
         // Define os dados da entrada no estoque
         $request['movement'] = 'Entrada';
-        $request['department_id'] = $dbDepartment->id;
-        $request['establishment_id'] = $dbDepartment->establishment_id;
+        $request['incoming_department_id'] = $dbDepartment->id; 
+        $request['incoming_establishment_id'] = $dbDepartment->establishment_id;
         $request['user_id'] = Auth::user()->id;
 
         // Cria um registro de histórico de movimentação
         InventoryWarehouseCenterHistory::create($request->all());
 
+        //Adaptação do Request para o WarehouseCenter
+        $request['department_id'] = $dbDepartment->id; 
+        $request['establishment_id'] = $dbDepartment->establishment_id;
+
         // Verifica se já existe um registro do item no estoque do departamento
         $db = InventoryWarehouseCenter::where('consumable_id', $request['consumable_id'])
             ->where('department_id', $request['department_id'])
+            ->where('financial_block_id',$request['financial_block_id'])
+            ->where('invoce',$request['invoce'])
+            ->where('supply_order',$request['supply_order'])
             ->first();
 
         // Se não existir, cria um novo registro de item no estoque
@@ -133,13 +146,18 @@ class InventoryWarehouseCenterController extends Controller
         $db->quantity -= $request['quantity'];
         $db->save();
 
+        //Informando o Departamento que está encaminhando
+        $dbDepartment = CompanyEstablishmentDepartment::find($request['incoming_department_id']);
+
         // Registra um histórico de movimentação para a saída do item
         InventoryWarehouseCenterHistory::create([
             'quantity' => $request['quantity'],
             'movement' => 'Saída',
             'consumable_id' => $db->consumable_id,
-            'department_id' => $db->department_id,
-            'establishment_id' => $db->establishment_id,
+            'incoming_department_id' => $dbDepartment->id,
+            'incoming_establishment_id' => $dbDepartment->establishment_id,
+            'output_department_id' => $db->department_id,
+            'output_establishment_id' => $db->establishment_id,
             'user_id' => Auth::user()->id,
         ]);
 

@@ -24,7 +24,13 @@
                 <x-table.td>
                     <x-button.minButtonModalInfo id="Modal_{{$item->id}}" title="Informar Saída de {{$item->Consumable->title}}" icon="fas fa-long-arrow-alt-down rotate-45" color="red" btnTitle="Saída">
                         <x-form.form method="edit" route="{{route('warehouse_centers.exitStore',['warehouse_center'=>$item->id])}}" title="Confirmar Saída" color="red">
-                            <input hidden name="department_id" value="{{$item->department_id}}">
+                            <x-form.select col="12" label="Almoxarifado Recebedor" id="incoming_department_id" name="incoming_department_id">
+                                @foreach ($dbStoreRooms as $dbStoreRoom)
+                                    <option value="{{$dbStoreRoom->id}}">
+                                        {{$dbStoreRoom->CompanyEstablishment->title}} - {{$dbStoreRoom->department}}
+                                    </option>
+                                @endforeach
+                            </x-form.select>
                             <x-form.input col="9" label="Suprimento" name="consumable_id" value="{{$item->Consumable->title}}" disabled="disabled"/>
                             <x-form.input col="3" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$item->quantity}}"/>
                         </x-form.form>

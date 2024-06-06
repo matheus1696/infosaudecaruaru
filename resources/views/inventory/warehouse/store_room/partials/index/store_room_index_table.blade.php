@@ -2,7 +2,7 @@
     @slot('thead')
         <x-table.th>Departamento</x-table.th>
         <x-table.th>Unidade</x-table.th>
-        <x-table.th class="w-28"></x-table.th>
+        <x-table.th class="w-28">Acesso</x-table.th>
     @endslot
 
     @slot('tbody')

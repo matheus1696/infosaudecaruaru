@@ -11,20 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_warehouse_centers', function (Blueprint $table) {
+        Schema::create('inventory_warehouse_center_entries', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
+            $table->string('invoice');
+            $table->string('supply_order');
+            $table->string('supply_order_parcel');
+            $table->string('supply_company');
+            $table->integer('quantity')->nullable();
             $table->integer('quantity_minimum')->nullable();
             $table->integer('quantity_maximum')->nullable();
-            $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('department_id');
-            $table->unsignedInteger('establishment_id');
-            $table->unsignedInteger('financial_block_id');
+            $table->unsignedBigInteger('consumable_id');
+            $table->unsignedBigInteger('establishment_id');
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('financial_block_id');
             $table->timestamps();
-
+            
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
+            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
             $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
         });
     }
@@ -34,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_warehouse_centers');
+        Schema::dropIfExists('inventory_warehouse_center_entries');
     }
 };

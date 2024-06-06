@@ -18,6 +18,14 @@ use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseStoreRoomController extends Controller
 {
+    /*
+     * Controller access permission resource.
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:inventory_warehouse_store_room|sysadmin|admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */

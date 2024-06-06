@@ -2,7 +2,7 @@
 
 <x-table.table>
     @slot('thead')
-        <x-table.th class="w-32">Data de Cadastro</x-table.th>
+        <x-table.th class="w-32">Data de Entrada</x-table.th>
         <x-table.th class="w-32">Movimentação</x-table.th>
         <x-table.th>Suprimentos</x-table.th>
         <x-table.th class="w-32">Quantidade</x-table.th>

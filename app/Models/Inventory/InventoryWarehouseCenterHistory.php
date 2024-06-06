@@ -16,6 +16,7 @@ class InventoryWarehouseCenterHistory extends Model
     protected $fillable = [
         'invoice',
         'supply_order',
+        'supply_order_parcel',
         'supply_company',
         'quantity',
         'movement',

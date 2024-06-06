@@ -9,11 +9,21 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseCenter;
+use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseCenterController extends Controller
 {
+    
+    /*
+     * Controller access permission resource.
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:inventory_warehouse_center|sysadmin|admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -45,14 +55,16 @@ class InventoryWarehouseCenterController extends Controller
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
         $db = InventoryWarehouseCenter::where('department_id',$id)->paginate(50);
 
+        // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
+        $dbEntries = InventoryWarehouseCenterEntry::where('department_id',$id)->get();
+
         // Obtém os registros do almoxarifado ativos
-        $dbStoreRooms = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
-        ->orderBy('department')
+        $dbStoreRooms = CompanyEstablishmentDepartment::orderBy('department')
         ->with('CompanyEstablishment')
         ->get();
 
         // Retorna a view com os dados do departamento e do almoxarifado
-        return view('inventory.warehouse.center.center_show', compact('db','dbDepartment','dbStoreRooms'));
+        return view('inventory.warehouse.center.center_show', compact('db','dbDepartment','dbEntries','dbStoreRooms'));
     }
 
     /**
@@ -116,13 +128,30 @@ class InventoryWarehouseCenterController extends Controller
         $db = InventoryWarehouseCenter::where('consumable_id', $request['consumable_id'])
             ->where('department_id', $request['department_id'])
             ->where('financial_block_id',$request['financial_block_id'])
-            ->where('invoce',$request['invoce'])
-            ->where('supply_order',$request['supply_order'])
             ->first();
 
         // Se não existir, cria um novo registro de item no estoque
         if (!$db) {
             InventoryWarehouseCenter::create($request->all());
+            return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+        }
+
+        // Se já existir, atualiza a quantidade do item no estoque
+        $db->quantity += $request['quantity'];
+        $db->save();
+
+        // Verifica se já existe um registro do item nas informações de notas fiscais do departamento
+        $db = InventoryWarehouseCenterEntry::where('consumable_id', $request['consumable_id'])
+            ->where('department_id', $request['department_id'])
+            ->where('financial_block_id',$request['financial_block_id'])
+            ->where('invoice',$request['invoice'])
+            ->where('supply_order',$request['supply_order'])
+            ->where('supply_order_parcel',$request['supply_order_parcel'])
+            ->first();
+
+        // Se não existir, cria um novo registro de item no estoque
+        if (!$db) {
+            InventoryWarehouseCenterEntry::create($request->all());
             return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
         }
 

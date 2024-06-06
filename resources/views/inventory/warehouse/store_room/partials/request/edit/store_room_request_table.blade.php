@@ -110,16 +110,21 @@
 
     @slot('tbody')
         @foreach ($dbRequestDetails as $dbRequestDetail)
+            @php
+                $atual = false;
+                $solicitada = false;
+            @endphp
             <x-table.tr>
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
                 <x-table.td class="bg-teal-100">
                     @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
                         @if ($dbRequestDetail->consumable_id == $dbStoreRoomInventory->consumable_id)
                             {{$dbStoreRoomInventory->quantity}}
-                        @else
-                            0
+                            @php $atual = true; @endphp
+                            @break
                         @endif
                     @endforeach
+                    @unless ($atual) 0 @endunless
                 </x-table.td>
                 <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity}}</x-table.td>
                 <x-table.td class="bg-sky-100">
@@ -127,13 +132,14 @@
                         @if ($dbRequestDetail->consumable_id === $dbStoreRoomInventory->consumable_id)
                             @if ($dbRequestDetail->quantity > $dbStoreRoomInventory->quantity)
                                 {{$dbRequestDetail->quantity - $dbStoreRoomInventory->quantity}}
-                            @else
-                                0
+                            @else 
+                                0 
                             @endif
-                        @else
-                            {{$dbRequestDetail->quantity}}
+                            @php $solicitada = true; @endphp
+                            @break
                         @endif
                     @endforeach
+                    @unless ($solicitada) {{$dbRequestDetail->quantity}} @endunless
                 </x-table.td>
                 <x-table.td>
                     <x-button.minButtonModalEdit id="requestDetails_{{$dbRequestDetail->id}}" title="Alterar quantidade da solicitação do suprimento">

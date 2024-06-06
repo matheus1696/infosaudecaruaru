@@ -11,6 +11,7 @@ use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseCenter;
 use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
+use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseCenterController extends Controller
@@ -161,6 +162,38 @@ class InventoryWarehouseCenterController extends Controller
 
         // Redireciona de volta para a página anterior com uma mensagem de sucesso
         return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+    }
+    
+    /**
+     * Display the specified resource.
+     */
+    public function requestShow(string $id)
+    {
+        // Busca o registro do departamento pelo ID
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        // Verifica se o departamento existe e se tem almoxarifado vinculado
+        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_center) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('warehouse_centers.index')->with('error','Setor sem almoxarifado vinculado.');
+        }
+
+        // Busca as solicitações de almoxarifado do departamento, excluindo as canceladas, com paginação
+        $dbRequests = InventoryWarehouseStoreRoomRequest::select()
+        ->where('status','Aberto')
+        ->paginate(50);
+
+        // Retorna a view com os dados do departamento e das solicitações de almoxarifado
+        return view('inventory.warehouse.center.request.center_request_show', compact('dbDepartment','dbRequests'));
+    } 
+    
+    public function requestEdit(string $id)
+    {
+        // Busca a solicitação de almoxarifado pelo ID
+        $db = InventoryWarehouseStoreRoomRequest::find($id);
+
+        // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
+        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbRequestDetails','dbStoreRoomInventories','dbConsumables','dbStandardRequests'));
     }
 
     /**

@@ -223,9 +223,15 @@ class InventoryWarehouseCenterController extends Controller
         return redirect()->back();
     }  
 
-    public function requestConfirmed(Request $request, string $id)
+    public function requestConfirmedAll(string $id)
     {        
-        dd('Olá');
+        //
+        $dbRequests = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$dbRequests->id)->get();
+
+        
+
+        dd($dbRequestDetails);
 
         // Redireciona de volta para a página anterior
         return redirect()->back();

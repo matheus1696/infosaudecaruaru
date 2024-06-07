@@ -15,7 +15,7 @@
         @include('inventory.warehouse.center.partials.request.edit.center_request_table')
 
         <div>
-            <form action="{{route('warehouse_centers.requestConfirmed',['request'=>$db->department_id])}}" method="post">
+            <form action="{{route('warehouse_centers.requestConfirmedAll',['request'=>$db->id])}}" method="post">
                 @csrf @method('PUT')
                 <button type="submit">Confirmar Envio</button>
             </form>

@@ -7,6 +7,8 @@ use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInvent
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
+use App\Models\Inventory\Inventory;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\InventoryWarehouseStandardRequest;
 use App\Models\Inventory\InventoryWarehouseStandardRequestList;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
@@ -143,68 +145,73 @@ class InventoryWarehouseStoreRoomController extends Controller
     }   
 
     /**
-     * Display the specified resource.
-     */
-    public function requestStandardRequest(Request $request, string $id)
+    * Display the specified resource.
+    */
+    public function requestStandardRequest(Request $request, string $storeRoom, string $idRequest)
     {
-        // Busca os itens padrão relacionados à solicitação de almoxarifado
+        // Busca itens padrão e salas de estoque
         $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id', $request['standard_request'])->get();
+        $dbInventoryStoreRooms = InventoryWarehouseStoreRoom::where('department_id', $storeRoom)->get();
 
-        // Para cada item padrão encontrado
         foreach ($dbStandardRequests as $dbStandardRequest) {
+            $quantity_forwarded = $dbStandardRequest->quantity;
 
-            // Verifica se já existe um detalhe da solicitação para o item padrão atual
-            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
-                ->where('consumable_id', $dbStandardRequest->consumable_id)
-                ->first();
+            foreach ($dbInventoryStoreRooms as $dbInventoryStoreRoom) {
+                $quantity_current = 0;
+                
+                if ($dbInventoryStoreRoom->consumable_id == $dbStandardRequest->consumable_id) {
+                    $quantity_current = $dbInventoryStoreRoom->quantity;
 
-            // Se não existir detalhe da solicitação para o item padrão, cria um novo
-            if (!$dbRequestDetails) {
-                InventoryWarehouseStoreRoomRequestDetail::create([
-                    'quantity' => $dbStandardRequest->quantity,
-                    'consumable_id' => $dbStandardRequest->consumable_id,
-                    'store_room_request_id' => $id,
-                ]);
+                    if ($dbStandardRequest->quantity < $quantity_current) {
+                        $quantity_forwarded = 0;
+                    }
+                    break;
+                }
             }
+            
+            InventoryWarehouseStoreRoomRequestDetail::updateOrCreate([
+                'quantity_current' => $quantity_current,
+                'quantity' => $quantity_forwarded,
+                'quantity_default' => $dbStandardRequest->quantity,
+                'quantity_forwarded' => $quantity_forwarded,
+                'consumable_id' => $dbStandardRequest->consumable_id,
+                'store_room_request_id' => $idRequest,
+            ]);
         }
 
-        // Se houver itens padrão para excluir
+        // Remove itens padrão se solicitado
         if ($request['standardRequestDestroy']) {
-
-            // Busca todos os detalhes da solicitação relacionados à solicitação de almoxarifado
-            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)->get();
-
-            // Para cada detalhe encontrado, exclui-o
+            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $idRequest)->get();
             foreach ($dbRequestDetails as $dbRequestDetail) {
                 $dbRequestDetail->delete();
             }
-        }        
+        }
 
-        // Atualiza a contagem de itens na solicitação de almoxarifado
-        $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)->count();
-        $db = InventoryWarehouseStoreRoomRequest::find($id);            
+        // Atualiza a contagem de itens na solicitação
+        $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $idRequest)->count();
+        $db = InventoryWarehouseStoreRoomRequest::find($idRequest);
         $db->count = $dbRequestCount;
         $db->save();
 
-        // Redireciona de volta para a página anterior
         return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function requestUpdate(Request $request, string $id)
+    public function requestUpdate(Request $request, string $storeRoom, string $idRequest)
     {
         // Atualiza os detalhes do contato se algum dos campos de contato for fornecido no formulário
         if ($request['department_contact'] || $request['department_extension'] || $request['user_contat_1'] || $request['user_contat_2']) {
-            $db = InventoryWarehouseStoreRoomRequest::find($id);
+            $db = InventoryWarehouseStoreRoomRequest::find($idRequest);
             $db->update($request->all());
         }
 
         // Adiciona um novo item à solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
         if ($request['quantity'] && $request['consumable_id']) {
             // Verifica se já existe um detalhe da solicitação para o consumível especificado
-            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
+            $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $idRequest)
                 ->where('consumable_id', $request['consumable_id'])
                 ->first();
 
@@ -214,12 +221,17 @@ class InventoryWarehouseStoreRoomController extends Controller
             }
 
             // Cria um novo detalhe para a solicitação de almoxarifado com os dados fornecidos no formulário
-            $request['store_room_request_id'] = $id;
+            $dbInventoryStoreRoom = InventoryWarehouseStoreRoom::find($storeRoom);
+            $request['quantity_current'] = $dbInventoryStoreRoom->quantity;
+            $request['quantity'] = $request['quantity'];
+            $request['quantity_forwarded'] = $request['quantity'];
+            $request['store_room_request_id'] = $idRequest;
+
             InventoryWarehouseStoreRoomRequestDetail::create($request->all());
 
             // Atualiza a contagem de itens na solicitação de almoxarifado
-            $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)->count();
-            $db = InventoryWarehouseStoreRoomRequest::find($id);            
+            $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $idRequest)->count();
+            $db = InventoryWarehouseStoreRoomRequest::find($idRequest);            
             $db->count = $dbRequestCount;
             $db->save();
         }
@@ -227,7 +239,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
         if ($request['quantityEdit'] && $request['consumableEdit']) {
             // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
+            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $idRequest)
                 ->where('consumable_id', $request['consumableEdit'])
                 ->first();
             

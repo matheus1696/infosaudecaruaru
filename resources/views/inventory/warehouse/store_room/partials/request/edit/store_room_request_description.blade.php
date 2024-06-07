@@ -1,4 +1,4 @@
-<x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['request'=>$db->id])}}" btnHidden="TRUE"> 
+<x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['store_room'=>$db->department_id,'request'=>$db->id])}}" btnHidden="TRUE"> 
         
     <div class="grid items-center justify-end grid-cols-12 col-span-12 gap-3">
         <h4 class="col-span-12 font-semibold">Dados do Departamento</h4>

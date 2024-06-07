@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('inventory_warehouse_store_room_request_details', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
+            $table->integer('quantity_default')->nullable();
+            $table->integer('quantity_current');
+            $table->integer('quantity_forwarded');
             $table->unsignedBigInteger('consumable_id');
             $table->unsignedBigInteger('store_room_request_id');
             $table->timestamps();            

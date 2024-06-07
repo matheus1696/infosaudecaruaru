@@ -26,7 +26,7 @@
                             </button>
                         </div>
                         <div class="m-4 modal-body">
-                            <x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['request'=>$db->id])}}" color="green">
+                            <x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['store_room'=>$db->department_id,'request'=>$db->id])}}" color="green">
                                 <x-form.select col="9" label="Suprimentos" id="consumable_id" name="consumable_id">
                                     @foreach ($dbConsumables as $dbConsumable)
                                         <option value="{{$dbConsumable->id}}" @isset($db) @if ($db->consumable_id == $dbConsumable->id) selected @endif @endisset>
@@ -65,7 +65,7 @@
                             </button>
                         </div>
                         <div class="m-4 modal-body">
-                            <x-form.form method="create" route="{{route('store_rooms.requestStandardRequest',['request'=>$db->id])}}" title="Adicionar Itens">
+                            <x-form.form method="create" route="{{route('store_rooms.requestStandardRequest',['store_room'=>$db->department_id,'request'=>$db->id])}}" title="Adicionar Itens">
                                 <x-form.select col="12" label="Lista de Solicitações Padrões" id="standard_request" name="standard_request">
                                     @foreach ($dbStandardRequests as $dbStandardRequest)
                                         <option value="{{$dbStandardRequest->id}}">
@@ -82,7 +82,7 @@
         
         <!-- Excluir itens cadastrados -->
         <div class="inline-block">
-            <form action="{{route('store_rooms.requestStandardRequest',['request'=>$db->id])}}" method="post" class="d-inline-block">
+            <form action="{{route('store_rooms.requestStandardRequest',['store_room'=>$db->department_id,'request'=>$db->id])}}" method="post" class="d-inline-block">
                 @csrf
                 <input hidden name="standardRequestDestroy" value="true">
                 <button
@@ -103,7 +103,6 @@
     @slot('thead')
         <x-table.th>Suprimentos</x-table.th>
         <x-table.th class="w-32">Estoque Atual</x-table.th>
-        <x-table.th class="w-32">Qtd. Padrão</x-table.th>
         <x-table.th class="w-32">Qtd. Solicitada</x-table.th>
         <x-table.th class="w-28"></x-table.th>
     @endslot
@@ -116,34 +115,11 @@
             @endphp
             <x-table.tr>
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
-                <x-table.td class="bg-teal-100">
-                    @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
-                        @if ($dbRequestDetail->consumable_id == $dbStoreRoomInventory->consumable_id)
-                            {{$dbStoreRoomInventory->quantity}}
-                            @php $atual = true; @endphp
-                            @break
-                        @endif
-                    @endforeach
-                    @unless ($atual) 0 @endunless
-                </x-table.td>
-                <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity}}</x-table.td>
-                <x-table.td class="bg-sky-100">
-                    @foreach ($dbStoreRoomInventories as $dbStoreRoomInventory)
-                        @if ($dbRequestDetail->consumable_id === $dbStoreRoomInventory->consumable_id)
-                            @if ($dbRequestDetail->quantity > $dbStoreRoomInventory->quantity)
-                                {{$dbRequestDetail->quantity - $dbStoreRoomInventory->quantity}}
-                            @else 
-                                0 
-                            @endif
-                            @php $solicitada = true; @endphp
-                            @break
-                        @endif
-                    @endforeach
-                    @unless ($solicitada) {{$dbRequestDetail->quantity}} @endunless
-                </x-table.td>
+                <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity_current}}</x-table.td>
+                <x-table.td class="bg-sky-100">{{$dbRequestDetail->quantity}}</x-table.td>
                 <x-table.td>
                     <x-button.minButtonModalEdit id="requestDetails_{{$dbRequestDetail->id}}" title="Alterar quantidade da solicitação do suprimento">
-                        <x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['request'=>$db->id])}}" title="Alterar Quantidade" color="sky">
+                        <x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['store_room'=>$db->department_id,'request'=>$db->id])}}" title="Alterar Quantidade" color="sky">
                             <input hidden id="consumableEdit" name="consumableEdit" value="{{$dbRequestDetail->consumable_id}}">
                             <x-form.input col="9" label="Suprimentos" name="disabled" value="{{$dbRequestDetail->Consumable->title}}" disabled="disabled"/>
                             <x-form.input col="3" type="number" label="Quantidade" id="quantityEdit" name="quantityEdit" min="1" value="{{$dbRequestDetail->quantity}}"/>

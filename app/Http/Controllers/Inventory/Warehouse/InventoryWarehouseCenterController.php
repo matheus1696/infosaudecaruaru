@@ -225,17 +225,7 @@ class InventoryWarehouseCenterController extends Controller
 
     public function requestConfirmed(Request $request, string $id)
     {        
-        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
-        if ($request['quantityEdit'] && $request['consumableEdit']) {
-            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
-                ->where('consumable_id', $request['consumableEdit'])
-                ->first();
-            
-            // Atualiza a quantidade do item na solicitação de almoxarifado
-            $dbRequestDetailsEdit->quantity_forwarded = $request['quantityEdit'];
-            $dbRequestDetailsEdit->save();
-        }
+        dd('Olá');
 
         // Redireciona de volta para a página anterior
         return redirect()->back();

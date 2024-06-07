@@ -7,8 +7,6 @@ use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInvent
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
-use App\Models\Inventory\Inventory;
-use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\InventoryWarehouseStandardRequest;
 use App\Models\Inventory\InventoryWarehouseStandardRequestList;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
@@ -280,6 +278,12 @@ class InventoryWarehouseStoreRoomController extends Controller
         
         // Deleta o detalhe da solicitação de almoxarifado
         $dbRequestDetails->delete();
+
+        // Atualiza a contagem de itens na solicitação de almoxarifado
+        $dbRequestCount = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $dbRequestDetails->store_room_request_id)->count();
+        $db = InventoryWarehouseStoreRoomRequest::find($dbRequestDetails->store_room_request_id);            
+        $db->count = $dbRequestCount;
+        $db->save();
 
         // Redireciona de volta para a página anterior
         return redirect()->back();

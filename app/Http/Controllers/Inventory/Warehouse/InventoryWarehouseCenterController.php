@@ -12,6 +12,7 @@ use App\Models\Inventory\InventoryWarehouseCenter;
 use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
+use App\Models\Inventory\InventoryWarehouseStoreRoomRequestDetail;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseCenterController extends Controller
@@ -191,9 +192,10 @@ class InventoryWarehouseCenterController extends Controller
     {
         // Busca a solicitação de almoxarifado pelo ID
         $db = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->paginate(50);
 
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
-        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbRequestDetails','dbStoreRoomInventories','dbConsumables','dbStandardRequests'));
+        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbRequestDetails'));
     }
 
     /**
@@ -203,7 +205,7 @@ class InventoryWarehouseCenterController extends Controller
     {
         // Encontra o registro do item no estoque pelo ID
         $db = InventoryWarehouseCenter::find($id);
-        
+
         // Subtrai a quantidade solicitada do estoque do item
         $db->quantity -= $request['quantity'];
         $db->save();

@@ -10,8 +10,8 @@
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            @include('inventory.warehouse.request.partials.request.edit.request_description')
+            @include('inventory.warehouse.center.partials.request.edit.center_request_description')
         </x-conteiner>
-        @include('inventory.warehouse.request.partials.request.edit.request_table')
+        @include('inventory.warehouse.center.partials.request.edit.center_request_table')
     @endslot
 </x-pages.index>

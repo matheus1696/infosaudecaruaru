@@ -115,8 +115,8 @@
             @endphp
             <x-table.tr>
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
-                <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity_current}}</x-table.td>
-                <x-table.td class="bg-sky-100">{{$dbRequestDetail->quantity}}</x-table.td>
+                <x-table.td>{{$dbRequestDetail->quantity_current}}</x-table.td>
+                <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity}}</x-table.td>
                 <x-table.td>
                     <x-button.minButtonModalEdit id="requestDetails_{{$dbRequestDetail->id}}" title="Alterar quantidade da solicitação do suprimento">
                         <x-form.form method="edit" route="{{route('store_rooms.requestUpdate',['store_room'=>$db->department_id,'request'=>$db->id])}}" title="Alterar Quantidade" color="sky">

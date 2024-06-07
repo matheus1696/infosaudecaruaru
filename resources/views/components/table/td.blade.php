@@ -1,3 +1,3 @@
-<td class="py-2.5 px-3 border-b {{$class ?? ''}}">
+<td class="py-2.5 px-3 border {{$class ?? ''}}">
     {{$slot}}
 </td>

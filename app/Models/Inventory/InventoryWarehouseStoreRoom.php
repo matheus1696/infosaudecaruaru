@@ -22,14 +22,14 @@ class InventoryWarehouseStoreRoom extends Model
     ];
 
     public function Consumable(){
-        return $this->belongsTo(Consumable::class,'consumable_id','id');
+        return $this->belongsTo(Consumable::class,'consumable_id','id')->orderBy('title');
     }
 
     public function CompanyEstablishment(){
-        return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id');
+        return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id')->orderBy('title');
     }
     
     public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id');
+        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id')->orderBy('department');
     }
 }

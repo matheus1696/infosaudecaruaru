@@ -13,6 +13,7 @@ use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequestDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseCenterController extends Controller
@@ -192,11 +193,53 @@ class InventoryWarehouseCenterController extends Controller
     {
         // Busca a solicitação de almoxarifado pelo ID
         $db = InventoryWarehouseStoreRoomRequest::find($id);
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$id)->paginate(50);
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::join('consumables', 'inventory_warehouse_store_room_request_details.consumable_id', '=', 'consumables.id')
+        ->where('inventory_warehouse_store_room_request_details.store_room_request_id', $id)
+        ->orderBy('consumables.title')
+        ->paginate(50);
 
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
         return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbRequestDetails'));
     }
+
+        /**
+     * Display the specified resource.
+     */
+    public function requestUpdate(Request $request, string $id)
+    {        
+        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
+        if ($request['quantityEdit'] && $request['consumableEdit']) {
+            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
+            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
+                ->where('consumable_id', $request['consumableEdit'])
+                ->first();
+            
+            // Atualiza a quantidade do item na solicitação de almoxarifado
+            $dbRequestDetailsEdit->quantity_forwarded = $request['quantityEdit'];
+            $dbRequestDetailsEdit->save();
+        }
+
+        // Redireciona de volta para a página anterior
+        return redirect()->back();
+    }  
+
+    public function requestConfirmed(Request $request, string $id)
+    {        
+        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
+        if ($request['quantityEdit'] && $request['consumableEdit']) {
+            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
+            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
+                ->where('consumable_id', $request['consumableEdit'])
+                ->first();
+            
+            // Atualiza a quantidade do item na solicitação de almoxarifado
+            $dbRequestDetailsEdit->quantity_forwarded = $request['quantityEdit'];
+            $dbRequestDetailsEdit->save();
+        }
+
+        // Redireciona de volta para a página anterior
+        return redirect()->back();
+    }  
 
     /**
      * Display the specified resource.

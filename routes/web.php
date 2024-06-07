@@ -169,6 +169,8 @@ Route::middleware('auth')->group(function () {
                 Route::put('warehouse_centers/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
                 Route::get('warehouse_centers/{warehouse_center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('warehouse_centers.requestShow');
                 Route::get('warehouse_centers/requests/{request}/edit',[InventoryWarehouseCenterController::class,'requestEdit'])->name('warehouse_centers.requestEdit');
+                Route::put('warehouse_centers/requests/{request}',[InventoryWarehouseCenterController::class,'requestUpdate'])->name('warehouse_centers.requestUpdate');
+                Route::put('warehouse_centers/requests/{request}/confirmed',[InventoryWarehouseCenterController::class,'requestConfirmed'])->name('warehouse_centers.requestConfirmed');
                 Route::put('warehouse_centers/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
             });
         });

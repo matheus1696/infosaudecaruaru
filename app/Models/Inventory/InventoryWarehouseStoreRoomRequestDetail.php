@@ -19,6 +19,6 @@ class InventoryWarehouseStoreRoomRequestDetail extends Model
     ];
 
     public function Consumable(){
-        return $this->belongsTo(Consumable::class,'consumable_id','id');
+        return $this->belongsTo(Consumable::class,'consumable_id','id')->orderBy('title');
     }
 }

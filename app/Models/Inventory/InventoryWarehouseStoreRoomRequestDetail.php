@@ -12,6 +12,7 @@ class InventoryWarehouseStoreRoomRequestDetail extends Model
 
     protected $fillable = [
         'quantity',
+        'quantity_default',
         'quantity_current',
         'quantity_forwarded',
         'confirmed',

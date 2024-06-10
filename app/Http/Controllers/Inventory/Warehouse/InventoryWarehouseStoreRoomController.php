@@ -148,23 +148,28 @@ class InventoryWarehouseStoreRoomController extends Controller
     public function requestStandardRequest(Request $request, string $storeRoom, string $idRequest)
     {
         // Busca itens padrão e salas de estoque
-        $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id', $request['standard_request'])->get();
-        $dbInventoryStoreRooms = InventoryWarehouseStoreRoom::where('department_id', $storeRoom)->get();
+        $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id', $request['standard_request'])->orderBy('consumable_id')->get();
+        $dbInventoryStoreRooms = InventoryWarehouseStoreRoom::where('department_id', $storeRoom)->orderBy('consumable_id')->get();
 
+        //
         foreach ($dbStandardRequests as $dbStandardRequest) {
-            $quantity_forwarded = $dbStandardRequest->quantity;
+            $quantity_current = 0;
+            $confirmed = FALSE;
 
-            foreach ($dbInventoryStoreRooms as $dbInventoryStoreRoom) {
-                $quantity_current = 0;
-                
-                if ($dbInventoryStoreRoom->consumable_id == $dbStandardRequest->consumable_id) {
+            //
+            foreach ($dbInventoryStoreRooms as $dbInventoryStoreRoom) {                
+                if ($dbInventoryStoreRoom->consumable_id === $dbStandardRequest->consumable_id) {
                     $quantity_current = $dbInventoryStoreRoom->quantity;
-
-                    if ($dbStandardRequest->quantity < $quantity_current) {
-                        $quantity_forwarded = 0;
-                    }
                     break;
                 }
+            }
+                    
+            //
+            if ($dbStandardRequest->quantity <= $quantity_current) {
+                $quantity_forwarded = 0;
+            }else {
+                $quantity_forwarded = $dbStandardRequest->quantity - $quantity_current;
+                $confirmed = TRUE;
             }
             
             InventoryWarehouseStoreRoomRequestDetail::updateOrCreate([
@@ -172,6 +177,7 @@ class InventoryWarehouseStoreRoomController extends Controller
                 'quantity' => $quantity_forwarded,
                 'quantity_default' => $dbStandardRequest->quantity,
                 'quantity_forwarded' => $quantity_forwarded,
+                'confirmed' => $confirmed,
                 'consumable_id' => $dbStandardRequest->consumable_id,
                 'store_room_request_id' => $idRequest,
             ]);
@@ -220,7 +226,11 @@ class InventoryWarehouseStoreRoomController extends Controller
 
             // Cria um novo detalhe para a solicitação de almoxarifado com os dados fornecidos no formulário
             $dbInventoryStoreRoom = InventoryWarehouseStoreRoom::find($storeRoom);
-            $request['quantity_current'] = $dbInventoryStoreRoom->quantity;
+            if (!$dbInventoryStoreRoom) {
+                $request['quantity_current'] = 0;
+            }else {
+                $request['quantity_current'] = $dbInventoryStoreRoom->quantity;
+            }
             $request['quantity'] = $request['quantity'];
             $request['quantity_forwarded'] = $request['quantity'];
             $request['store_room_request_id'] = $idRequest;

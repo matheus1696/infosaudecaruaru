@@ -170,8 +170,9 @@ Route::middleware('auth')->group(function () {
                 Route::get('warehouse_centers/{warehouse_center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('warehouse_centers.requestShow');
                 Route::get('warehouse_centers/{warehouse_center}/requests/{request}/edit',[InventoryWarehouseCenterController::class,'requestEdit'])->name('warehouse_centers.requestEdit');
                 Route::put('warehouse_centers/{warehouse_center}/requests/{request}',[InventoryWarehouseCenterController::class,'requestUpdate'])->name('warehouse_centers.requestUpdate');
+                Route::post('warehouse_centers/{warehouse_center}/requests/{request}/checkInventory',[InventoryWarehouseCenterController::class,'requestCheckInventory'])->name('warehouse_centers.requestCheckInventory');
                 Route::put('warehouse_centers/requests/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('warehouse_centers.requestConfirmedItem');
-                Route::put('warehouse_centers/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('warehouse_centers.requestConfirmedAll');
+                Route::put('warehouse_centers/{warehouse_center}/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('warehouse_centers.requestConfirmedAll');
                 Route::put('warehouse_centers/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
             });
         });

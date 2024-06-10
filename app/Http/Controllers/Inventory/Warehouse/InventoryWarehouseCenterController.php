@@ -11,6 +11,7 @@ use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseCenter;
 use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
+use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
 use App\Models\Inventory\InventoryWarehouseStoreRoomRequestDetail;
 use Illuminate\Http\Request;
@@ -221,7 +222,28 @@ class InventoryWarehouseCenterController extends Controller
 
         // Redireciona de volta para a página anterior
         return redirect()->back();
-    }  
+    }
+
+    public function requestCheckInventory(string $id, string $inventoryRequest)
+    {        
+        //
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$inventoryRequest)->orderBy('consumable_id')->get();
+        $dbInventoryWarehouses = InventoryWarehouseCenter::where('department_id',$id)->orderBy('consumable_id')->get();
+
+        foreach ($dbRequestDetails as $dbRequestDetail) {                                  
+            $dbRequestDetail->confirmed = FALSE;
+            foreach ($dbInventoryWarehouses as $dbInventoryWarehouse) {
+                if ($dbRequestDetail->consumable_id === $dbInventoryWarehouse->consumable_id) {
+                    if ($dbRequestDetail->quantity_forwarded != 0 || $dbInventoryWarehouse->quantity >= $dbRequestDetail->quantity_forwarded) {
+                        $dbRequestDetail->confirmed = TRUE;
+                    }
+                }
+            }            
+            $dbRequestDetail->save();
+        }
+
+        return redirect()->back();
+    } 
 
     public function requestConfirmedItem(string $id)
     {        
@@ -234,13 +256,48 @@ class InventoryWarehouseCenterController extends Controller
         return redirect()->back();
     }   
 
-    public function requestConfirmedAll(string $id)
+    public function requestConfirmedAll(string $id, string $inventoryRequest)
     {        
         //
-        $dbRequest = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequest = InventoryWarehouseStoreRoomRequest::find($inventoryRequest);
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$inventoryRequest)->get();
+        $dbInventoryWarehouseCenters = InventoryWarehouseCenter::where('department_id',$id)->get();
+        $dbWarehouseCenter = InventoryWarehouseCenter::where('department_id',$id)->first();
+        $dbStoreRoom = InventoryWarehouseStoreRoom::where('department_id',$dbRequest->department_id)->first();
+
+        //
+        foreach ($dbRequestDetails as $dbRequestDetail) {
+            if (!$dbRequestDetail->confirmed) {
+                $dbRequestDetail->quantity_forwarded = 0;
+                $dbRequestDetail->save();
+            }
+
+            foreach ($dbInventoryWarehouseCenters as $dbInventoryWarehouseCenter) {
+                if ($dbRequestDetail->consumable_id === $dbInventoryWarehouseCenter->consumable_id) {
+                    
+                    // Subtrai a quantidade solicitada do estoque do item
+                    $dbInventoryWarehouseCenter->quantity -= $dbRequestDetail->quantity_forwarded;
+                    $dbInventoryWarehouseCenter->save();
+
+                    // Registra um histórico de movimentação para a saída do item
+                    InventoryWarehouseCenterHistory::create([
+                        'quantity' => $dbRequestDetail->quantity_forwarded,
+                        'movement' => 'Saída',
+                        'consumable_id' => $dbRequestDetail->consumable_id,
+                        'incoming_department_id' => $dbStoreRoom->id,
+                        'incoming_establishment_id' => $dbStoreRoom->establishment_id,
+                        'output_department_id' => $dbWarehouseCenter->department_id,
+                        'output_establishment_id' => $dbWarehouseCenter->establishment_id,
+                        'financial_block_id' => $dbStoreRoom->CompanyEstablishment->financial_block_id,
+                        'user_id' => Auth::user()->id,
+                    ]);
+                }
+            }           
+        }
+        
         $dbRequest->status = "Encaminhado";
         $dbRequest->save();
-
+        
         // Redireciona de volta para a página anterior
         return redirect()->back();
     }  

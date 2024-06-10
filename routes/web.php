@@ -168,9 +168,10 @@ Route::middleware('auth')->group(function () {
                 Route::get('warehouse_centers/{warehouse_center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse_centers.entryShow');
                 Route::put('warehouse_centers/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
                 Route::get('warehouse_centers/{warehouse_center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('warehouse_centers.requestShow');
-                Route::get('warehouse_centers/requests/{request}/edit',[InventoryWarehouseCenterController::class,'requestEdit'])->name('warehouse_centers.requestEdit');
-                Route::put('warehouse_centers/requests/{request}',[InventoryWarehouseCenterController::class,'requestUpdate'])->name('warehouse_centers.requestUpdate');
-                Route::put('warehouse_centers/requests/{request}/confirmed',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('warehouse_centers.requestConfirmedAll');
+                Route::get('warehouse_centers/{warehouse_center}/requests/{request}/edit',[InventoryWarehouseCenterController::class,'requestEdit'])->name('warehouse_centers.requestEdit');
+                Route::put('warehouse_centers/{warehouse_center}/requests/{request}',[InventoryWarehouseCenterController::class,'requestUpdate'])->name('warehouse_centers.requestUpdate');
+                Route::put('warehouse_centers/requests/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('warehouse_centers.requestConfirmedItem');
+                Route::put('warehouse_centers/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('warehouse_centers.requestConfirmedAll');
                 Route::put('warehouse_centers/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
             });
         });

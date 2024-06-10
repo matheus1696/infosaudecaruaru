@@ -14,6 +14,7 @@ class InventoryWarehouseStoreRoomRequestDetail extends Model
         'quantity',
         'quantity_current',
         'quantity_forwarded',
+        'confirmed',
         'consumable_id',
         'store_room_request_id',
     ];

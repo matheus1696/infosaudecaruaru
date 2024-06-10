@@ -180,37 +180,37 @@ class InventoryWarehouseCenterController extends Controller
             return redirect()->route('warehouse_centers.index')->with('error','Setor sem almoxarifado vinculado.');
         }
 
-        // Busca as solicitações de almoxarifado do departamento, excluindo as canceladas, com paginação
-        $dbRequests = InventoryWarehouseStoreRoomRequest::select()
-        ->where('status','Aberto')
-        ->paginate(50);
+        // Busca somente as solicitações de almoxarifado abertas, com paginação
+        $dbRequests = InventoryWarehouseStoreRoomRequest::where('status','Aberto')->paginate(50);
+        
+        // Busca somente as solicitações de almoxarifado encaminhadas, com paginação
+        $dbRequestSents = InventoryWarehouseStoreRoomRequest::where('status','Encaminhado')->paginate(50);
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
-        return view('inventory.warehouse.center.request.center_request_show', compact('dbDepartment','dbRequests'));
+        return view('inventory.warehouse.center.request.center_request_show', compact('dbDepartment','dbRequests','dbRequestSents'));
     } 
     
-    public function requestEdit(string $id)
+    public function requestEdit(string $id, string $inventoryRequest)
     {
         // Busca a solicitação de almoxarifado pelo ID
-        $db = InventoryWarehouseStoreRoomRequest::find($id);
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::join('consumables', 'inventory_warehouse_store_room_request_details.consumable_id', '=', 'consumables.id')
-        ->where('inventory_warehouse_store_room_request_details.store_room_request_id', $id)
-        ->orderBy('consumables.title')
-        ->paginate(50);
+        $db = InventoryWarehouseStoreRoomRequest::find($inventoryRequest);
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+        $dbInventories = InventoryWarehouseCenter::where('department_id',$id)->orderBy('consumable_id')->get();
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $inventoryRequest)->orderBy('confirmed','DESC')->orderBy('consumable_id')->paginate(150);
 
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
-        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbRequestDetails'));
+        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbDepartment','dbInventories','dbRequestDetails'));
     }
 
         /**
      * Display the specified resource.
      */
-    public function requestUpdate(Request $request, string $id)
+    public function requestUpdate(Request $request, string $id, string $inventoryRequest)
     {        
         // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
         if ($request['quantityEdit'] && $request['consumableEdit']) {
             // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $id)
+            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $inventoryRequest)
                 ->where('consumable_id', $request['consumableEdit'])
                 ->first();
             
@@ -223,15 +223,23 @@ class InventoryWarehouseCenterController extends Controller
         return redirect()->back();
     }  
 
+    public function requestConfirmedItem(string $id)
+    {        
+        //
+        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::find($id);
+        $dbRequestDetails->confirmed = !$dbRequestDetails->confirmed;
+        $dbRequestDetails->save();
+
+        // Redireciona de volta para a página anterior
+        return redirect()->back();
+    }   
+
     public function requestConfirmedAll(string $id)
     {        
         //
-        $dbRequests = InventoryWarehouseStoreRoomRequest::find($id);
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$dbRequests->id)->get();
-
-        
-
-        dd($dbRequestDetails);
+        $dbRequest = InventoryWarehouseStoreRoomRequest::find($id);
+        $dbRequest->status = "Encaminhado";
+        $dbRequest->save();
 
         // Redireciona de volta para a página anterior
         return redirect()->back();

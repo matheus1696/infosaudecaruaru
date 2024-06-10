@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_center_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice');
-            $table->string('supply_order');
-            $table->string('supply_order_parcel');
-            $table->string('supply_company');
+            $table->string('invoice')->nullable();
+            $table->string('supply_order')->nullable();
+            $table->string('supply_order_parcel')->nullable();
+            $table->string('supply_company')->nullable();
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');

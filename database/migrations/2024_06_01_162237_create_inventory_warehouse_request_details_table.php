@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_warehouse_store_room_request_details', function (Blueprint $table) {
+        Schema::create('inventory_warehouse_request_details', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
             $table->integer('quantity_default')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();            
 
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('store_room_request_id')->references('id')->on('inventory_warehouse_store_room_requests');
+            $table->foreign('store_room_request_id')->references('id')->on('inventory_warehouse_requests');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_warehouse_store_room_request_details');
+        Schema::dropIfExists('inventory_warehouse_request_details');
     }
 };

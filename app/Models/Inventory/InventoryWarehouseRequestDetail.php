@@ -6,7 +6,7 @@ use App\Models\Consumable\Consumable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseStoreRoomRequestDetail extends Model
+class InventoryWarehouseRequestDetail extends Model
 {
     use HasFactory;
 

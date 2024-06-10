@@ -12,8 +12,8 @@ use App\Models\Inventory\InventoryWarehouseCenter;
 use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
-use App\Models\Inventory\InventoryWarehouseStoreRoomRequest;
-use App\Models\Inventory\InventoryWarehouseStoreRoomRequestDetail;
+use App\Models\Inventory\InventoryWarehouseRequest;
+use App\Models\Inventory\InventoryWarehouseRequestDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -182,10 +182,10 @@ class InventoryWarehouseCenterController extends Controller
         }
 
         // Busca somente as solicitações de almoxarifado abertas, com paginação
-        $dbRequests = InventoryWarehouseStoreRoomRequest::where('status','Aberto')->paginate(50);
+        $dbRequests = InventoryWarehouseRequest::where('status','Aberto')->paginate(50);
         
         // Busca somente as solicitações de almoxarifado encaminhadas, com paginação
-        $dbRequestSents = InventoryWarehouseStoreRoomRequest::where('status','Encaminhado')->paginate(50);
+        $dbRequestSents = InventoryWarehouseRequest::where('status','Encaminhado')->paginate(50);
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
         return view('inventory.warehouse.center.request.center_request_show', compact('dbDepartment','dbRequests','dbRequestSents'));
@@ -194,10 +194,10 @@ class InventoryWarehouseCenterController extends Controller
     public function requestEdit(string $id, string $inventoryRequest)
     {
         // Busca a solicitação de almoxarifado pelo ID
-        $db = InventoryWarehouseStoreRoomRequest::find($inventoryRequest);
+        $db = InventoryWarehouseRequest::find($inventoryRequest);
         $dbDepartment = CompanyEstablishmentDepartment::find($id);
         $dbInventories = InventoryWarehouseCenter::where('department_id',$id)->orderBy('consumable_id')->get();
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $inventoryRequest)->orderBy('confirmed','DESC')->orderBy('consumable_id')->paginate(150);
+        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->orderBy('confirmed','DESC')->orderBy('consumable_id')->paginate(150);
 
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
         return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbDepartment','dbInventories','dbRequestDetails'));
@@ -211,7 +211,7 @@ class InventoryWarehouseCenterController extends Controller
         // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
         if ($request['quantityEdit'] && $request['consumableEdit']) {
             // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id', $inventoryRequest)
+            $dbRequestDetailsEdit = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)
                 ->where('consumable_id', $request['consumableEdit'])
                 ->first();
             
@@ -227,7 +227,7 @@ class InventoryWarehouseCenterController extends Controller
     public function requestCheckInventory(string $id, string $inventoryRequest)
     {        
         //
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$inventoryRequest)->orderBy('consumable_id')->get();
+        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->orderBy('consumable_id')->get();
         $dbInventoryWarehouses = InventoryWarehouseCenter::where('department_id',$id)->orderBy('consumable_id')->get();
 
         foreach ($dbRequestDetails as $dbRequestDetail) {                                  
@@ -248,7 +248,7 @@ class InventoryWarehouseCenterController extends Controller
     public function requestConfirmedItem(string $id)
     {        
         //
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::find($id);
+        $dbRequestDetails = InventoryWarehouseRequestDetail::find($id);
         $dbRequestDetails->confirmed = !$dbRequestDetails->confirmed;
         $dbRequestDetails->save();
 
@@ -259,8 +259,8 @@ class InventoryWarehouseCenterController extends Controller
     public function requestConfirmedAll(string $id, string $inventoryRequest)
     {        
         //
-        $dbRequest = InventoryWarehouseStoreRoomRequest::find($inventoryRequest);
-        $dbRequestDetails = InventoryWarehouseStoreRoomRequestDetail::where('store_room_request_id',$inventoryRequest)->get();
+        $dbRequest = InventoryWarehouseRequest::find($inventoryRequest);
+        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->get();
         $dbInventoryWarehouseCenters = InventoryWarehouseCenter::where('department_id',$id)->get();
         $dbWarehouseCenter = InventoryWarehouseCenter::where('department_id',$id)->first();
         $dbStoreRoom = InventoryWarehouseStoreRoom::where('department_id',$dbRequest->department_id)->first();

@@ -17,7 +17,7 @@
                 <x-table.td>{{$dbRequest->count}}</x-table.td>
                 <x-table.td>{{$dbRequest->status}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonShow route="{{route('warehouse_centers.requestEdit',['warehouse_center'=>$dbDepartment->id,'request'=>$dbRequest->id])}}" color="green" icon="fas fa-list" title="Atender"/>
+                    <x-button.minButtonShow route="{{route('warehouse_centers.edit',['warehouse_center'=>$dbDepartment->id,'request'=>$dbRequest->id])}}" color="green" icon="fas fa-list" title="Atender"/>
                 </x-table.td>
             </x-table.tr>
         @endforeach

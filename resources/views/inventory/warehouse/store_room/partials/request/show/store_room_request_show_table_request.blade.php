@@ -15,7 +15,7 @@
                 <x-table.td>{{$dbRequest->count}}</x-table.td>
                 <x-table.td>{{$dbRequest->status}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonEdit route="{{route('store_rooms.requestEdit',['request'=>$dbRequest->id])}}" />
+                    <x-button.minButtonEdit route="{{route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$dbRequest->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequest->id}}" title="Solicitação Nº {{$dbRequest->code}}">
                         <div>

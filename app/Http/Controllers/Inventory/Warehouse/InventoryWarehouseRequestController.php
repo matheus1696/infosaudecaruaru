@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Inventory\Warehouse;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseCenter;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\InventoryWarehouseRequest;
 use App\Models\Inventory\InventoryWarehouseRequestDetail;
+use App\Models\Inventory\InventoryWarehouseStandardRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +23,65 @@ class InventoryWarehouseRequestController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:inventory_warehouse_center|sysadmin|admin']);
+    }
+
+    public function update(Request $request, string $id, string $inventoryRequest)
+    {        
+
+        dd($request->all());
+        
+        // Atualiza os detalhes do contato se algum dos campos de contato for fornecido no formulário
+        if ($request['department_contact'] || $request['department_extension'] || $request['user_contat_1'] || $request['user_contat_2']) {
+            $db = InventoryWarehouseRequest::find($inventoryRequest);
+            $db->update($request->all());
+        }
+
+        // Adiciona um novo item à solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
+        if ($request['quantity'] && $request['consumable_id']) {
+            // Verifica se já existe um detalhe da solicitação para o consumível especificado
+            $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)
+                ->where('consumable_id', $request['consumable_id'])
+                ->first();
+
+            // Se já existir um detalhe para o consumível, retorna com uma mensagem de erro
+            if ($dbRequestDetails) {
+                return redirect()->back()->with('error', 'O suprimento ' . $dbRequestDetails->Consumable->title . ' já existe na tabela abaixo');
+            }
+
+            // Cria um novo detalhe para a solicitação de almoxarifado com os dados fornecidos no formulário
+            $dbInventoryStoreRoom = InventoryWarehouseStoreRoom::find($id);
+            if (!$dbInventoryStoreRoom) {
+                $request['quantity_current'] = 0;
+            }else {
+                $request['quantity_current'] = $dbInventoryStoreRoom->quantity;
+            }
+            $request['quantity'] = $request['quantity'];
+            $request['quantity_forwarded'] = $request['quantity'];
+            $request['store_room_request_id'] = $inventoryRequest;
+
+            InventoryWarehouseRequestDetail::create($request->all());
+
+            // Atualiza a contagem de itens na solicitação de almoxarifado
+            $dbRequestCount = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->count();
+            $db = InventoryWarehouseRequest::find($inventoryRequest);            
+            $db->count = $dbRequestCount;
+            $db->save();
+        }
+
+        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
+        if ($request['quantityEdit'] && $request['consumableEdit']) {
+            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
+            $dbRequestDetailsEdit = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)
+                ->where('consumable_id', $request['consumableEdit'])
+                ->first();
+            
+            // Atualiza a quantidade do item na solicitação de almoxarifado
+            $dbRequestDetailsEdit->quantity_forwarded = $request['quantityEdit'];
+            $dbRequestDetailsEdit->save();
+        }
+
+        // Redireciona de volta para a página anterior
+        return redirect()->back();
     }
     
     public function requestShow(string $id)
@@ -43,36 +104,8 @@ class InventoryWarehouseRequestController extends Controller
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
         return view('inventory.warehouse.center.request.center_request_show', compact('dbDepartment','dbRequests','dbRequestSents'));
     } 
-    
-    public function requestEdit(string $id, string $inventoryRequest)
-    {
-        // Busca a solicitação de almoxarifado pelo ID
-        $db = InventoryWarehouseRequest::find($inventoryRequest);
-        $dbDepartment = CompanyEstablishmentDepartment::find($id);
-        $dbInventories = InventoryWarehouseCenter::where('department_id',$id)->orderBy('consumable_id')->get();
-        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->orderBy('confirmed','DESC')->orderBy('consumable_id')->paginate(150);
 
-        // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
-        return view('inventory.warehouse.center.request.center_request_edit', compact('db','dbDepartment','dbInventories','dbRequestDetails'));
-    }
 
-    public function requestUpdate(Request $request, string $id, string $inventoryRequest)
-    {        
-        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
-        if ($request['quantityEdit'] && $request['consumableEdit']) {
-            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)
-                ->where('consumable_id', $request['consumableEdit'])
-                ->first();
-            
-            // Atualiza a quantidade do item na solicitação de almoxarifado
-            $dbRequestDetailsEdit->quantity_forwarded = $request['quantityEdit'];
-            $dbRequestDetailsEdit->save();
-        }
-
-        // Redireciona de volta para a página anterior
-        return redirect()->back();
-    }
 
     public function requestCheckInventory(string $id, string $inventoryRequest)
     {        

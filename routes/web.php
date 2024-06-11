@@ -153,10 +153,11 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('store_rooms')->group(function (){
                     //Rota - 
                     Route::get('store_rooms',[InventoryWarehouseStoreRoomController::class,'index'])->name('store_rooms.index');
-                    Route::get('store_rooms/{store_room}',[InventoryWarehouseStoreRoomController::class,'show'])->name('store_rooms.show');
-                    Route::get('store_rooms/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
-                    Route::put('store_rooms/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
-                    Route::put('store_rooms/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
+                    Route::get('store_room/{store_room}',[InventoryWarehouseStoreRoomController::class,'show'])->name('store_rooms.show');
+                    Route::get('store_room/{store_room}/request/{request}',[InventoryWarehouseStoreRoomController::class,'edit'])->name('store_rooms.edit');
+                    Route::get('store_room/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
+                    Route::put('store_room/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
+                    Route::put('store_room/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
                     
                 });
 
@@ -164,26 +165,30 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('centers')->group(function (){
                     //Rota - 
                     Route::get('warehouse_centers',[InventoryWarehouseCenterController::class,'index'])->name('warehouse_centers.index');
-                    Route::get('warehouse_centers/{warehouse_center}',[InventoryWarehouseCenterController::class,'show'])->name('warehouse_centers.show');
-                    Route::get('warehouse_centers/{warehouse_center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse_centers.entryShow');
-                    Route::put('warehouse_centers/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
-                    Route::put('warehouse_centers/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
+                    Route::get('warehouse_center/{warehouse_center}',[InventoryWarehouseCenterController::class,'show'])->name('warehouse_centers.show');
+                    Route::get('warehouse_center/{warehouse_center}/request/{request}',[InventoryWarehouseCenterController::class,'edit'])->name('warehouse_centers.edit');
+                    Route::get('warehouse_center/{warehouse_center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse_centers.entryShow');
+                    Route::put('warehouse_center/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
+                    Route::put('warehouse_center/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
                 });
 
                 //Grupo de Rotas - 
-                Route::prefix('request')->group(function (){
+                Route::prefix('request')->group(function (){                    
+                    Route::get('warehouse/{warehouse}/requests/{request}/edit',[InventoryWarehouseRequestController::class,'edit'])->name('requests.edit');
+                    Route::put('warehouse/{warehouse}/requests/{request}',[InventoryWarehouseRequestController::class,'update'])->name('requests.update');
+
+
+
+
+
                     Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
                     Route::get('store_rooms/{store_room}/requests/create',[InventoryWarehouseStoreRoomController::class,'requestCreate'])->name('store_rooms.requestCreate');
-                    Route::put('store_rooms/{store_room}/requests/status',[InventoryWarehouseStoreRoomController::class,'requestStatus'])->name('store_rooms.requestStatus');
-                    Route::get('store_rooms/requests/{request}/edit',[InventoryWarehouseStoreRoomController::class,'requestEdit'])->name('store_rooms.requestEdit');
-                    Route::put('store_rooms/{store_room}/requests/{request}',[InventoryWarehouseStoreRoomController::class,'requestUpdate'])->name('store_rooms.requestUpdate');
+                    Route::put('store_rooms/{store_room}/requests/status',[InventoryWarehouseStoreRoomController::class,'requestStatus'])->name('store_rooms.requestStatus');                
                     Route::delete('store_rooms/requests/{request}',[InventoryWarehouseStoreRoomController::class,'requestDelete'])->name('store_rooms.requestDelete');
                     Route::post('store_rooms/{store_room}/requests/{request}/standard_requests',[InventoryWarehouseStoreRoomController::class,'requestStandardRequest'])->name('store_rooms.requestStandardRequest');
 
                     //Rota - 
                     Route::get('warehouse_centers/{warehouse_center}/requests',[InventoryWarehouseRequestController::class,'requestShow'])->name('warehouse_centers.requestShow');
-                    Route::get('warehouse_centers/{warehouse_center}/requests/{request}/edit',[InventoryWarehouseRequestController::class,'requestEdit'])->name('warehouse_centers.requestEdit');
-                    Route::put('warehouse_centers/{warehouse_center}/requests/{request}',[InventoryWarehouseRequestController::class,'requestUpdate'])->name('warehouse_centers.requestUpdate');
                     Route::post('warehouse_centers/{warehouse_center}/requests/{request}/checkInventory',[InventoryWarehouseRequestController::class,'requestCheckInventory'])->name('warehouse_centers.requestCheckInventory');
                     Route::put('warehouse_centers/requests/{request}/confirmedItem',[InventoryWarehouseRequestController::class,'requestConfirmedItem'])->name('warehouse_centers.requestConfirmedItem');
                     Route::put('warehouse_centers/{warehouse_center}/requests/{request}/confirmedAll',[InventoryWarehouseRequestController::class,'requestConfirmedAll'])->name('warehouse_centers.requestConfirmedAll');

@@ -174,11 +174,16 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         // Busca itens padrão e salas de estoque
         $dbStandardRequest = InventoryWarehouseStandardRequestList::where('consumable_id', $request['consumable_id'])->first();
+        if (!$dbStandardRequest) {
+            $quantity_default = 0;
+        }else {
+            $quantity_default = $dbStandardRequest->quantity;
+        }
 
         InventoryWarehouseRequestDetail::updateOrCreate([
                 'quantity_current' => !$dbInventoryStoreRoom ? 0 : $dbInventoryStoreRoom->quantity,
                 'quantity' => $request['quantity'],
-                'quantity_default' => $dbStandardRequest->quantity,
+                'quantity_default' => $quantity_default,
                 'quantity_forwarded' => 0,
                 'consumable_id' => $request['consumable_id'],
                 'store_room_request_id' => $inventoryRequest,

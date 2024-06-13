@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('incoming_establishment_id');
             $table->unsignedInteger('output_department_id')->nullable();
             $table->unsignedInteger('output_establishment_id')->nullable();
-            $table->unsignedInteger('financial_block_id');
+            $table->unsignedInteger('financial_block_id')->default(1);
             $table->unsignedInteger('user_id');
             $table->timestamps();
             

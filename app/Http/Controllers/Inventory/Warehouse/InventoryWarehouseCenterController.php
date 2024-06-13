@@ -231,12 +231,22 @@ class InventoryWarehouseCenterController extends Controller
         ->where('consumable_id',$dbRequestDetails->consumable_id)->first();
 
         //
-        if ($dbRequestDetails->quantity_forwarded > 0 && $dbWarehouseInventories->quantity > 0) {
+        if ($dbRequestDetails->confirmed) {
             $dbRequestDetails->confirmed = !$dbRequestDetails->confirmed;
             $dbRequestDetails->save();
     
             // Redireciona de volta para a página anterior
             return redirect()->back()->with('success','Alteração realizada com sucesso');
+        } else {
+            if ($dbWarehouseInventories) {            
+                if ($dbRequestDetails->quantity_forwarded > 0 && $dbWarehouseInventories->quantity > 0) {
+                    $dbRequestDetails->confirmed = !$dbRequestDetails->confirmed;
+                    $dbRequestDetails->save();
+            
+                    // Redireciona de volta para a página anterior
+                    return redirect()->back()->with('success','Alteração realizada com sucesso');
+                }
+            }
         }
     
         // Redireciona de volta para a página anterior
@@ -250,7 +260,7 @@ class InventoryWarehouseCenterController extends Controller
         $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->get();
         $dbInventoryWarehouseCenters = InventoryWarehouseCenter::where('department_id',$id)->get();
         $dbWarehouseCenter = InventoryWarehouseCenter::where('department_id',$id)->first();
-        $dbStoreRoom = InventoryWarehouseStoreRoom::where('department_id',$dbRequest->department_id)->first();
+        $dbDepartment = CompanyEstablishmentDepartment::find($dbRequest->department_id);
 
         //
         foreach ($dbRequestDetails as $dbRequestDetail) {
@@ -271,11 +281,11 @@ class InventoryWarehouseCenterController extends Controller
                         'quantity' => $dbRequestDetail->quantity_forwarded,
                         'movement' => 'Saída',
                         'consumable_id' => $dbRequestDetail->consumable_id,
-                        'incoming_department_id' => $dbStoreRoom->id,
-                        'incoming_establishment_id' => $dbStoreRoom->establishment_id,
+                        'incoming_department_id' => $dbDepartment->id,
+                        'incoming_establishment_id' => $dbDepartment->establishment_id,
                         'output_department_id' => $dbWarehouseCenter->department_id,
                         'output_establishment_id' => $dbWarehouseCenter->establishment_id,
-                        'financial_block_id' => $dbStoreRoom->CompanyEstablishment->financial_block_id,
+                        'financial_block_id' => $dbDepartment->CompanyEstablishment->financial_block_id,
                         'user_id' => Auth::user()->id,
                     ]);
                 }

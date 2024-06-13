@@ -360,34 +360,46 @@ class InventoryWarehouseStoreRoomController extends Controller
     {
         // Encontra o detalhe da solicitação de almoxarifado pelo ID
         $db = CompanyEstablishmentDepartment::find($id);
-        $dbRequestDetails = InventoryWarehouseRequestDetail::find($inventoryRequest);
+        $dbRequestDetail = InventoryWarehouseRequestDetail::find($inventoryRequest);
         $dbStoreRoom = InventoryWarehouseStoreRoom::where('department_id',$id)
-        ->where('consumable_id',$dbRequestDetails->consumable_id)->first();
+        ->where('consumable_id',$dbRequestDetail->consumable_id)
+        ->first();
+
+
 
         if (!$dbStoreRoom) {
             InventoryWarehouseStoreRoom::create([
-                'quantity'=>$dbRequestDetails->quantity_forwarded,
-                'consumable_id'=>$dbRequestDetails->consumable_id,
+                'quantity'=>$dbRequestDetail->quantity_forwarded,
+                'consumable_id'=>$dbRequestDetail->consumable_id,
                 'department_id'=>$db->id,
                 'establishment_id'=>$db->establishment_id,
             ]);
         }else{
-            $dbStoreRoom->quantity += $dbRequestDetails->quantity_forwarded;
+            $dbStoreRoom->quantity += $dbRequestDetail->quantity_forwarded;
             $dbStoreRoom->save();
         }
 
         //
-        $dbRequestDetails->receipt = TRUE;
-        $dbRequestDetails->save();
+        $dbRequestDetail->receipt = TRUE;
+        $dbRequestDetail->save();
 
         InventoryWarehouseStoreRoomHistory::create([
-            'quantity'=>$dbRequestDetails->quantity_forwarded,
+            'quantity'=>$dbRequestDetail->quantity_forwarded,
             'movement'=>'Entrada',
-            'consumable_id'=>$dbRequestDetails->consumable_id,
+            'consumable_id'=>$dbRequestDetail->consumable_id,
             'department_id'=>$db->id,
             'establishment_id'=>$db->establishment_id,
             'user_id'=>Auth::user()->id,
         ]);
+        
+        $receipt = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->where('receipt',TRUE)->count();
+        $confirmed = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->where('confirmed',TRUE)->count();
+
+        if ($receipt === $confirmed) {
+            $dbRequest = InventoryWarehouseRequest::find($dbRequestDetail->store_room_request_id);
+            $dbRequest->status = 'Concluído';
+            $dbRequest->save();
+        }
 
         // Redireciona de volta para a página anterior
         return redirect()->back()->with('success','Item adicionado no estoque');

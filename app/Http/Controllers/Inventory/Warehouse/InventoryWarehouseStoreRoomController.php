@@ -126,7 +126,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         $db->update($request->all());
 
         // Redireciona de volta para a página anterior
-        return redirect()->back()->with('error','Não foi atualizado nenhum dos dados da solicitação ou solicititante');
+        return redirect()->back()->with('success','Dados atualizado com sucesso');
     }
 
     /**

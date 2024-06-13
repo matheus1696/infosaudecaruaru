@@ -163,6 +163,7 @@ Route::middleware('auth')->group(function () {
                     Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryWarehouseStoreRoomController::class,'destroyItem'])->name('store_rooms.destroyItem');
                     Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryWarehouseStoreRoomController::class,'createDefaultList'])->name('store_rooms.createDefaultList');
                     Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryWarehouseStoreRoomController::class,'destroyDefaultList'])->name('store_rooms.destroyDefaultList');
+                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryWarehouseStoreRoomController::class,'receiptItem'])->name('store_rooms.receiptItem');
                     Route::get('store_room/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
                     Route::put('store_room/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
                     Route::put('store_room/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
@@ -177,15 +178,10 @@ Route::middleware('auth')->group(function () {
                     Route::get('centers/{center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('centers.requestShow');
                     Route::get('center/{center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('centers.entryShow');
                     Route::put('center/{center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('centers.entryStore');
-                });
-
-                //Grupo de Rotas - 
-                Route::prefix('request')->group(function (){
-                    
                     Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryWarehouseCenterController::class,'requestCheckInventory'])->name('centers.requestCheckInventory');
                     Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('centers.requestConfirmedItem');
                     Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('centers.requestConfirmedAll');
-                    Route::put('centers/{center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('centers.exitStore');                
+                    Route::put('centers/{center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('centers.exitStore'); 
                 });
             });
         });

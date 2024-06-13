@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('quantity_current');
             $table->integer('quantity_forwarded');
             $table->boolean('confirmed')->default(FALSE);
+            $table->boolean('receipt')->default(FALSE);
             $table->unsignedBigInteger('consumable_id');
             $table->unsignedBigInteger('store_room_request_id');
             $table->timestamps();            

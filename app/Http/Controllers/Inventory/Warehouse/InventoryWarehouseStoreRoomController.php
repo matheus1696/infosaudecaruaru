@@ -351,7 +351,47 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
         return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestsOpen','dbRequestsForwarded','dbRequestsCompleted','dbRequestsCanceled'));
-    } 
+    }    
+
+    /**
+    * Delete the specified resource.
+    */
+    public function receiptItem(string $id, string $inventoryRequest)
+    {
+        // Encontra o detalhe da solicitação de almoxarifado pelo ID
+        $db = CompanyEstablishmentDepartment::find($id);
+        $dbRequestDetails = InventoryWarehouseRequestDetail::find($inventoryRequest);
+        $dbStoreRoom = InventoryWarehouseStoreRoom::where('department_id',$id)
+        ->where('consumable_id',$dbRequestDetails->consumable_id)->first();
+
+        if (!$dbStoreRoom) {
+            InventoryWarehouseStoreRoom::create([
+                'quantity'=>$dbRequestDetails->quantity_forwarded,
+                'consumable_id'=>$dbRequestDetails->consumable_id,
+                'department_id'=>$db->id,
+                'establishment_id'=>$db->establishment_id,
+            ]);
+        }else{
+            $dbStoreRoom->quantity += $dbRequestDetails->quantity_forwarded;
+            $dbStoreRoom->save();
+        }
+
+        //
+        $dbRequestDetails->receipt = TRUE;
+        $dbRequestDetails->save();
+
+        InventoryWarehouseStoreRoomHistory::create([
+            'quantity'=>$dbRequestDetails->quantity_forwarded,
+            'movement'=>'Entrada',
+            'consumable_id'=>$dbRequestDetails->consumable_id,
+            'department_id'=>$db->id,
+            'establishment_id'=>$db->establishment_id,
+            'user_id'=>Auth::user()->id,
+        ]);
+
+        // Redireciona de volta para a página anterior
+        return redirect()->back()->with('success','Item adicionado no estoque');
+    }
 
     /**
      * Display the specified resource.

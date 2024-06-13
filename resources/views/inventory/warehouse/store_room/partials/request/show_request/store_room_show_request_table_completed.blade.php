@@ -18,17 +18,17 @@
                     <x-button.minButtonEdit route="{{route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$dbRequestCompleted->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestCompleted->id}}" title="Solicitação Nº {{$dbRequestCompleted->code}}">
-                        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
                             <p><strong>Nº da Solicitação:</strong> {{$dbRequestCompleted->code}}</p>
-                            <p><strong>Título:</strong> {{$dbRequestCompleted->title ?? ""}}</p>
-                            <p><strong>Estabelecimento:</strong> {{$dbRequestCompleted->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</p>
+                            <p class="md:col-span-2"><strong>Título:</strong> {{$dbRequestCompleted->title ?? ""}}</p>
+                            <p class="md:col-span-2"><strong>Estabelecimento:</strong> {{$dbRequestCompleted->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</p>
                             <p><strong>Departamento:</strong> {{$dbRequestCompleted->CompanyEstablishmentDepartment->title}}</p>
                             <p><strong>Contato:</strong> {{$dbRequestCompleted->department_contact ?? ""}}</p>
                             <p><strong>Ramal:</strong> {{$dbRequestCompleted->department_extension ?? ""}}</p>
                             <p><strong>Quantidade de Itens:</strong> {{$dbRequestCompleted->count}}</p>
                             <p><strong>Status:</strong> {{$dbRequestCompleted->status}}</p>
-                            <hr>
-                            <p><strong>Usuário Solicitante:</strong> {{$dbRequestCompleted->User->name}}</p>
+                            <hr  class="md:col-span-3">
+                            <p class="md:col-span-2"><strong>Usuário Solicitante:</strong> {{$dbRequestCompleted->User->name}}</p>
                             <p><strong>Contato 01:</strong> {{$dbRequestCompleted->user_contact_1 ?? ""}}</p>
                             <p><strong>Contato 02:</strong> {{$dbRequestCompleted->user_contact_2 ?? ""}}</p>
                         </div>

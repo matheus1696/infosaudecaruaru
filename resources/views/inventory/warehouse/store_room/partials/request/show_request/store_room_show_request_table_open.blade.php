@@ -8,7 +8,7 @@
     @endslot
 
     @slot('tbody')
-        @foreach ($dbRequestOpens as $dbRequestOpen)
+        @foreach ($dbRequestsOpen as $dbRequestOpen)
             <x-table.tr>
                 <x-table.td>{{date('d/m/Y',strtotime($dbRequestOpen->created_at))}}</x-table.td>
                 <x-table.td>{{$dbRequestOpen->code}}</x-table.td>

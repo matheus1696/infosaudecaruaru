@@ -325,27 +325,27 @@ class InventoryWarehouseStoreRoomController extends Controller
         }
 
         // Busca as solicitações em abertas com paginação
-        $dbRequestOpens = InventoryWarehouseRequest::where('department_id',$id)
+        $dbRequestsOpen = InventoryWarehouseRequest::where('department_id',$id)
         ->where('status','=','Aberto')
         ->get();
 
         // Busca as solicitações em encaminhadas com paginação
-        $dbRequestsForwardeds = InventoryWarehouseRequest::where('department_id',$id)
+        $dbRequestsForwarded = InventoryWarehouseRequest::where('department_id',$id)
         ->where('status','=','Encaminhado')
         ->get();        
 
         // Busca as solicitações canceladas com paginação
-        $dbRequestsCompleteds = InventoryWarehouseRequest::where('department_id',$id)
+        $dbRequestsCompleted = InventoryWarehouseRequest::where('department_id',$id)
         ->where('status','=','Concluído')
         ->get();
 
         // Busca as solicitações canceladas com paginação
-        $dbRequestsCanceleds = InventoryWarehouseRequest::where('department_id',$id)
+        $dbRequestsCanceled = InventoryWarehouseRequest::where('department_id',$id)
         ->where('status','=','Cancelado')
         ->get();
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
-        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestOpens','dbRequestsForwardeds','dbRequestsCompleteds','dbRequestsCanceleds'));
+        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestsOpen','dbRequestsForwarded','dbRequestsCompleted','dbRequestsCanceled'));
     } 
 
     /**

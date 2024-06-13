@@ -8,7 +8,7 @@
     @endslot
 
     @slot('tbody')
-        @foreach ($dbRequestsCompleteds as $dbRequestCompleted)
+        @foreach ($dbRequestsCompleted as $dbRequestCompleted)
             <x-table.tr>
                 <x-table.td>{{date('d/m/Y',strtotime($dbRequestCompleted->created_at))}}</x-table.td>
                 <x-table.td>{{$dbRequestCompleted->code}}</x-table.td>

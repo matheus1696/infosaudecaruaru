@@ -8,11 +8,11 @@
     @endslot
 
     @slot('tbody')
-        @foreach ($dbRequestsForwardeds as $dbRequestsForwarded)
+        @foreach ($dbRequestsForwarded as $dbRequestForwarded)
             <x-table.tr>
-                <x-table.td>{{date('d/m/Y H:i:s',strtotime($dbRequestsCanceled->created_at))}}</x-table.td>
-                <x-table.td>{{$dbRequestsCanceled->code}}</x-table.td>
-                <x-table.td>{{$dbRequestsCanceled->count}}</x-table.td>
+                <x-table.td>{{date('d/m/Y H:i:s',strtotime($dbRequestForwarded->created_at))}}</x-table.td>
+                <x-table.td>{{$dbRequestForwarded->code}}</x-table.td>
+                <x-table.td>{{$dbRequestForwarded->count}}</x-table.td>
                 <x-table.td></x-table.td>
                 <x-table.td></x-table.td>
             </x-table.tr>

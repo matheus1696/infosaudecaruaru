@@ -11,7 +11,7 @@
                 <x-table.td>{{$item->department}}</x-table.td>
                 <x-table.td>{{$item->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>
-                    <x-button.minButtonShow route="{{route('warehouse_centers.show',['warehouse_center'=>$item->id])}}" />
+                    <x-button.minButtonShow route="{{route('centers.show',['center'=>$item->id])}}" />
                 </x-table.td>
             </x-table.tr>
         @endforeach

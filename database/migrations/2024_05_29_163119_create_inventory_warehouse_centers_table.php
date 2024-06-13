@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('consumable_id');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('establishment_id');
-            $table->unsignedInteger('financial_block_id');
+            $table->unsignedInteger('financial_block_id')->default(1);
             $table->timestamps();
 
             $table->foreign('consumable_id')->references('id')->on('consumables');

@@ -26,7 +26,6 @@ class StoreInventoryWarehouseCenterEntryStoreRequest extends FormRequest
             'supply_order'=>'required',
             'supply_company'=>'required',
             'consumable_id'=>'required',
-            'financial_block_id'=>'required',
             'quantity'=>'required|integer|min_digits:1',
         ];
     }

@@ -339,7 +339,7 @@ return [
                 [
                     'text'    => 'Almoxarifado Central',
                     'classes' => 'btn-sm',
-                    'route'   => 'warehouse_centers.index',
+                    'route'   => 'centers.index',
                     'icon'    => 'fas fa-warehouse pr-2',
                     'can'     => ['inventory_warehouse_center','sysadmin','admin'],
                 ],

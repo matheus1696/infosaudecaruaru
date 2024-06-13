@@ -1,9 +1,9 @@
 <x-table.table color="green">
     @slot('thead')
         <x-table.th class="w-40">Data Abertura</x-table.th>
-        <x-table.th>Nº Solicitação</x-table.th>
-        <x-table.th class="w-28">Qtd. Itens</x-table.th>
-        <x-table.th class="w-20">Status</x-table.th>
+        <x-table.th class="w-40">Nº Solicitação</x-table.th>
+        <x-table.th>Título</x-table.th>
+        <x-table.th class="w-40">Unidade</x-table.th>
         <x-table.th class="w-32"></x-table.th>
     @endslot
 
@@ -12,10 +12,10 @@
             <x-table.tr>
                 <x-table.td>{{date('d/m/Y',strtotime($dbRequestCompleted->created_at))}}</x-table.td>
                 <x-table.td>{{$dbRequestCompleted->code}}</x-table.td>
-                <x-table.td>{{$dbRequestCompleted->count}}</x-table.td>
-                <x-table.td>{{$dbRequestCompleted->status}}</x-table.td>
+                <x-table.td>{{$dbRequestCompleted->title}}</x-table.td>
+                <x-table.td>{{$dbRequestCompleted->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonEdit route="{{route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$dbRequestCompleted->id])}}" />
+                    <x-button.minButtonEdit route="{{route('centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestCompleted->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestCompleted->id}}" title="Solicitação Nº {{$dbRequestCompleted->code}}">
                         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">

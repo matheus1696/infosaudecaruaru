@@ -332,6 +332,11 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Busca as solicitações em encaminhadas com paginação
         $dbRequestsForwardeds = InventoryWarehouseRequest::where('department_id',$id)
         ->where('status','=','Encaminhado')
+        ->get();        
+
+        // Busca as solicitações canceladas com paginação
+        $dbRequestsCompleteds = InventoryWarehouseRequest::where('department_id',$id)
+        ->where('status','=','Concluído')
         ->get();
 
         // Busca as solicitações canceladas com paginação
@@ -340,7 +345,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         ->get();
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
-        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestOpens','dbRequestsForwardeds','dbRequestsCanceleds'));
+        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestOpens','dbRequestsForwardeds','dbRequestsCompleteds','dbRequestsCanceleds'));
     } 
 
     /**

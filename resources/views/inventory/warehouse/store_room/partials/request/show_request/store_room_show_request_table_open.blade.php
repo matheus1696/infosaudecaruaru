@@ -1,4 +1,4 @@
-<x-table.table color="green">
+<x-table.table color="yellow">
     @slot('thead')
         <x-table.th class="w-40">Data Abertura</x-table.th>
         <x-table.th>Nº Solicitação</x-table.th>
@@ -18,7 +18,7 @@
                     <x-button.minButtonEdit route="{{route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$dbRequestOpen->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestOpen->id}}" title="Solicitação Nº {{$dbRequestOpen->code}}">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                             <p><strong>Nº da Solicitação:</strong> {{$dbRequestOpen->code}}</p>
                             <p><strong>Título:</strong> {{$dbRequestOpen->title ?? ""}}</p>
                             <p><strong>Estabelecimento:</strong> {{$dbRequestOpen->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</p>

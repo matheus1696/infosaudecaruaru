@@ -9,7 +9,6 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryWarehouseCenter;
-use App\Models\Inventory\InventoryWarehouseCenterEntry;
 use App\Models\Inventory\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\InventoryWarehouseRequest;
 use App\Models\Inventory\InventoryWarehouseRequestDetail;
@@ -209,57 +208,7 @@ class InventoryWarehouseCenterController extends Controller
         $db->quantity += $request['quantity'];
         $db->save();
 
-        // Verifica se já existe um registro do item nas informações de notas fiscais do departamento
-        $db = InventoryWarehouseCenterEntry::where('consumable_id', $request['consumable_id'])
-            ->where('department_id', $request['department_id'])
-            ->where('financial_block_id',$request['financial_block_id'])
-            ->where('invoice',$request['invoice'])
-            ->where('supply_order',$request['supply_order'])
-            ->where('supply_order_parcel',$request['supply_order_parcel'])
-            ->first();
-
-        // Se não existir, cria um novo registro de item no estoque
-        if (!$db) {
-            InventoryWarehouseCenterEntry::create($request->all());
-            return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
-        }
-
-        // Se já existir, atualiza a quantidade do item no estoque
-        $db->quantity += $request['quantity'];
-        $db->save();
-
         // Redireciona de volta para a página anterior com uma mensagem de sucesso
         return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function exitStore(StoreInventoryWarehouseCenterExitStoreRequest $request, string $id)
-    {
-        // Encontra o registro do item no estoque pelo ID
-        $db = InventoryWarehouseCenter::find($id);
-
-        // Subtrai a quantidade solicitada do estoque do item
-        $db->quantity -= $request['quantity'];
-        $db->save();
-
-        //Informando o Departamento que está encaminhando
-        $dbDepartment = CompanyEstablishmentDepartment::find($request['incoming_department_id']);
-
-        // Registra um histórico de movimentação para a saída do item
-        InventoryWarehouseCenterHistory::create([
-            'quantity' => $request['quantity'],
-            'movement' => 'Saída',
-            'consumable_id' => $db->consumable_id,
-            'incoming_department_id' => $dbDepartment->id,
-            'incoming_establishment_id' => $dbDepartment->establishment_id,
-            'output_department_id' => $db->department_id,
-            'output_establishment_id' => $db->establishment_id,
-            'user_id' => Auth::user()->id,
-        ]);
-
-        // Redireciona de volta para a página anterior
-        return redirect()->back();
     }
 }

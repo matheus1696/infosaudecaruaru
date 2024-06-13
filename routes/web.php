@@ -174,11 +174,11 @@ Route::middleware('auth')->group(function () {
                     Route::get('warehouse_center/{warehouse_center}/request/{request}',[InventoryWarehouseCenterController::class,'edit'])->name('warehouse_centers.edit');
                     Route::get('warehouse_center/{warehouse_center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse_centers.entryShow');
                     Route::put('warehouse_center/{warehouse_center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse_centers.entryStore');
-                    Route::put('warehouse_center/{warehouse_center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse_centers.exitStore');
                 });
 
                 //Grupo de Rotas - 
                 Route::prefix('request')->group(function (){
+                    //Verificar se essa rota não está obsoleta
                     Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
                     
                     //Rota - 

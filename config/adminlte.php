@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>InfoSaúde</b> Caruaru',
-    'logo_img' => 'assets/img/logo.png',
+    'logo_img' => 'assets/img/logo_rounded_white.png',
     'logo_img_class' => 'brand-image img-circle',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

@@ -191,7 +191,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('profiles', ProfileController::class);
 });
 
-Route::get('/',function(){return view('index');});
+Route::get('/',function(){return redirect()->route('login');});
 
 //Lista Telefônica
 Route::resource('contacts', ContactListsController::class);

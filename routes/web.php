@@ -27,7 +27,6 @@ use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\User\UsersController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseCenterController;
-use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseRequestController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 

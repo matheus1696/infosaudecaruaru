@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Administrador de Sistema',
             'filter'=>strtolower('Administrador de Sistema'),
-            'email'=>'sysadmin@techsupport.com.br',
+            'email'=>'sysadmin@infosaude.com.br',
             'contact_1'=>'(81) 0000-0000',
             'contact_2'=>'(81) 0000-0000',
             'birthday'=>'1990-12-31',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Administrador',
             'filter'=>strtolower('Administrador'),
-            'email'=>'admin@techsupport.com.br',
+            'email'=>'admin@infosaude.com.br',
             'contact_1'=>'(81) 0000-0000',
             'contact_2'=>'(81) 0000-0000',
             'birthday'=>'1990-12-31',
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Usuário',
             'filter'=>strtolower('Usuário'),
-            'email'=>'user@techsupport.com.br',
+            'email'=>'user@infosaude.com.br',
             'contact_1'=>'(81) 0000-0000',
             'contact_2'=>'(81) 0000-0000',
             'birthday'=>'1990-12-31',
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Verificar Email',
             'filter'=>strtolower('Verificar Email'),
-            'email'=>'ve@techsupport.com.br',
+            'email'=>'ve@infosaude.com.br',
             'contact_1'=>'(81) 0000-0000',
             'contact_2'=>'(81) 0000-0000',
             'birthday'=>'1990-12-31',

@@ -6,28 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{env('APP_NAME')}}</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .banner{
+            height: calc(100vh - 82px);
+            background-image: url(https://saudecaruaru.pe.gov.br/site/wp-content/uploads/2022/03/Adesivos-Mockup-1-980x450.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
 </head>
 
 <body>
     <main>
-        <video autoplay muted loop height="100%">
-            <source src="assets/img/wallpaper.mp4" type="video/mp4">
-        </video>
+        <header class="bg-green-800 text-white shadow-lg mb-4">
+            <nav class="flex flex-col md:flex-row justify-between items-center gap-3 px-2 md:px-12 py-4">
+                <div class="flex justify-center items-center gap-4">
+                    <span><img src="assets/img/logo_caruaru.png" alt="Logo InfoSaúde Caruaru" width="120"></span>
+                    <span class="text-lg md:text-xl pl-4 font-semibold border-l-2 border-white -mt-1.5 hidden md:inline-block">Secretaria de Saúde de Caruaru</span>
+                </div>
 
-        <section class="row justify-content-center align-items-center h-100">
-            <div class="text-center col-12">
-                <img src="assets/img/intellectusLogo.png" alt="" width="100" class="elevation-3">
-                <h1 class="p-2 text-light">{{env('APP_NAME')}}</h1>
-                <div class="row justify-content-center">
-                    <a href="{{route('login')}}" class="p-2 mx-2 mt-3 col-md-2 btn btn-sm btn-block btn-light elevation-3">Acessar Sistema</a>
-                    <a href="{{route('contacts.index')}}" class="p-2 mx-2 mt-3 col-md-2 btn btn-sm btn-block btn-light elevation-3">Contatos</a>
+                <ul class="flex flex-col md:flex-row justify-center items-center gap-8 py-1 text-sm">
+                    <li><a href="{{route('contacts.index')}}" class="hover:border-b border-white pb-1 transition-all ease-in-out duration-200">Contatos</a></li>
+                    <li><a href="{{route('login')}}" class="hover:border-b border-white pb-1 transition-all duration-200">Login</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="px-5">
+            <div class="flex gap-10">
+                <div class="flex-1">
+                    <article class="banner">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia delectus veniam provident aut sit tempora quae. Distinctio sed nihil, maxime ducimus libero, delectus tempore, repellendus commodi iusto et enim suscipit.
+                    </article>
+                </div>
+                <div class="flex flex-col w-40">
+                    <article class="w-full">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quae quidem autem ipsa, tenetur omnis! Voluptas nihil suscipit quaerat saepe error, maxime amet voluptatum ullam odio soluta tempora fugiat temporibus?
+                    </article>
                 </div>
             </div>
         </section>
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\User\UsersController;
+use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffCenterController;
+use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffStoreRoomController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseCenterController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -181,6 +183,44 @@ Route::middleware('auth')->group(function () {
                     Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('centers.requestConfirmedItem');
                     Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('centers.requestConfirmedAll');
                     Route::put('centers/{center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('centers.exitStore'); 
+                });
+            });
+
+            //Grupo de Rotas - FoodStuff
+            Route::prefix('foodstuff')->group(function (){                
+                //Grupo de Rotas - FoodStuff Store Room
+                Route::prefix('store_rooms')->group(function (){
+                    Route::get('store_rooms',[InventoryFoodstuffStoreRoomController::class,'index'])->name('store_rooms.index');
+                    Route::get('store_rooms/{store_room}/request/create',[InventoryFoodStuffStoreRoomController::class,'create'])->name('store_rooms.create');
+                    Route::get('store_room/{store_room}/show',[InventoryFoodStuffStoreRoomController::class,'show'])->name('store_rooms.show');
+                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryFoodStuffStoreRoomController::class,'edit'])->name('store_rooms.edit');                    
+                    Route::put('store_room/{store_room}/request/{request}',[InventoryFoodStuffStoreRoomController::class,'update'])->name('store_rooms.update');
+                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryFoodStuffStoreRoomController::class,'destroy'])->name('store_rooms.destroy');
+                    Route::get('store_rooms/{store_room}/requests',[InventoryFoodStuffStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
+                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryFoodStuffStoreRoomController::class,'createItem'])->name('store_rooms.createItem');
+                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryFoodStuffStoreRoomController::class,'updateItem'])->name('store_rooms.updateItem');
+                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryFoodStuffStoreRoomController::class,'destroyItem'])->name('store_rooms.destroyItem');
+                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryFoodStuffStoreRoomController::class,'createDefaultList'])->name('store_rooms.createDefaultList');
+                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryFoodStuffStoreRoomController::class,'destroyDefaultList'])->name('store_rooms.destroyDefaultList');
+                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryFoodStuffStoreRoomController::class,'receiptItem'])->name('store_rooms.receiptItem');
+                    Route::get('store_room/{store_room}/entryShow',[InventoryFoodStuffStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
+                    Route::put('store_room/{store_room}/entryStore',[InventoryFoodStuffStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
+                    Route::put('store_room/{store_room}/exitStore',[InventoryFoodStuffStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
+                });
+
+                //Grupo de Rotas - FoodStuff Center
+                Route::prefix('centers')->group(function (){
+                    Route::get('centers',[InventoryFoodstuffCenterController::class,'index'])->name('centers.index');
+                    Route::get('center/{center}',[InventoryFoodStuffCenterController::class,'show'])->name('centers.show');
+                    Route::get('center/{center}/request/{request}/edit',[InventoryFoodStuffCenterController::class,'edit'])->name('centers.edit');
+                    Route::put('center/{center}/request/{request}/update',[InventoryFoodStuffCenterController::class,'update'])->name('centers.update');
+                    Route::get('centers/{center}/requests',[InventoryFoodStuffCenterController::class,'requestShow'])->name('centers.requestShow');
+                    Route::get('center/{center}/entryShow',[InventoryFoodStuffCenterController::class,'entryShow'])->name('centers.entryShow');
+                    Route::put('center/{center}/entryStore',[InventoryFoodStuffCenterController::class,'entryStore'])->name('centers.entryStore');
+                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryFoodStuffCenterController::class,'requestCheckInventory'])->name('centers.requestCheckInventory');
+                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryFoodStuffCenterController::class,'requestConfirmedItem'])->name('centers.requestConfirmedItem');
+                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryFoodStuffCenterController::class,'requestConfirmedAll'])->name('centers.requestConfirmedAll');
+                    Route::put('centers/{center}/exitStore',[InventoryFoodStuffCenterController::class,'exitStore'])->name('centers.exitStore'); 
                 });
             });
         });

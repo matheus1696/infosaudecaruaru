@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Inventory;
+namespace App\Models\Inventory\Foodstuff;
 
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseCenterHistory extends Model
+class InventoryFoodstuffCenterHistory extends Model
 {
     use HasFactory;
 

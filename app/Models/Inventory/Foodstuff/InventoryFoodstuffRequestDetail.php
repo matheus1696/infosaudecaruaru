@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Inventory;
+namespace App\Models\Inventory\Foodstuff;
 
 use App\Models\Consumable\Consumable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseRequestDetail extends Model
+class InventoryFoodstuffRequestDetail extends Model
 {
     use HasFactory;
 
@@ -24,7 +24,7 @@ class InventoryWarehouseRequestDetail extends Model
         return $this->belongsTo(Consumable::class,'consumable_id','id')->orderBy('title');
     }
 
-    public function InventoryWarehouseRequest(){
-        return $this->belongsTo(InventoryWarehouseRequest::class,'store_room_request_id','id')->orderBy('title');
+    public function InventoryFoodstuffRequest(){
+        return $this->belongsTo(InventoryFoodstuffRequest::class,'store_room_request_id','id')->orderBy('title');
     }
 }

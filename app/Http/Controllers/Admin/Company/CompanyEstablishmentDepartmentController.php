@@ -128,7 +128,7 @@ class CompanyEstablishmentDepartmentController extends Controller
     public function hasInventory(Request $request, string $id)
     {
         //Dados dos Formulários
-        $data = $request->only('has_inventory_warehouse_store_room','has_inventory_warehouse_center','has_inventory_pharmacy_store_room','has_inventory_pharmacy_center');
+        $data = $request->only('has_inventory_warehouse_store_room','has_inventory_warehouse_center','has_inventory_pharmacy_store_room','has_inventory_pharmacy_center','has_inventory_foodstuff_store_room','has_inventory_foodstuff_center');
 
         if (count($data) == 0) {
             return redirect()->back()->with('error','Informação não encontrada.');

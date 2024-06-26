@@ -5,11 +5,13 @@
             <x-table.th class="w-32">Telefone</x-table.th>
             <x-table.th class="w-28">Ramal</x-table.th>
             <x-table.th class="w-32">Tipo de contato</x-table.th>
-            <x-table.th class="w-32">Almoxarifado</x-table.th>
-            <x-table.th class="w-32">Centro de Distribuição</x-table.th>
-            <x-table.th class="w-32">Farmácia</x-table.th>
-            <x-table.th class="w-32">CAF</x-table.th>
-            <x-table.th class="w-28"></x-table.th>
+            <x-table.th class="w-24">Estoque</x-table.th>
+            <x-table.th class="w-24">C.D.S.<sup class="text-gray-600">*1</sup></x-table.th>
+            <x-table.th class="w-24">Farmácia</x-table.th>
+            <x-table.th class="w-24">C.A.F.<sup class="text-gray-600">*2</sup></x-table.th>
+            <x-table.th class="w-24">Alimentos</x-table.th>
+            <x-table.th class="w-24">C.D.G.A.<sup class="text-gray-600">*3</sup></x-table.th>
+            <x-table.th class="w-32"></x-table.th>
         @endslot
     
         @slot('tbody')
@@ -34,6 +36,12 @@
                     </x-table.td>                  
                     <x-table.td>
                         <x-button.buttonStatus condition="{{$dbDepartment->has_inventory_pharmacy_center}}" name="has_inventory_pharmacy_center" route="{{route('establishment_departments.hasInventory',['establishment_department'=>$dbDepartment->id])}}" />
+                    </x-table.td>                 
+                    <x-table.td>
+                        <x-button.buttonStatus condition="{{$dbDepartment->has_inventory_foodstuff_store_room}}" name="has_inventory_foodstuff_store_room" route="{{route('establishment_departments.hasInventory',['establishment_department'=>$dbDepartment->id])}}" />
+                    </x-table.td>                  
+                    <x-table.td>
+                        <x-button.buttonStatus condition="{{$dbDepartment->has_inventory_foodstuff_center}}" name="has_inventory_foodstuff_center" route="{{route('establishment_departments.hasInventory',['establishment_department'=>$dbDepartment->id])}}" />
                     </x-table.td> 
                     <x-table.td class="text-center">
                         
@@ -61,4 +69,11 @@
             @endforeach
         @endslot
     </x-table.table>
+    <div>
+        <p class="py-2 text-xs text-center text-gray-400">
+            <sup>*1</sup> C.D.S: Centro de Distribuição de Suprimentos, 
+            <sup>*2</sup> C.A.F. Centro de Distribuição Farmacêutica, 
+            <sup>*3</sup> C.D.G.A Centro de Distribuição de Gêneros Alimentícios
+        </p>
+    </div>
 </div>

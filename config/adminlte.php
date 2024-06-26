@@ -313,15 +313,23 @@ return [
                 [
                     'text'    => 'Almoxarifado',
                     'classes' => 'btn-sm',
-                    'route'   => 'store_rooms.index',
+                    'route'   => 'warehouse.store_rooms.index',
                     'icon'    => 'fas fa-box pr-2',
                     'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
                 ],
                 
                 [
+                    'text'    => 'Alimentos',
+                    'classes' => 'btn-sm',
+                    'route'   => 'foodstuff.store_rooms.index',
+                    'icon'    => 'fas fa-drumstick-bite pr-2',
+                    'can'     => ['inventory_foodstuff_store_room','sysadmin','admin'],
+                ],
+                
+                [
                     'text'    => 'Farmácia',
                     'classes' => 'btn-sm',
-                    'route'   => 'standard_requests.index',
+                    'route'   => 'pharmacy.store_rooms.index',
                     'icon'    => 'fas fa-pills pr-2',
                     'can'     => ['inventory_pharmacy_store_room','sysadmin','admin'],
                 ],
@@ -339,15 +347,23 @@ return [
                 [
                     'text'    => 'Almoxarifado Central',
                     'classes' => 'btn-sm',
-                    'route'   => 'centers.index',
+                    'route'   => 'warehouse.centers.index',
                     'icon'    => 'fas fa-warehouse pr-2',
+                    'can'     => ['inventory_warehouse_center','sysadmin','admin'],
+                ],
+
+                [
+                    'text'    => 'Gêneros Alimentícios',
+                    'classes' => 'btn-sm',
+                    'route'   => 'foodstuff.centers.index',
+                    'icon'    => 'fas fa-drumstick-bite pr-2',
                     'can'     => ['inventory_warehouse_center','sysadmin','admin'],
                 ],
                 
                 [
                     'text'    => 'Abastecimento Farmacêutico',
                     'classes' => 'btn-sm',
-                    'route'   => 'standard_requests.index',
+                    'route'   => 'pharmacy.centers.index',
                     'icon'    => 'fas fa-pills pr-2',
                     'can'     => ['inventory_pharmacy_center','sysadmin','admin'],
                 ],

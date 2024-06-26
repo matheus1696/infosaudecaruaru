@@ -148,41 +148,42 @@ Route::middleware('auth')->group(function () {
 
         //Grupo de Rotas - Inventários/Estoques
         Route::prefix('inventory')->group(function (){
+
             //Grupo de Rotas - Warehouse
             Route::prefix('warehouse')->group(function (){                
                 //Grupo de Rotas - Warehouse Store Room
                 Route::prefix('store_rooms')->group(function (){
-                    Route::get('store_rooms',[InventoryWarehouseStoreRoomController::class,'index'])->name('store_rooms.index');
-                    Route::get('store_rooms/{store_room}/request/create',[InventoryWarehouseStoreRoomController::class,'create'])->name('store_rooms.create');
-                    Route::get('store_room/{store_room}/show',[InventoryWarehouseStoreRoomController::class,'show'])->name('store_rooms.show');
-                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryWarehouseStoreRoomController::class,'edit'])->name('store_rooms.edit');                    
-                    Route::put('store_room/{store_room}/request/{request}',[InventoryWarehouseStoreRoomController::class,'update'])->name('store_rooms.update');
-                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryWarehouseStoreRoomController::class,'destroy'])->name('store_rooms.destroy');
-                    Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
-                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryWarehouseStoreRoomController::class,'createItem'])->name('store_rooms.createItem');
-                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryWarehouseStoreRoomController::class,'updateItem'])->name('store_rooms.updateItem');
-                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryWarehouseStoreRoomController::class,'destroyItem'])->name('store_rooms.destroyItem');
-                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryWarehouseStoreRoomController::class,'createDefaultList'])->name('store_rooms.createDefaultList');
-                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryWarehouseStoreRoomController::class,'destroyDefaultList'])->name('store_rooms.destroyDefaultList');
-                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryWarehouseStoreRoomController::class,'receiptItem'])->name('store_rooms.receiptItem');
-                    Route::get('store_room/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
-                    Route::put('store_room/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
-                    Route::put('store_room/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
+                    Route::get('store_rooms',[InventoryWarehouseStoreRoomController::class,'index'])->name('warehouse.store_rooms.index');
+                    Route::get('store_rooms/{store_room}/request/create',[InventoryWarehouseStoreRoomController::class,'create'])->name('warehouse.store_rooms.create');
+                    Route::get('store_room/{store_room}/show',[InventoryWarehouseStoreRoomController::class,'show'])->name('warehouse.store_rooms.show');
+                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryWarehouseStoreRoomController::class,'edit'])->name('warehouse.store_rooms.edit');                    
+                    Route::put('store_room/{store_room}/request/{request}',[InventoryWarehouseStoreRoomController::class,'update'])->name('warehouse.store_rooms.update');
+                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryWarehouseStoreRoomController::class,'destroy'])->name('warehouse.store_rooms.destroy');
+                    Route::get('store_rooms/{store_room}/requests',[InventoryWarehouseStoreRoomController::class,'requestShow'])->name('warehouse.store_rooms.requestShow');
+                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryWarehouseStoreRoomController::class,'createItem'])->name('warehouse.store_rooms.createItem');
+                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryWarehouseStoreRoomController::class,'updateItem'])->name('warehouse.store_rooms.updateItem');
+                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryWarehouseStoreRoomController::class,'destroyItem'])->name('warehouse.store_rooms.destroyItem');
+                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryWarehouseStoreRoomController::class,'createDefaultList'])->name('warehouse.store_rooms.createDefaultList');
+                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryWarehouseStoreRoomController::class,'destroyDefaultList'])->name('warehouse.store_rooms.destroyDefaultList');
+                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryWarehouseStoreRoomController::class,'receiptItem'])->name('warehouse.store_rooms.receiptItem');
+                    Route::get('store_room/{store_room}/entryShow',[InventoryWarehouseStoreRoomController::class,'entryShow'])->name('warehouse.store_rooms.entryShow');
+                    Route::put('store_room/{store_room}/entryStore',[InventoryWarehouseStoreRoomController::class,'entryStore'])->name('warehouse.store_rooms.entryStore');
+                    Route::put('store_room/{store_room}/exitStore',[InventoryWarehouseStoreRoomController::class,'exitStore'])->name('warehouse.store_rooms.exitStore');
                 });
 
                 //Grupo de Rotas - Warehouse Center
                 Route::prefix('centers')->group(function (){
-                    Route::get('centers',[InventoryWarehouseCenterController::class,'index'])->name('centers.index');
-                    Route::get('center/{center}',[InventoryWarehouseCenterController::class,'show'])->name('centers.show');
-                    Route::get('center/{center}/request/{request}/edit',[InventoryWarehouseCenterController::class,'edit'])->name('centers.edit');
-                    Route::put('center/{center}/request/{request}/update',[InventoryWarehouseCenterController::class,'update'])->name('centers.update');
-                    Route::get('centers/{center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('centers.requestShow');
-                    Route::get('center/{center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('centers.entryShow');
-                    Route::put('center/{center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('centers.entryStore');
-                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryWarehouseCenterController::class,'requestCheckInventory'])->name('centers.requestCheckInventory');
-                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('centers.requestConfirmedItem');
-                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('centers.requestConfirmedAll');
-                    Route::put('centers/{center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('centers.exitStore'); 
+                    Route::get('centers',[InventoryWarehouseCenterController::class,'index'])->name('warehouse.centers.index');
+                    Route::get('center/{center}',[InventoryWarehouseCenterController::class,'show'])->name('warehouse.centers.show');
+                    Route::get('center/{center}/request/{request}/edit',[InventoryWarehouseCenterController::class,'edit'])->name('warehouse.centers.edit');
+                    Route::put('center/{center}/request/{request}/update',[InventoryWarehouseCenterController::class,'update'])->name('warehouse.centers.update');
+                    Route::get('centers/{center}/requests',[InventoryWarehouseCenterController::class,'requestShow'])->name('warehouse.centers.requestShow');
+                    Route::get('center/{center}/entryShow',[InventoryWarehouseCenterController::class,'entryShow'])->name('warehouse.centers.entryShow');
+                    Route::put('center/{center}/entryStore',[InventoryWarehouseCenterController::class,'entryStore'])->name('warehouse.centers.entryStore');
+                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryWarehouseCenterController::class,'requestCheckInventory'])->name('warehouse.centers.requestCheckInventory');
+                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryWarehouseCenterController::class,'requestConfirmedItem'])->name('warehouse.centers.requestConfirmedItem');
+                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryWarehouseCenterController::class,'requestConfirmedAll'])->name('warehouse.centers.requestConfirmedAll');
+                    Route::put('centers/{center}/exitStore',[InventoryWarehouseCenterController::class,'exitStore'])->name('warehouse.centers.exitStore'); 
                 });
             });
 
@@ -190,37 +191,75 @@ Route::middleware('auth')->group(function () {
             Route::prefix('foodstuff')->group(function (){                
                 //Grupo de Rotas - FoodStuff Store Room
                 Route::prefix('store_rooms')->group(function (){
-                    Route::get('store_rooms',[InventoryFoodstuffStoreRoomController::class,'index'])->name('store_rooms.index');
-                    Route::get('store_rooms/{store_room}/request/create',[InventoryFoodStuffStoreRoomController::class,'create'])->name('store_rooms.create');
-                    Route::get('store_room/{store_room}/show',[InventoryFoodStuffStoreRoomController::class,'show'])->name('store_rooms.show');
-                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryFoodStuffStoreRoomController::class,'edit'])->name('store_rooms.edit');                    
-                    Route::put('store_room/{store_room}/request/{request}',[InventoryFoodStuffStoreRoomController::class,'update'])->name('store_rooms.update');
-                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryFoodStuffStoreRoomController::class,'destroy'])->name('store_rooms.destroy');
-                    Route::get('store_rooms/{store_room}/requests',[InventoryFoodStuffStoreRoomController::class,'requestShow'])->name('store_rooms.requestShow');
-                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryFoodStuffStoreRoomController::class,'createItem'])->name('store_rooms.createItem');
-                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryFoodStuffStoreRoomController::class,'updateItem'])->name('store_rooms.updateItem');
-                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryFoodStuffStoreRoomController::class,'destroyItem'])->name('store_rooms.destroyItem');
-                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryFoodStuffStoreRoomController::class,'createDefaultList'])->name('store_rooms.createDefaultList');
-                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryFoodStuffStoreRoomController::class,'destroyDefaultList'])->name('store_rooms.destroyDefaultList');
-                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryFoodStuffStoreRoomController::class,'receiptItem'])->name('store_rooms.receiptItem');
-                    Route::get('store_room/{store_room}/entryShow',[InventoryFoodStuffStoreRoomController::class,'entryShow'])->name('store_rooms.entryShow');
-                    Route::put('store_room/{store_room}/entryStore',[InventoryFoodStuffStoreRoomController::class,'entryStore'])->name('store_rooms.entryStore');
-                    Route::put('store_room/{store_room}/exitStore',[InventoryFoodStuffStoreRoomController::class,'exitStore'])->name('store_rooms.exitStore');
+                    Route::get('store_rooms',[InventoryFoodstuffStoreRoomController::class,'index'])->name('foodstuff.store_rooms.index');
+                    Route::get('store_rooms/{store_room}/request/create',[InventoryFoodStuffStoreRoomController::class,'create'])->name('foodstuff.store_rooms.create');
+                    Route::get('store_room/{store_room}/show',[InventoryFoodStuffStoreRoomController::class,'show'])->name('foodstuff.store_rooms.show');
+                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryFoodStuffStoreRoomController::class,'edit'])->name('foodstuff.store_rooms.edit');                    
+                    Route::put('store_room/{store_room}/request/{request}',[InventoryFoodStuffStoreRoomController::class,'update'])->name('foodstuff.store_rooms.update');
+                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryFoodStuffStoreRoomController::class,'destroy'])->name('foodstuff.store_rooms.destroy');
+                    Route::get('store_rooms/{store_room}/requests',[InventoryFoodStuffStoreRoomController::class,'requestShow'])->name('foodstuff.store_rooms.requestShow');
+                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryFoodStuffStoreRoomController::class,'createItem'])->name('foodstuff.store_rooms.createItem');
+                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryFoodStuffStoreRoomController::class,'updateItem'])->name('foodstuff.store_rooms.updateItem');
+                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryFoodStuffStoreRoomController::class,'destroyItem'])->name('foodstuff.store_rooms.destroyItem');
+                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryFoodStuffStoreRoomController::class,'createDefaultList'])->name('foodstuff.store_rooms.createDefaultList');
+                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryFoodStuffStoreRoomController::class,'destroyDefaultList'])->name('foodstuff.store_rooms.destroyDefaultList');
+                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryFoodStuffStoreRoomController::class,'receiptItem'])->name('foodstuff.store_rooms.receiptItem');
+                    Route::get('store_room/{store_room}/entryShow',[InventoryFoodStuffStoreRoomController::class,'entryShow'])->name('foodstuff.store_rooms.entryShow');
+                    Route::put('store_room/{store_room}/entryStore',[InventoryFoodStuffStoreRoomController::class,'entryStore'])->name('foodstuff.store_rooms.entryStore');
+                    Route::put('store_room/{store_room}/exitStore',[InventoryFoodStuffStoreRoomController::class,'exitStore'])->name('foodstuff.store_rooms.exitStore');
                 });
 
                 //Grupo de Rotas - FoodStuff Center
                 Route::prefix('centers')->group(function (){
-                    Route::get('centers',[InventoryFoodstuffCenterController::class,'index'])->name('centers.index');
-                    Route::get('center/{center}',[InventoryFoodStuffCenterController::class,'show'])->name('centers.show');
-                    Route::get('center/{center}/request/{request}/edit',[InventoryFoodStuffCenterController::class,'edit'])->name('centers.edit');
-                    Route::put('center/{center}/request/{request}/update',[InventoryFoodStuffCenterController::class,'update'])->name('centers.update');
-                    Route::get('centers/{center}/requests',[InventoryFoodStuffCenterController::class,'requestShow'])->name('centers.requestShow');
-                    Route::get('center/{center}/entryShow',[InventoryFoodStuffCenterController::class,'entryShow'])->name('centers.entryShow');
-                    Route::put('center/{center}/entryStore',[InventoryFoodStuffCenterController::class,'entryStore'])->name('centers.entryStore');
-                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryFoodStuffCenterController::class,'requestCheckInventory'])->name('centers.requestCheckInventory');
-                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryFoodStuffCenterController::class,'requestConfirmedItem'])->name('centers.requestConfirmedItem');
-                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryFoodStuffCenterController::class,'requestConfirmedAll'])->name('centers.requestConfirmedAll');
-                    Route::put('centers/{center}/exitStore',[InventoryFoodStuffCenterController::class,'exitStore'])->name('centers.exitStore'); 
+                    Route::get('centers',[InventoryFoodstuffCenterController::class,'index'])->name('foodstuff.centers.index');
+                    Route::get('center/{center}',[InventoryFoodStuffCenterController::class,'show'])->name('foodstuff.centers.show');
+                    Route::get('center/{center}/request/{request}/edit',[InventoryFoodStuffCenterController::class,'edit'])->name('foodstuff.centers.edit');
+                    Route::put('center/{center}/request/{request}/update',[InventoryFoodStuffCenterController::class,'update'])->name('foodstuff.centers.update');
+                    Route::get('centers/{center}/requests',[InventoryFoodStuffCenterController::class,'requestShow'])->name('foodstuff.centers.requestShow');
+                    Route::get('center/{center}/entryShow',[InventoryFoodStuffCenterController::class,'entryShow'])->name('foodstuff.centers.entryShow');
+                    Route::put('center/{center}/entryStore',[InventoryFoodStuffCenterController::class,'entryStore'])->name('foodstuff.centers.entryStore');
+                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryFoodStuffCenterController::class,'requestCheckInventory'])->name('foodstuff.centers.requestCheckInventory');
+                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryFoodStuffCenterController::class,'requestConfirmedItem'])->name('foodstuff.centers.requestConfirmedItem');
+                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryFoodStuffCenterController::class,'requestConfirmedAll'])->name('foodstuff.centers.requestConfirmedAll');
+                    Route::put('centers/{center}/exitStore',[InventoryFoodStuffCenterController::class,'exitStore'])->name('foodstuff.centers.exitStore'); 
+                });
+            });
+
+            //Grupo de Rotas - FoodStuff
+            Route::prefix('pharmacy')->group(function (){                
+                //Grupo de Rotas - FoodStuff Store Room
+                Route::prefix('store_rooms')->group(function (){
+                    Route::get('store_rooms',[InventoryStoreRoomController::class,'index'])->name('pharmacy.store_rooms.index');
+                    Route::get('store_rooms/{store_room}/request/create',[InventoryStoreRoomController::class,'create'])->name('pharmacy.store_rooms.create');
+                    Route::get('store_room/{store_room}/show',[InventoryStoreRoomController::class,'show'])->name('pharmacy.store_rooms.show');
+                    Route::get('store_room/{store_room}/request/{request}/edit',[InventoryStoreRoomController::class,'edit'])->name('pharmacy.store_rooms.edit');                    
+                    Route::put('store_room/{store_room}/request/{request}',[InventoryStoreRoomController::class,'update'])->name('pharmacy.store_rooms.update');
+                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryStoreRoomController::class,'destroy'])->name('pharmacy.store_rooms.destroy');
+                    Route::get('store_rooms/{store_room}/requests',[InventoryStoreRoomController::class,'requestShow'])->name('pharmacy.store_rooms.requestShow');
+                    Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryStoreRoomController::class,'createItem'])->name('pharmacy.store_rooms.createItem');
+                    Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryStoreRoomController::class,'updateItem'])->name('pharmacy.store_rooms.updateItem');
+                    Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryStoreRoomController::class,'destroyItem'])->name('pharmacy.store_rooms.destroyItem');
+                    Route::post('store_rooms/{store_room}/request/{request}/createDefaultList',[InventoryStoreRoomController::class,'createDefaultList'])->name('pharmacy.store_rooms.createDefaultList');
+                    Route::post('store_rooms/{store_room}/request/{request}/destroyDefaultList',[InventoryStoreRoomController::class,'destroyDefaultList'])->name('pharmacy.store_rooms.destroyDefaultList');
+                    Route::put('store_rooms/{store_room}/request/{request}/receiptItem',[InventoryStoreRoomController::class,'receiptItem'])->name('pharmacy.store_rooms.receiptItem');
+                    Route::get('store_room/{store_room}/entryShow',[InventoryStoreRoomController::class,'entryShow'])->name('pharmacy.store_rooms.entryShow');
+                    Route::put('store_room/{store_room}/entryStore',[InventoryStoreRoomController::class,'entryStore'])->name('pharmacy.store_rooms.entryStore');
+                    Route::put('store_room/{store_room}/exitStore',[InventoryStoreRoomController::class,'exitStore'])->name('pharmacy.store_rooms.exitStore');
+                });
+
+                //Grupo de Rotas - FoodStuff Center
+                Route::prefix('centers')->group(function (){
+                    Route::get('centers',[InventoryPharmacyCenterController::class,'index'])->name('pharmacy.centers.index');
+                    Route::get('center/{center}',[InventoryPharmacyCenterController::class,'show'])->name('pharmacy.centers.show');
+                    Route::get('center/{center}/request/{request}/edit',[InventoryPharmacyCenterController::class,'edit'])->name('pharmacy.centers.edit');
+                    Route::put('center/{center}/request/{request}/update',[InventoryPharmacyCenterController::class,'update'])->name('pharmacy.centers.update');
+                    Route::get('centers/{center}/requests',[InventoryPharmacyCenterController::class,'requestShow'])->name('pharmacy.centers.requestShow');
+                    Route::get('center/{center}/entryShow',[InventoryPharmacyCenterController::class,'entryShow'])->name('pharmacy.centers.entryShow');
+                    Route::put('center/{center}/entryStore',[InventoryPharmacyCenterController::class,'entryStore'])->name('pharmacy.centers.entryStore');
+                    Route::post('centers/{center}/requests/{request}/checkInventory',[InventoryPharmacyCenterController::class,'requestCheckInventory'])->name('pharmacy.centers.requestCheckInventory');
+                    Route::put('centers/{center}/request/{request}/confirmedItem',[InventoryPharmacyCenterController::class,'requestConfirmedItem'])->name('pharmacy.centers.requestConfirmedItem');
+                    Route::put('centers/{center}/requests/{request}/confirmedAll',[InventoryPharmacyCenterController::class,'requestConfirmedAll'])->name('pharmacy.centers.requestConfirmedAll');
+                    Route::put('centers/{center}/exitStore',[InventoryPharmacyCenterController::class,'exitStore'])->name('pharmacy.centers.exitStore'); 
                 });
             });
         });

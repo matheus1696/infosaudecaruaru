@@ -5,7 +5,7 @@ namespace App\Models\Inventory\Foodstuff;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyFinancialBlock;
-use App\Models\Consumable\Consumable;
+use App\Models\Food\Food;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,14 +17,14 @@ class InventoryFoodstuffCenter extends Model
         'quantity',
         'quantity_minimum',
         'quantity_maximum',
-        'consumable_id',
+        'food_id',
         'department_id',
         'establishment_id',
         'financial_block_id',
     ];
 
-    public function Consumable(){
-        return $this->belongsTo(Consumable::class,'consumable_id','id');
+    public function Food(){
+        return $this->belongsTo(Food::class,'food_id','id');
     }
 
     public function CompanyEstablishment(){

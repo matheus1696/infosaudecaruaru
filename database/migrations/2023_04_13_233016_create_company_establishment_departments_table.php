@@ -23,6 +23,8 @@ return new class extends Migration
             $table->boolean('has_inventory_warehouse_center')->default(false);
             $table->boolean('has_inventory_pharmacy_store_room')->default(false);
             $table->boolean('has_inventory_pharmacy_center')->default(false);
+            $table->boolean('has_inventory_foodstuff_store_room')->default(false);
+            $table->boolean('has_inventory_foodstuff_center')->default(false);
             $table->timestamps();
 
             $table->foreign('establishment_id')->references('id')->on('company_establishments');

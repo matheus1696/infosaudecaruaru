@@ -1,0 +1,1 @@
+<x-button.minButtonDelete route="{{route('store_rooms.destroyItem',['store_room'=>$db->department_id,'request'=>$dbRequestDetail->id])}}" />

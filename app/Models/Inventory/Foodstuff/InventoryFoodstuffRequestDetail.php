@@ -2,7 +2,7 @@
 
 namespace App\Models\Inventory\Foodstuff;
 
-use App\Models\Consumable\Consumable;
+use App\Models\Food\Food;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +16,12 @@ class InventoryFoodstuffRequestDetail extends Model
         'quantity_current',
         'quantity_forwarded',
         'confirmed',
-        'consumable_id',
+        'food_id',
         'store_room_request_id',
     ];
 
-    public function Consumable(){
-        return $this->belongsTo(Consumable::class,'consumable_id','id')->orderBy('title');
+    public function Food(){
+        return $this->belongsTo(Food::class,'food_id','id')->orderBy('title');
     }
 
     public function InventoryFoodstuffRequest(){

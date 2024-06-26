@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Inventory\InventoryWarehouseStandardRequestList;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequestList;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

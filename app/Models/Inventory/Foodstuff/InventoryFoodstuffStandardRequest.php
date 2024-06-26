@@ -2,7 +2,7 @@
 
 namespace App\Models\Inventory\Foodstuff;
 
-use App\Models\Consumable\ConsumableType;
+use App\Models\Food\FoodType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +12,11 @@ class InventoryFoodstuffStandardRequest extends Model
 
     protected $fillable = [
         'title',
-        'consumable_type_id',
+        'food_type_id',
         'status',
     ];
 
-    public function ConsumableType(){
-        return $this->belongsTo(ConsumableType::class,'consumable_type_id','id');
+    public function FoodType(){
+        return $this->belongsTo(FoodType::class,'food_type_id','id');
     }
 }

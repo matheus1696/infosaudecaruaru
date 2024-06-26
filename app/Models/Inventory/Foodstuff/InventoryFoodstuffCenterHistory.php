@@ -4,7 +4,7 @@ namespace App\Models\Inventory\Foodstuff;
 
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
-use App\Models\Consumable\Consumable;
+use App\Models\Food\Food;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +20,7 @@ class InventoryFoodstuffCenterHistory extends Model
         'supply_company',
         'quantity',
         'movement',
-        'consumable_id',
+        'food_id',
         'incoming_department_id',
         'incoming_establishment_id',
         'output_department_id',
@@ -29,8 +29,8 @@ class InventoryFoodstuffCenterHistory extends Model
         'user_id'
     ];
 
-    public function Consumable(){
-        return $this->belongsTo(Consumable::class,'consumable_id','id');
+    public function Food(){
+        return $this->belongsTo(Food::class,'food_id','id');
     }
 
     public function CompanyEstablishmentIncoming(){

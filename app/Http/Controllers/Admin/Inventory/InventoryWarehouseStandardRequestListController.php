@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin\Inventory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\StoreInventoryWarehouseStandardRequestListRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\UpdateInventoryWarehouseStandardRequestListRequest;
-use App\Models\Inventory\InventoryWarehouseStandardRequest;
-use App\Models\Inventory\InventoryWarehouseStandardRequestList;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequestList;
 
 class InventoryWarehouseStandardRequestListController extends Controller
 {

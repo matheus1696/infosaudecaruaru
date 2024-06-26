@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Inventory;
+namespace App\Models\Inventory\Foodstuff;
 
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseRequest extends Model
+class InventoryFoodstuffRequest extends Model
 {
     use HasFactory;
 

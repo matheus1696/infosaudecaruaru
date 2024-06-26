@@ -7,8 +7,8 @@ use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\Store
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStandardRequest\UpdateInventoryWarehouseStandardRequestRequest;
 use App\Models\Consumable\Consumable;
 use App\Models\Consumable\ConsumableType;
-use App\Models\Inventory\InventoryWarehouseStandardRequest;
-use App\Models\Inventory\InventoryWarehouseStandardRequestList;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequest;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequestList;
 use App\Services\Logger;
 use Illuminate\Http\Request;
 

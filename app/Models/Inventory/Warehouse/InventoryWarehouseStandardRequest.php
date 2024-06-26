@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Inventory;
+namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Consumable\ConsumableType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

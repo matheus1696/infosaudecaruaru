@@ -2,17 +2,17 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Entrada Avulsa de Suprimento"
-            routeBack="{{route('store_rooms.requestShow',['store_room'=>$db->id])}}"
+            title="Entrada Avulsa de Alimentos"
+            routeBack="{{route('foodstuff.store_rooms.requestShow',['store_room'=>$db->id])}}"
         />
     @endslot
         
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            @include('inventory.warehouse.store_room.partials.entry.store_room_entry_form')
+            @include('inventory.foodstuff.store_room.partials.entry.store_room_entry_form')
         </x-conteiner>
         <hr>
-        @include('inventory.warehouse.store_room.partials.entry.store_room_entry_table')
+        @include('inventory.foodstuff.store_room.partials.entry.store_room_entry_table')
     @endslot
 </x-pages.index>

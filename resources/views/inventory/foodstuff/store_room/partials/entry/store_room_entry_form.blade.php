@@ -1,5 +1,5 @@
 
-<x-form.form method="edit" route="{{route('store_rooms.entryStore',['store_room'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
+<x-form.form method="edit" route="{{route('foodstuff.store_rooms.entryStore',['store_room'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
 
     <x-form.select col="10" label="Tipo dos Suprimentos" id="consumable_id" name="consumable_id">
         @foreach ($dbConsumables as $dbConsumable)

@@ -1,6 +1,6 @@
 <!-- Excluir itens cadastrados -->
 <div class="inline-block">
-    <form action="{{route('store_rooms.destroyDefaultList',['store_room'=>$db->department_id,'request'=>$db->id])}}" method="post" class="d-inline-block">
+    <form action="{{route('foodstuff.store_rooms.destroyDefaultList',['store_room'=>$db->department_id,'request'=>$db->id])}}" method="post" class="d-inline-block">
         @csrf
         <input hidden name="standardRequestDestroy" value="true">
         <button

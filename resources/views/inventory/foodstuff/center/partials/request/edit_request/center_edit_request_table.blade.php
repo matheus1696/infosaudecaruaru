@@ -18,10 +18,10 @@
             <x-table.tr>
                 <x-table.td>{{$dbRequestDetail->Consumable->title}}</x-table.td>
                 <x-table.td class="bg-sky-100">
-                    @foreach ($dbWarehouseInventories as $dbWarehouseInventory)
-                        @if ($dbWarehouseInventory->consumable_id == $dbRequestDetail->consumable_id)
-                            @if ($dbWarehouseInventory->quantity > 0)
-                                {{$dbWarehouseInventory->quantity}}
+                    @foreach ($dbFoodstuffInventories as $dbFoodstuffInventory)
+                        @if ($dbFoodstuffInventory->consumable_id == $dbRequestDetail->consumable_id)
+                            @if ($dbFoodstuffInventory->quantity > 0)
+                                {{$dbFoodstuffInventory->quantity}}
                             @else
                                 0
                             @endif                                
@@ -32,7 +32,7 @@
                 <x-table.td>{{$dbRequestDetail->quantity_current}}</x-table.td>
                 <x-table.td>{{$dbRequestDetail->quantity}}</x-table.td>
                 <x-table.td class="bg-yellow-100">{{$dbRequestDetail->quantity_forwarded}}</x-table.td>
-                @include('inventory.warehouse.center.partials.request.edit_request.center_edit_request_table_button_group')
+                @include('inventory.foodstuff.center.partials.request.edit_request.center_edit_request_table_button_group')
             </x-table.tr>
         @endforeach
     @endslot

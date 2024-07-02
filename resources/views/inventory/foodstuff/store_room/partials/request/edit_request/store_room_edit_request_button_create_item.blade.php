@@ -16,7 +16,7 @@
                     </button>
                 </div>
                 <div class="m-4 modal-body">
-                    <x-form.form method="create" route="{{route('store_rooms.createItem',['store_room'=>$db->department_id,'request'=>$db->id])}}" color="green">
+                    <x-form.form method="create" route="{{route('foodstuff.store_rooms.createItem',['store_room'=>$db->department_id,'request'=>$db->id])}}" color="green">
                         <x-form.select col="9" label="Suprimentos" id="consumable_id" name="consumable_id">
                             @foreach ($dbConsumables as $dbConsumable)
                                 <option value="{{$dbConsumable->id}}">{{$dbConsumable->title}}</option>

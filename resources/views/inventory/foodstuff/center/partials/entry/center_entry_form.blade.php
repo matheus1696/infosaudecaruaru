@@ -1,5 +1,5 @@
 
-<x-form.form method="edit" route="{{route('centers.entryStore',['center'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
+<x-form.form method="edit" route="{{route('foodstuff.centers.entryStore',['center'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
     
     <x-form.input col="2" label="Nota Fiscal" id="invoice" name="invoice"/>
     <x-form.input col="2" label="O.F." id="supply_order" name="supply_order"/>

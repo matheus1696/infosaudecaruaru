@@ -15,7 +15,7 @@
                 <x-table.td>{{$dbRequestOpen->title}}</x-table.td>
                 <x-table.td>{{$dbRequestOpen->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonEdit route="{{route('centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestOpen->id])}}" />
+                    <x-button.minButtonEdit route="{{route('foodstuff.centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestOpen->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestOpen->id}}" title="Solicitação Nº {{$dbRequestOpen->code}}">
                         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">

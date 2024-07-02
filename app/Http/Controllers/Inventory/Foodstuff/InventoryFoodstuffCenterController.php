@@ -30,7 +30,7 @@ class InventoryFoodstuffCenterController extends Controller
     public function index()
     {
         // Rgistros com relacionamentos paginando os resultados
-        $db = CompanyEstablishmentDepartment::where('has_inventory_foodstuff_center',TRUE)
+        $dbDepartment = CompanyEstablishmentDepartment::where('has_inventory_foodstuff_center',TRUE)
             ->with('CompanyEstablishment')
             ->paginate(50);
 

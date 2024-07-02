@@ -21,6 +21,8 @@ class CompanyEstablishmentDepartment extends Model
         'has_inventory_warehouse_center',
         'has_inventory_pharmacy_store_room',
         'has_inventory_pharmacy_center',
+        'has_inventory_foodstuff_store_room',
+        'has_inventory_foodstuff_center',
         'establishment_id'
     ];
 

@@ -1,6 +1,6 @@
 <!-- Confirmar Entrega do Pedido -->
 <div class="inline-block">
-    <form action="{{route('centers.requestConfirmedAll',['center'=>$dbDepartment->id,'request'=>$db->id])}}" method="post" class="d-inline-block">
+    <form action="{{route('foodstuff.centers.requestConfirmedAll',['center'=>$dbDepartment->id,'request'=>$db->id])}}" method="post" class="d-inline-block">
         @csrf @method('PUT')
         <button
             type="submit"

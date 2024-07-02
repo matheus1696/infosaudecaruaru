@@ -21,7 +21,7 @@
                     </button>
                 </div>
                 <div class="m-4 modal-body">
-                    <x-form.form method="create" route="{{route('store_rooms.createDefaultList',['store_room'=>$db->department_id,'request'=>$db->id])}}" title="Adicionar Itens">
+                    <x-form.form method="create" route="{{route('foodstuff.store_rooms.createDefaultList',['store_room'=>$db->department_id,'request'=>$db->id])}}" title="Adicionar Itens">
                         <x-form.select col="12" label="Lista de Solicitações Padrões" id="standard_request" name="standard_request">
                             @foreach ($dbStandardRequests as $dbStandardRequest)
                                 <option value="{{$dbStandardRequest->id}}">

@@ -15,7 +15,7 @@
                 <x-table.td>{{$dbRequestForwarded->title}}</x-table.td>
                 <x-table.td>{{$dbRequestForwarded->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>
-                    <x-button.minButtonShow route="{{route('centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestForwarded->id])}}" />
+                    <x-button.minButtonShow route="{{route('foodstuff.centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestForwarded->id])}}" />
                 </x-table.td>
             </x-table.tr>
         @endforeach

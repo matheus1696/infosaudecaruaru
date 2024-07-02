@@ -2,8 +2,8 @@
     <h3 class="flex-1 col-span-12 px-3 text-lg font-semibold">Lista de Itens Solicitados</h3>
     @if ($db->status == "Aberto")
         <div class="flex">                    
-            @include('inventory.warehouse.center.partials.request.edit_request.center_edit_request_button_check_inventory')
-            @include('inventory.warehouse.center.partials.request.edit_request.center_edit_request_button_confirmed_all')
+            @include('inventory.foodstuff.center.partials.request.edit_request.center_edit_request_button_check_inventory')
+            @include('inventory.foodstuff.center.partials.request.edit_request.center_edit_request_button_confirmed_all')
         </div>
     @endif
 </div>

@@ -2,17 +2,17 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="Entrada de Suprimento"
-            routeBack="{{route('centers.show',['center'=>$db->id])}}"
+            title="Entrada de Alimentos"
+            routeBack="{{route('foodstuff.centers.show',['center'=>$db->id])}}"
         />
     @endslot
         
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            @include('inventory.warehouse.center.partials.entry.center_entry_form')
+            @include('inventory.foodstuff.center.partials.entry.center_entry_form')
         </x-conteiner>
         <hr>
-        @include('inventory.warehouse.center.partials.entry.center_entry_table')
+        @include('inventory.foodstuff.center.partials.entry.center_entry_table')
     @endslot
 </x-pages.index>

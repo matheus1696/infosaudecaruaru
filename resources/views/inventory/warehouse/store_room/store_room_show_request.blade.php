@@ -11,6 +11,6 @@
         
     <!-- Slot Body -->
     @slot('body')          
-        @include('inventory.warehouse.store_room.partials.request.show_request.store_room_show_request_table_group')
+        @include('inventory.warehouse.store_room.partials.request.show_request.store_room_show_request_table')
     @endslot
 </x-pages.index>

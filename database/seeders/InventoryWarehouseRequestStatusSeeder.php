@@ -14,10 +14,11 @@ class InventoryWarehouseRequestStatusSeeder extends Seeder
     public function run(): void
     {
         //
-        InventoryWarehouseRequestStatus::create(['title'=>'Aberto']);
-        InventoryWarehouseRequestStatus::create(['title'=>'Separação']);
-        InventoryWarehouseRequestStatus::create(['title'=>'Rota de Entrega']);
-        InventoryWarehouseRequestStatus::create(['title'=>'Concluído']);
-        InventoryWarehouseRequestStatus::create(['title'=>'Cancelado']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Não Enviado', 'filter'=>strtolower('Não_Enviado'), 'color'=>'purple']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Aberto', 'filter'=>strtolower('Aberto'), 'color'=>'yellow']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Separação', 'filter'=>strtolower('Separação'), 'color'=>'sky']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Rota de Entrega', 'filter'=>strtolower('Rota_de_Entrega'), 'color'=>'orange']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Concluído', 'filter'=>strtolower('Concluído'), 'color'=>'green']);
+        InventoryWarehouseRequestStatus::create(['title'=>'Cancelado', 'filter'=>strtolower('Cancelado'), 'color'=>'red']);
     }
 }

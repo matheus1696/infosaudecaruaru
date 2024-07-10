@@ -81,9 +81,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         $dbRequestStatuses = InventoryWarehouseRequestStatus::all();
 
         // Busca as solicitações em abertas com paginação
-        $dbRequests = InventoryWarehouseRequest::where('department_id',$id)
-        ->where('status_id','=','1')
-        ->get();
+        $dbRequests = InventoryWarehouseRequest::where('department_id',$id)->get();
 
         // Retorna a view com os dados do departamento e das solicitações de almoxarifado
         return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestStatuses','dbRequests'));

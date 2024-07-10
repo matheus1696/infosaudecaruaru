@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity');
             $table->integer('quantity_current');
-            $table->integer('quantity_forwarded');
+            $table->integer('quantity_forwarded')->default(0);
             $table->boolean('confirmed')->default(FALSE);
             $table->boolean('receipt')->default(FALSE);
             $table->unsignedBigInteger('consumable_id');

@@ -1,10 +1,19 @@
 <x-pages.index>
     <!-- Slot Header -->
     @slot('header')
-        <x-header
-            title="Detalhe Solicitação"
-            routeBack="{{route('warehouse.store_rooms.showRequest',['store_room'=>$db->department_id])}}"
-        />
+
+        @if ($db->status_id === 1)        
+            <x-header
+                title="Detalhe Solicitação ({{$db->InventoryWarehouseRequestStatus->title}})"
+                routeCreate="{{route('warehouse.store_rooms.confirmedRequest',['store_room'=>$db->department_id,'request'=>$db->id])}}" btnTitleCreate="Enviar Solicitação"
+                routeBack="{{route('warehouse.store_rooms.showRequest',['store_room'=>$db->department_id])}}"
+            />            
+        @else
+            <x-header
+                title="Detalhe Solicitação ({{$db->InventoryWarehouseRequestStatus->title}})"
+                routeBack="{{route('warehouse.store_rooms.showRequest',['store_room'=>$db->department_id])}}"
+            />
+        @endif
     @endslot
         
     <!-- Slot Body -->

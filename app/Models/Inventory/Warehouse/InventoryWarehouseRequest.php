@@ -18,7 +18,6 @@ class InventoryWarehouseRequest extends Model
         'department_extension',
         'user_contact_1',
         'user_contact_2',
-        'count',
         'status_id',
         'department_id',
         'user_id',
@@ -26,7 +25,7 @@ class InventoryWarehouseRequest extends Model
 
     
     
-    public function RequestStatus(){
+    public function InventoryWarehouseRequestStatus(){
         return $this->belongsTo(InventoryWarehouseRequestStatus::class,'status_id','id');
     }
     

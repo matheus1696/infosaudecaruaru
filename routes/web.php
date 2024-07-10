@@ -142,10 +142,11 @@ Route::middleware('auth')->group(function () {
                     Route::get('store_rooms/{store_room}/request/create',[InventoryWarehouseStoreRoomController::class,'createRequest'])->name('warehouse.store_rooms.createRequest');
                     Route::post('store_rooms/request/create',[InventoryWarehouseStoreRoomController::class,'storeRequest'])->name('warehouse.store_rooms.storeRequest');
                     Route::get('store_rooms/{store_room}/request/{request}/edit',[InventoryWarehouseStoreRoomController::class,'editRequest'])->name('warehouse.store_rooms.editRequest');
+                    Route::get('store_rooms/{store_room}/request/{request}/confirmedRequest',[InventoryWarehouseStoreRoomController::class,'confirmedRequest'])->name('warehouse.store_rooms.confirmedRequest');
+                    Route::get('store_rooms/{store_room}/request/{request}/canceledRequest',[InventoryWarehouseStoreRoomController::class,'canceledRequest'])->name('warehouse.store_rooms.canceledRequest');
                     
                     
                     Route::put('store_room/{store_room}/request/{request}',[InventoryWarehouseStoreRoomController::class,'update'])->name('warehouse.store_rooms.update');
-                    Route::get('store_rooms/{store_room}/request/{request}/destroy',[InventoryWarehouseStoreRoomController::class,'destroy'])->name('warehouse.store_rooms.destroy');
                     Route::post('store_rooms/{store_room}/request/{request}/createItem',[InventoryWarehouseStoreRoomController::class,'createItem'])->name('warehouse.store_rooms.createItem');
                     Route::put('store_rooms/{store_room}/request/{request}/updateItem',[InventoryWarehouseStoreRoomController::class,'updateItem'])->name('warehouse.store_rooms.updateItem');
                     Route::delete('store_rooms/{store_room}/request/{request}/destroyItem',[InventoryWarehouseStoreRoomController::class,'destroyItem'])->name('warehouse.store_rooms.destroyItem');

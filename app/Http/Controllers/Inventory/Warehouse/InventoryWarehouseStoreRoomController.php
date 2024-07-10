@@ -60,10 +60,8 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         // Retorna a view com os dados do departamento e do almoxarifado
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbDepartment'));
-    }     
+    }
     
-    
-
     /**
      * Display the specified resource.
      */
@@ -142,7 +140,29 @@ class InventoryWarehouseStoreRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function destroy(string $id, string $inventoryRequest)
+    public function confirmedRequest(string $id, string $inventoryRequest)
+    {
+        // Encontra a solicitação de almoxarifado pelo ID
+        $dbRequest = InventoryWarehouseRequest::find($inventoryRequest);
+        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id',$inventoryRequest)->count();
+
+        if ($dbRequestDetails > 0) {
+            // Define o status da solicitação como "Cancelado"
+            $dbRequest->status_id = 2;
+            // Salva as alterações no banco de dados
+            $dbRequest->save();
+            // Redireciona para a visualização do departamento associado à solicitação cancelada
+            return redirect()->back()->with('success','Solicitação Cancelada com sucesso');
+        }
+
+        // Redireciona para a visualização do departamento associado à solicitação cancelada
+        return redirect()->back()->with('error','Não existe itens cadastrados na solicitação, adicione os itens que deseja');        
+    } 
+
+    /**
+     * Display the specified resource.
+     */
+    public function canceledRequest(string $id, string $inventoryRequest)
     {
         // Encontra a solicitação de almoxarifado pelo ID
         $dbRequest = InventoryWarehouseRequest::find($inventoryRequest);
@@ -150,7 +170,7 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         if ($dbRequestDetails < 1) {
             // Define o status da solicitação como "Cancelado"
-            $dbRequest->status = "Cancelado";
+            $dbRequest->status = 6;
             // Salva as alterações no banco de dados
             $dbRequest->save();
             // Redireciona para a visualização do departamento associado à solicitação cancelada
@@ -183,16 +203,9 @@ class InventoryWarehouseStoreRoomController extends Controller
         InventoryWarehouseRequestDetail::updateOrCreate([
                 'quantity_current' => !$dbInventoryStoreRoom ? 0 : $dbInventoryStoreRoom->quantity,
                 'quantity' => $request['quantity'],
-                'quantity_forwarded' => 0,
                 'consumable_id' => $request['consumable_id'],
                 'store_room_request_id' => $inventoryRequest,
         ]);
-
-        // Atualiza a contagem de itens na solicitação de almoxarifado
-        $dbRequestCount = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->count();
-        $db = InventoryWarehouseRequest::find($inventoryRequest);            
-        $db->count = $dbRequestCount;
-        $db->save();
 
         // Redireciona de volta para a página anterior
         return redirect()->back()->with('success','Item adicionado com sucesso');
@@ -228,12 +241,6 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Deleta o detalhe da solicitação de almoxarifado
         $dbRequestDetails->delete();
 
-        // Atualiza a contagem de itens na solicitação de almoxarifado
-        $dbRequestCount = InventoryWarehouseRequestDetail::where('store_room_request_id', $dbRequestDetails->store_room_request_id)->count();
-        $db = InventoryWarehouseRequest::find($dbRequestDetails->store_room_request_id);            
-        $db->count = $dbRequestCount;
-        $db->save();
-
         // Redireciona de volta para a página anterior
         return redirect()->back();
     }
@@ -248,12 +255,6 @@ class InventoryWarehouseStoreRoomController extends Controller
         foreach ($dbRequestDetails as $dbRequestDetail) {
             $dbRequestDetail->delete();
         }
-
-        // Atualiza a contagem de itens na solicitação
-        $dbRequestCount = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->count();
-        $db = InventoryWarehouseRequest::find($inventoryRequest);
-        $db->count = $dbRequestCount;
-        $db->save();
 
         return redirect()->back()->with('success','Todos os items removidos com sucesso');
     }    

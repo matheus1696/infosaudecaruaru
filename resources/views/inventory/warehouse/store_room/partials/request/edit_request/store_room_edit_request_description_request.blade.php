@@ -28,4 +28,6 @@
             <input type="text" id="department_extension" name="department_extension" class="px-2 py-1 ml-1 border border-green-100 rounded-lg outline-none {{$db->department_extension == NULL ? 'bg-red-100' : ''}}" value="{{$db->department_extension ?? old('department_extension')}}" placeholder="0000" maxlength="4">
         @endif 
     </p>
+    <div>
+    </div>
 </div>

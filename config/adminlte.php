@@ -307,7 +307,7 @@ return [
             'text'    => 'Estoque',
             'classes' => 'btn-sm',
             'icon'    => 'fas fa-boxes pr-2',
-            'can'     => ['inventory_warehouse_store_room','inventory_pharmacy_store_room','sysadmin','admin'],
+            'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
             'submenu' => [
                 
                 [
@@ -317,22 +317,6 @@ return [
                     'icon'    => 'fas fa-box pr-2',
                     'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
                 ],
-                
-                [
-                    'text'    => 'Alimentos',
-                    'classes' => 'btn-sm',
-                    'route'   => 'foodstuff.store_rooms.index',
-                    'icon'    => 'fas fa-drumstick-bite pr-2',
-                    'can'     => ['inventory_foodstuff_store_room','sysadmin','admin'],
-                ],
-                
-                [
-                    'text'    => 'Farmácia',
-                    'classes' => 'btn-sm',
-                    'route'   => 'pharmacy.store_rooms.index',
-                    'icon'    => 'fas fa-pills pr-2',
-                    'can'     => ['inventory_pharmacy_store_room','sysadmin','admin'],
-                ],
             ]
         ],
         
@@ -341,7 +325,7 @@ return [
             'text'    => 'Centros de Distribuição',
             'classes' => 'btn-sm',
             'icon'    => 'fas fa-truck-moving pr-2',
-            'can'     => ['inventory_warehouse_center','inventory_pharmacy_center','sysadmin','admin'],
+            'can'     => ['inventory_warehouse_center','sysadmin','admin'],
             'submenu' => [
                 
                 [
@@ -350,22 +334,6 @@ return [
                     'route'   => 'warehouse.centers.index',
                     'icon'    => 'fas fa-warehouse pr-2',
                     'can'     => ['inventory_warehouse_center','sysadmin','admin'],
-                ],
-
-                [
-                    'text'    => 'Gêneros Alimentícios',
-                    'classes' => 'btn-sm',
-                    'route'   => 'foodstuff.centers.index',
-                    'icon'    => 'fas fa-drumstick-bite pr-2',
-                    'can'     => ['inventory_warehouse_center','sysadmin','admin'],
-                ],
-                
-                [
-                    'text'    => 'Abastecimento Farmacêutico',
-                    'classes' => 'btn-sm',
-                    'route'   => 'pharmacy.centers.index',
-                    'icon'    => 'fas fa-pills pr-2',
-                    'can'     => ['inventory_pharmacy_center','sysadmin','admin'],
                 ],
             ]
         ],
@@ -548,66 +516,6 @@ return [
                                     'can'     => ['sysadmin','admin'],
                                 ],
                             ]
-                        ],
-
-                        //Configurações de Medicamentos
-                        [
-                            'text'    => 'Medicamentos',
-                            'classes' => 'btn-sm',
-                            'icon'    => 'fas fa-tablets pr-2',
-                            'icon_color' => 'teal',
-                            'can'     => ['sysadmin','admin'],
-                            'submenu' => [
-                                [
-                                    'text'    => 'Lista de Medicamentos',
-                                    'classes' => 'btn-sm',
-                                    'route'   => 'medications.index',
-                                    'icon'    => 'fas fa-pills pr-2',
-                                    'can'     => ['sysadmin','admin'],
-                                ],
-                                [
-                                    'text'    => 'Tipos de Medicamentos',
-                                    'classes' => 'btn-sm',
-                                    'route'   => 'medication_types.index',
-                                    'icon'    => 'fas fa-list-ol pr-2',
-                                    'can'     => ['sysadmin','admin'],
-                                ],
-                                [
-                                    'text'    => 'Classificações de Medicamentos',
-                                    'classes' => 'btn-sm',
-                                    'route'   => 'medication_classifications.index',
-                                    'icon'    => 'fas fa-stream pr-2',
-                                    'can'     => ['sysadmin','admin'],
-                                ],
-                                [
-                                    'text'    => 'Apresentações',
-                                    'classes' => 'btn-sm',
-                                    'route'   => 'medication_units.index',
-                                    'icon'    => 'fas fa-ruler pr-2',
-                                    'can'     => ['sysadmin','admin'],
-                                ],
-                            ]
-                        ],
-                    ]
-                ],
-
-                //Configuração de Inventário
-                [
-                    'text'    => 'Configuração de Inventários',
-                    'classes' => 'btn-sm',
-                    'icon'    => 'fas fa-clipboard-list pr-2',
-                    'icon_color' => 'info',
-                    'can'     => ['sysadmin','admin'],
-                    'submenu' => [
-
-                        //Configurações de Lista de Pedidos Padrões
-                        
-                        [
-                            'text'    => 'Lista de Pedidos',
-                            'classes' => 'btn-sm',
-                            'route'   => 'standard_requests.index',
-                            'icon'    => 'fas fa-list pr-2',
-                            'can'     => ['sysadmin','admin'],
                         ],
                     ]
                 ],

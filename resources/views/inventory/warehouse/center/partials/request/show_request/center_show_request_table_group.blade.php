@@ -2,6 +2,9 @@
     <div class="mb-3 nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-requests-open-tab" data-toggle="tab" data-target="#nav-requests-open" type="button" role="tab" aria-controls="nav-requests-open" aria-selected="true">
             <span class="text-sm font-semibold">Solicitações Abertas ({{$dbRequestsOpen->count()}})</span>
+        </button>        
+        <button class="nav-link active" id="nav-requests-separation-tab" data-toggle="tab" data-target="#nav-requests-separation" type="button" role="tab" aria-controls="nav-requests-separation" aria-selected="true">
+            <span class="text-sm font-semibold">Separação ({{$dbRequestsSeparation->count()}})</span>
         </button>
         <button class="nav-link" id="nav-requests-forwarded-delivery-tab" data-toggle="tab" data-target="#nav-requests-forwarded-delivery" type="button" role="tab" aria-controls="nav-requests-forwarded-delivery" aria-selected="false">
             <span class="text-sm font-semibold">Encaminhado para Entrega ({{$dbRequestsForwarded->count()}})</span>
@@ -17,6 +20,9 @@
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-requests-open" role="tabpanel" aria-labelledby="nav-requests-open-tab">           
         @include('inventory.warehouse.center.partials.request.show_request.center_show_request_table_open') 
+    </div>
+    <div class="tab-pane fade show active" id="nav-requests-separation" role="tabpanel" aria-labelledby="nav-requests-separation-tab">           
+        @include('inventory.warehouse.center.partials.request.show_request.center_show_request_table_separation') 
     </div>
     <div class="tab-pane fade" id="nav-requests-forwarded-delivery" role="tabpanel" aria-labelledby="nav-requests-forwarded-delivery-tab">            
         @include('inventory.warehouse.center.partials.request.show_request.center_show_request_table_forwarded')

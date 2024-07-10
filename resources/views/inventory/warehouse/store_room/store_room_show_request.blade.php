@@ -3,9 +3,9 @@
     @slot('header')
         <x-header
             title="Solicitações de Suprimentos"
-            routeCreate="{{route('store_rooms.create',['store_room'=>$dbDepartment->id])}}" btnTitleCreate="Abertura de Solicitação"
-            routeJoker="{{route('store_rooms.entryShow',['store_room'=>$dbDepartment->id])}}" btnTitleJoker="Entrada Avulsa" iconJoker="fas fa-plus"
-            routeBack="{{route('store_rooms.show',['store_room'=>$dbDepartment->id])}}"
+            routeCreate="{{route('warehouse.store_rooms.createRequest',['store_room'=>$dbDepartment->id])}}" btnTitleCreate="Abertura de Solicitação"
+            routeJoker="{{route('warehouse.store_rooms.entryShow',['store_room'=>$dbDepartment->id])}}" btnTitleJoker="Entrada Avulsa" iconJoker="fas fa-plus"
+            routeBack="{{route('warehouse.store_rooms.show',['store_room'=>$dbDepartment->id])}}"
         />
     @endslot
         

@@ -1,6 +1,7 @@
 @if ($db->status == 'Aberto')
     <x-table.td>
-        @include('inventory.warehouse.store_room.partials.request.edit_request.store_room_edit_request_table_button_edit_item')@include('inventory.warehouse.store_room.partials.request.edit_request.store_room_edit_request_table_button_destroy_item')
+        @include('inventory.warehouse.store_room.partials.request.edit_request.store_room_edit_request_table_button_edit_item')
+        @include('inventory.warehouse.store_room.partials.request.edit_request.store_room_edit_request_table_button_destroy_item')
     </x-table.td>
 @else
     @if ($dbRequestDetail->confirmed)

@@ -15,19 +15,18 @@
                 <x-table.td>{{$dbRequestOpen->title}}</x-table.td>
                 <x-table.td>{{$dbRequestOpen->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonEdit route="{{route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$dbRequestOpen->id])}}" />
+                    <x-button.minButtonEdit route="{{route('warehouse.store_rooms.editRequest',['store_room'=>$dbDepartment->id,'request'=>$dbRequestOpen->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestOpen->id}}" title="Solicitação Nº {{$dbRequestOpen->code}}">
-                        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+                        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                             <p><strong>Nº da Solicitação:</strong> {{$dbRequestOpen->code}}</p>
+                            <p><strong>Status:</strong> {{$dbRequestOpen->status}}</p>
                             <p class="md:col-span-2"><strong>Título:</strong> {{$dbRequestOpen->title ?? ""}}</p>
                             <p class="md:col-span-2"><strong>Estabelecimento:</strong> {{$dbRequestOpen->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</p>
-                            <p><strong>Departamento:</strong> {{$dbRequestOpen->CompanyEstablishmentDepartment->title}}</p>
+                            <p class="md:col-span-2"><strong>Departamento:</strong> {{$dbRequestOpen->CompanyEstablishmentDepartment->department}}</p>
                             <p><strong>Contato:</strong> {{$dbRequestOpen->department_contact ?? ""}}</p>
                             <p><strong>Ramal:</strong> {{$dbRequestOpen->department_extension ?? ""}}</p>
-                            <p><strong>Quantidade de Itens:</strong> {{$dbRequestOpen->count}}</p>
-                            <p><strong>Status:</strong> {{$dbRequestOpen->status}}</p>
-                            <hr  class="md:col-span-3">
+                            <hr  class="md:col-span-2">
                             <p class="md:col-span-2"><strong>Usuário Solicitante:</strong> {{$dbRequestOpen->User->name}}</p>
                             <p><strong>Contato 01:</strong> {{$dbRequestOpen->user_contact_1 ?? ""}}</p>
                             <p><strong>Contato 02:</strong> {{$dbRequestOpen->user_contact_2 ?? ""}}</p>

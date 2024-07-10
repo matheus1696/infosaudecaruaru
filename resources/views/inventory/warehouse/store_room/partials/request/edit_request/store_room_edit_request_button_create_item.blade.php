@@ -1,7 +1,7 @@
 <!-- Adicionar Item -->
 <div class="inline-block">
     <!-- Modal toggle -->
-    <button data-toggle="modal" data-target="#modal_create_item_consumable_{{$db->department_id}}" class="px-2 py-1 m-1 text-xs text-white bg-green-700 rounded-lg shadow-md hover:bg-green-600" type="button">
+    <button data-toggle="modal" data-target="#modal_create_item_consumable_{{$db->department_id}}" class="px-2 py-1 text-xs text-white bg-green-700 rounded-lg shadow-md hover:bg-green-600" type="button">
         <i class="fas fa-plus"></i>
         <span class="ml-1 font-semibold">Add. Item</span>
     </button>
@@ -16,7 +16,7 @@
                     </button>
                 </div>
                 <div class="m-4 modal-body">
-                    <x-form.form method="create" route="{{route('store_rooms.createItem',['store_room'=>$db->department_id,'request'=>$db->id])}}" color="green">
+                    <x-form.form method="create" route="{{route('warehouse.store_rooms.createItem',['store_room'=>$db->department_id,'request'=>$db->id])}}" color="green">
                         <x-form.select col="9" label="Suprimentos" id="consumable_id" name="consumable_id">
                             @foreach ($dbConsumables as $dbConsumable)
                                 <option value="{{$dbConsumable->id}}">{{$dbConsumable->title}}</option>

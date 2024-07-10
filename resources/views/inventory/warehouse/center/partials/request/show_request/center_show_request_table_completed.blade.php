@@ -15,7 +15,7 @@
                 <x-table.td>{{$dbRequestCompleted->title}}</x-table.td>
                 <x-table.td>{{$dbRequestCompleted->CompanyEstablishmentDepartment->CompanyEstablishment->title}}</x-table.td>
                 <x-table.td>                    
-                    <x-button.minButtonEdit route="{{route('centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestCompleted->id])}}" />
+                    <x-button.minButtonEdit route="{{route('warehouse.centers.edit',['center'=>$dbDepartment->id,'request'=>$dbRequestCompleted->id])}}" />
                     
                     <x-button.minButtonModalInfo id="Modal_{{$dbRequestCompleted->id}}" title="Solicitação Nº {{$dbRequestCompleted->code}}">
                         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">

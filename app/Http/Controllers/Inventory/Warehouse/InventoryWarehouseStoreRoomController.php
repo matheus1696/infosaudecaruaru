@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\Inventory\Warehouse;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomCreateDefaultListRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomCreateItemRequest;
+use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomCreateRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomEntryStoreRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
-use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\UpdateInventoryWarehouseStoreRoomRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\Warehouse\InventoryWarehouseRequest;
 use App\Models\Inventory\Warehouse\InventoryWarehouseRequestDetail;
-use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequest;
-use App\Models\Inventory\Warehouse\InventoryWarehouseStandardRequestList;
+use App\Models\Inventory\Warehouse\InventoryWarehouseRequestStatus;
 use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoom;
 use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoomHistory;
 use Illuminate\Http\Request;
@@ -41,37 +39,6 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         // Retorna a view com os dados
         return view('inventory.warehouse.store_room.store_room_index', compact('db'));
-    }    
-
-    /**
-     * Display the specified resource.
-     */
-    public function create(string $id)
-    {
-        // Busca o registro do departamento pelo ID
-        $dbDepartment = CompanyEstablishmentDepartment::find($id);
-
-        // Verifica se o departamento existe e tem almoxarifado vinculado
-        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
-            // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
-        }
-
-        // Cria uma nova solicitação de almoxarifado com os dados fornecidos
-        $db = InventoryWarehouseRequest::create([
-            'code' => date('ymdHis'),
-            'department_contact' => $dbDepartment->contact,
-            'department_extension' => $dbDepartment->extension,
-            'user_contact_1' => Auth::user()->contact_1,
-            'user_contact_2' => Auth::user()->contact_2,
-            'count' => 0,
-            'status' => 'Aberto', // Considerar definir como constante se usado em vários lugares
-            'department_id' => $id,
-            'user_id' => Auth::user()->id,
-        ]);
-
-        // Redireciona para a rota de edição da solicitação criada
-        return redirect()->route('store_rooms.edit',['store_room'=>$dbDepartment->id,'request'=>$db->id]);
     }
 
     /**
@@ -85,7 +52,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Verifica se o departamento existe e se tem almoxarifado vinculado
         if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse.store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
         }
 
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
@@ -93,9 +60,67 @@ class InventoryWarehouseStoreRoomController extends Controller
 
         // Retorna a view com os dados do departamento e do almoxarifado
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbDepartment'));
-    }    
+    }     
     
-    public function edit(string $id, string $inventoryRequest)
+    
+
+    /**
+     * Display the specified resource.
+     */
+    public function showRequest(string $id)
+    {
+        // Busca o registro do departamento pelo ID
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        // Verifica se o departamento existe e se tem almoxarifado vinculado
+        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('warehouse.store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
+        }
+
+        $dbRequestStatuses = InventoryWarehouseRequestStatus::all();
+
+        // Busca as solicitações em abertas com paginação
+        $dbRequests = InventoryWarehouseRequest::where('department_id',$id)
+        ->where('status_id','=','1')
+        ->get();
+
+        // Retorna a view com os dados do departamento e das solicitações de almoxarifado
+        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestStatuses','dbRequests'));
+    } 
+
+    /**
+     * Display the specified resource.
+     */
+    public function createRequest(string $id)
+    {
+        // Busca o registro do departamento pelo ID
+        $dbUser = Auth::user();
+        $dbDepartment = CompanyEstablishmentDepartment::find($id);
+
+        // Verifica se o departamento existe e tem almoxarifado vinculado
+        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('warehouse.store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
+        }
+
+        // Redireciona para a rota de edição da solicitação criada
+        return view('inventory.warehouse.store_room.store_room_create_request', compact('dbUser','dbDepartment'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function storeRequest(StoreInventoryWarehouseStoreRoomCreateRequest $request)
+    {
+        $request['code'] = date('ymdhis').round(10,99);
+        $dbRequest = InventoryWarehouseRequest::create($request->all());
+        
+        // Redireciona para a rota de edição da solicitação criada
+        return redirect()->route('warehouse.store_rooms.editRequest',['store_room'=>$request['department_id'],'request'=>$dbRequest->id])->with('success','Solicitação criada com sucesso.');
+    }
+    
+    public function editRequest(string $id, string $inventoryRequest)
     {
         // Busca a solicitação de almoxarifado pelo ID
         $db = InventoryWarehouseRequest::find($inventoryRequest);
@@ -108,25 +133,12 @@ class InventoryWarehouseStoreRoomController extends Controller
         ->orderBy('confirmed','DESC')
         ->orderBy('consumable_id')
         ->paginate(150);
-
-        // Busca as solicitações padrão do almoxarifado ordenadas por título
-        $dbStandardRequests = InventoryWarehouseStandardRequest::orderBy('title')->get();
         
         // Busca os consumíveis ordenados por título
         $dbConsumables = Consumable::orderBy('title')->get();
 
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
-        return view('inventory.warehouse.store_room.store_room_edit_request', compact('db','dbDepartment','dbStoreRoomInventories','dbRequestDetails','dbStandardRequests','dbConsumables'));
-    }
-
-    public function update(UpdateInventoryWarehouseStoreRoomRequest $request, string $id, string $inventoryRequest)
-    {        
-        // Atualiza os detalhes do contato se algum dos campos de contato for fornecido no formulário
-        $db = InventoryWarehouseRequest::find($inventoryRequest);
-        $db->update($request->all());
-
-        // Redireciona de volta para a página anterior
-        return redirect()->back()->with('success','Dados atualizado com sucesso');
+        return view('inventory.warehouse.store_room.store_room_edit_request', compact('db','dbDepartment','dbStoreRoomInventories','dbRequestDetails','dbConsumables'));
     }
 
     /**
@@ -144,14 +156,12 @@ class InventoryWarehouseStoreRoomController extends Controller
             // Salva as alterações no banco de dados
             $dbRequest->save();
             // Redireciona para a visualização do departamento associado à solicitação cancelada
-            return redirect()->route('store_rooms.show',['store_room'=>$dbRequest->department_id])
+            return redirect()->route('warehouse.store_rooms.show',['store_room'=>$dbRequest->department_id])
                 ->with('success','Solicitação Cancelada com sucesso');
         }
 
         // Redireciona para a visualização do departamento associado à solicitação cancelada
-        return redirect()->back()->with('error','Existe itens cadastrados na solicitação');
-
-        
+        return redirect()->back()->with('error','Existe itens cadastrados na solicitação');        
     } 
 
     public function createItem(StoreInventoryWarehouseStoreRoomCreateItemRequest $request, string $id, string $inventoryRequest)
@@ -172,18 +182,9 @@ class InventoryWarehouseStoreRoomController extends Controller
         ->where('department_id',$id)
         ->first();
 
-        // Busca itens padrão e salas de estoque
-        $dbStandardRequest = InventoryWarehouseStandardRequestList::where('consumable_id', $request['consumable_id'])->first();
-        if (!$dbStandardRequest) {
-            $quantity_default = 0;
-        }else {
-            $quantity_default = $dbStandardRequest->quantity;
-        }
-
         InventoryWarehouseRequestDetail::updateOrCreate([
                 'quantity_current' => !$dbInventoryStoreRoom ? 0 : $dbInventoryStoreRoom->quantity,
                 'quantity' => $request['quantity'],
-                'quantity_default' => $quantity_default,
                 'quantity_forwarded' => 0,
                 'consumable_id' => $request['consumable_id'],
                 'store_room_request_id' => $inventoryRequest,
@@ -242,62 +243,6 @@ class InventoryWarehouseStoreRoomController extends Controller
     /**
     * Display the specified resource.
     */
-    public function createDefaultList(StoreInventoryWarehouseStoreRoomCreateDefaultListRequest $request, string $id, string $inventoryRequest)
-    {
-        // Remove todos os itens cadastrados
-        $dbRequestDetails = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->get();
-        foreach ($dbRequestDetails as $dbRequestDetail) {
-            $dbRequestDetail->delete();
-        }
-
-        // Busca itens padrão e salas de estoque
-        $dbStandardRequests = InventoryWarehouseStandardRequestList::where('standard_request_id', $request['standard_request'])->orderBy('consumable_id')->get();
-        $dbInventoryStoreRooms = InventoryWarehouseStoreRoom::where('department_id', $id)->orderBy('consumable_id')->get();
-
-        //
-        foreach ($dbStandardRequests as $dbStandardRequest) {
-            $quantity_current = 0;
-            $confirmed = FALSE;
-
-            //
-            foreach ($dbInventoryStoreRooms as $dbInventoryStoreRoom) {                
-                if ($dbInventoryStoreRoom->consumable_id === $dbStandardRequest->consumable_id) {
-                    $quantity_current = $dbInventoryStoreRoom->quantity;
-                    break;
-                }
-            }
-                    
-            //
-            if ($dbStandardRequest->quantity <= $quantity_current) {
-                $quantity_forwarded = 0;
-            }else {
-                $quantity_forwarded = $dbStandardRequest->quantity - $quantity_current;
-                $confirmed = TRUE;
-            }
-            
-            InventoryWarehouseRequestDetail::updateOrCreate([
-                'quantity_current' => $quantity_current,
-                'quantity' => $quantity_forwarded,
-                'quantity_default' => $dbStandardRequest->quantity,
-                'quantity_forwarded' => $quantity_forwarded,
-                'confirmed' => $confirmed,
-                'consumable_id' => $dbStandardRequest->consumable_id,
-                'store_room_request_id' => $inventoryRequest,
-            ]);
-        }
-
-        // Atualiza a contagem de itens na solicitação
-        $dbRequestCount = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)->count();
-        $db = InventoryWarehouseRequest::find($inventoryRequest);
-        $db->count = $dbRequestCount;
-        $db->save();
-
-        return redirect()->back()->with('success','Itens adicionados com sucesso');
-    } 
-
-    /**
-    * Display the specified resource.
-    */
     public function destroyDefaultList(string $id, string $inventoryRequest)
     {
         // Remove itens padrão se solicitado
@@ -313,44 +258,6 @@ class InventoryWarehouseStoreRoomController extends Controller
         $db->save();
 
         return redirect()->back()->with('success','Todos os items removidos com sucesso');
-    } 
-
-    /**
-     * Display the specified resource.
-     */
-    public function requestShow(string $id)
-    {
-        // Busca o registro do departamento pelo ID
-        $dbDepartment = CompanyEstablishmentDepartment::find($id);
-
-        // Verifica se o departamento existe e se tem almoxarifado vinculado
-        if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
-            // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('store_rooms.index')->with('error','Setor sem almoxarifado vinculado.');
-        }
-
-        // Busca as solicitações em abertas com paginação
-        $dbRequestsOpen = InventoryWarehouseRequest::where('department_id',$id)
-        ->where('status','=','Aberto')
-        ->get();
-
-        // Busca as solicitações em encaminhadas com paginação
-        $dbRequestsForwarded = InventoryWarehouseRequest::where('department_id',$id)
-        ->where('status','=','Encaminhado')
-        ->get();        
-
-        // Busca as solicitações canceladas com paginação
-        $dbRequestsCompleted = InventoryWarehouseRequest::where('department_id',$id)
-        ->where('status','=','Concluído')
-        ->get();
-
-        // Busca as solicitações canceladas com paginação
-        $dbRequestsCanceled = InventoryWarehouseRequest::where('department_id',$id)
-        ->where('status','=','Cancelado')
-        ->get();
-
-        // Retorna a view com os dados do departamento e das solicitações de almoxarifado
-        return view('inventory.warehouse.store_room.store_room_show_request', compact('dbDepartment','dbRequestsOpen','dbRequestsForwarded','dbRequestsCompleted','dbRequestsCanceled'));
     }    
 
     /**
@@ -416,7 +323,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$db || !$db->has_inventory_warehouse_store_room) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse.store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
         }
         
         // Busca todos os consumíveis ordenados por título
@@ -443,7 +350,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$dbDepartment || !$dbDepartment->has_inventory_warehouse_store_room) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
+            return redirect()->route('warehouse.store_rooms.index')->with('error', 'Setor sem almoxarifado vinculado.');
         }
 
         // Define os dados da entrada no estoque

@@ -23,7 +23,7 @@
                 <x-table.td>{{$item->quantity}}</x-table.td>
                 <x-table.td>
                     <x-button.minButtonModalInfo id="Modal_{{$item->id}}" title="Informar Saída de {{$item->Consumable->title}}" icon="fas fa-long-arrow-alt-down rotate-45" color="red" btnTitle="Saída">
-                        <x-form.form method="edit" route="{{route('store_rooms.exitStore',['store_room'=>$item->id])}}" title="Confirmar Saída" color="red">
+                        <x-form.form method="edit" route="{{route('warehouse.store_rooms.exitStore',['store_room'=>$item->id])}}" title="Confirmar Saída" color="red">
                             <input hidden name="department_id" value="{{$item->department_id}}">
                             <x-form.input col="9" label="Suprimento" name="consumable_id" value="{{$item->Consumable->title}}" disabled="disabled"/>
                             <x-form.input col="3" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$item->quantity}}"/>

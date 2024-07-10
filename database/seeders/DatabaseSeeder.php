@@ -37,12 +37,7 @@ class DatabaseSeeder extends Seeder
             ConsumableTypeSeeder::class,
             ConsumableUnitSeeder::class,
             ConsumableSeeder::class,
-            MedicationClassificationSeeder::class,
-            MedicationTypeSeeder::class,
-            MedicationUnitSeeder::class,
-            MedicationSeeder::class,
-            InventoryWarehouseStandardRequestSeeder::class,
-            InventoryWarehouseStandardRequestListSeeder::class,
+            InventoryWarehouseRequestStatusSeeder::class,
         ]);
     }
 }

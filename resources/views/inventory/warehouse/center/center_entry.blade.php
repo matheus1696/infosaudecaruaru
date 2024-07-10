@@ -3,7 +3,7 @@
     @slot('header')
         <x-header
             title="Entrada de Suprimento"
-            routeBack="{{route('centers.show',['center'=>$db->id])}}"
+            routeBack="{{route('warehouse.centers.show',['center'=>$db->id])}}"
         />
     @endslot
         

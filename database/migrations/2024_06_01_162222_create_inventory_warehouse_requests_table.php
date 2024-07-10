@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('department_extension')->nullable();
             $table->string('user_contact_1')->nullable();
             $table->string('user_contact_2')->nullable();
-            $table->integer('count')->default(0);
-            $table->string('status')->default('Aberto');
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
+            $table->foreign('status_id')->references('id')->on('inventory_warehouse_request_statuses');
             $table->foreign('department_id')->references('id')->on('company_establishment_departments');
             $table->foreign('user_id')->references('id')->on('users');
         });

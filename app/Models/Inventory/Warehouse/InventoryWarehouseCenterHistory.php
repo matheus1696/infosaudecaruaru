@@ -4,6 +4,7 @@ namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,6 +48,10 @@ class InventoryWarehouseCenterHistory extends Model
     
     public function CompanyEstablishmentDepartmentOutput(){
         return $this->belongsTo(CompanyEstablishmentDepartment::class,'output_department_id','id');
+    }
+    
+    public function CompanyFinancialBlock(){
+        return $this->belongsTo(CompanyFinancialBlock::class,'financial_block_id','id');
     }
     
     public function User(){

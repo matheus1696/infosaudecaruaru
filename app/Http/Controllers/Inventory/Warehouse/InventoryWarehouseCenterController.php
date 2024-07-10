@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inventory\Warehouse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseCenter\StoreInventoryWarehouseCenterEntryStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\Warehouse\InventoryWarehouseCenter;
 use App\Models\Inventory\Warehouse\InventoryWarehouseCenterHistory;
@@ -79,25 +80,6 @@ class InventoryWarehouseCenterController extends Controller
         // Retorna a view para edição da solicitação de almoxarifado com os dados necessários
         return view('inventory.warehouse.center.center_edit_request', compact('db','dbDepartment','dbWarehouseInventories','dbRequestDetails'));
     }
-
-    public function update(Request $request, string $id, string $inventoryRequest)
-    {
-        // Edita a quantidade de um item na solicitação de almoxarifado se a quantidade e o ID do consumível forem fornecidos no formulário
-        if ($request['quantity'] && $request['consumable_id']) {
-            // Busca o detalhe da solicitação de almoxarifado para o consumível especificado
-            $dbRequestDetailsEdit = InventoryWarehouseRequestDetail::where('store_room_request_id', $inventoryRequest)
-                ->where('consumable_id', $request['consumable_id'])
-                ->first();
-            
-            // Atualiza a quantidade do item na solicitação de almoxarifado
-            $dbRequestDetailsEdit->quantity_forwarded = $request['quantity'];
-            $dbRequestDetailsEdit->confirmed = TRUE;
-            $dbRequestDetailsEdit->save();
-        }
-
-        // Redireciona de volta para a página anterior
-        return redirect()->back();
-    }    
     
     public function requestShow(string $id)
     {
@@ -141,6 +123,9 @@ class InventoryWarehouseCenterController extends Controller
         }
         
         // Busca todos os consumíveis ordenados por título
+        $dbFinancialBlocks = CompanyFinancialBlock::orderBy('title')->get();
+        
+        // Busca todos os consumíveis ordenados por título
         $dbConsumables = Consumable::orderBy('title')->get();
         
         // Busca os últimos 20 históricos de movimento de entrada ordenados por data de criação
@@ -150,7 +135,7 @@ class InventoryWarehouseCenterController extends Controller
             ->get();
 
         // Retorna a view do formulário de entrada de estoque para o departamento especificado
-        return view('inventory.warehouse.center.center_entry', compact('db', 'dbHistories', 'dbConsumables'));
+        return view('inventory.warehouse.center.center_entry', compact('db', 'dbHistories', 'dbConsumables','dbFinancialBlocks'));
     }
 
     /**

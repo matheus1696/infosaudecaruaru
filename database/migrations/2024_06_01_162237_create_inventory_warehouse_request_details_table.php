@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('inventory_warehouse_request_details', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->integer('quantity_default')->nullable();
             $table->integer('quantity_current');
             $table->integer('quantity_forwarded');
             $table->boolean('confirmed')->default(FALSE);

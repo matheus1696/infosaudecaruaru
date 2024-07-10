@@ -1,1 +1,0 @@
-<x-button.buttonStatus condition="{{$dbRequestDetail->confirmed}}" route="{{route('centers.requestConfirmedItem',['center'=>$dbDepartment->id,'request'=>$dbRequestDetail->id])}}" titleTrue="Confimado" titleFalse="Negado"/>

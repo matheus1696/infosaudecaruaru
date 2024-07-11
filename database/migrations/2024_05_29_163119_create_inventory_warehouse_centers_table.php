@@ -17,13 +17,13 @@ return new class extends Migration
             $table->integer('quantity_minimum')->nullable();
             $table->integer('quantity_maximum')->nullable();
             $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('department_id');
+            $table->unsignedInteger('warehouse_id');
             $table->unsignedInteger('establishment_id');
             $table->unsignedInteger('financial_block_id')->default(1);
             $table->timestamps();
 
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('warehouse_id')->references('id')->on('company_establishment_warehouses');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
             $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
         });

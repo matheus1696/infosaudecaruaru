@@ -2,7 +2,7 @@
 
 namespace App\Models\Inventory\Warehouse;
 
-use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +14,12 @@ class InventoryWarehouseRequest extends Model
     protected $fillable = [
         'code',
         'title',
-        'department_contact',
-        'department_extension',
+        'warehouse_contact',
+        'warehouse_extension',
         'user_contact_1',
         'user_contact_2',
         'status_id',
-        'department_id',
+        'warehouse_id',
         'user_id',
     ];
 
@@ -29,8 +29,8 @@ class InventoryWarehouseRequest extends Model
         return $this->belongsTo(InventoryWarehouseRequestStatus::class,'status_id','id');
     }
     
-    public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id');
+    public function CompanyEstablishmentWarehouse(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'warehouse_id','id');
     }
     
     public function User(){

@@ -20,18 +20,18 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('incoming_department_id');
+            $table->unsignedInteger('incoming_warehouse_id');
             $table->unsignedInteger('incoming_establishment_id');
-            $table->unsignedInteger('output_department_id')->nullable();
+            $table->unsignedInteger('output_warehouse_id')->nullable();
             $table->unsignedInteger('output_establishment_id')->nullable();
             $table->unsignedInteger('financial_block_id')->default(1);
             $table->unsignedInteger('user_id');
             $table->timestamps();
             
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('incoming_department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('incoming_warehouse_id')->references('id')->on('company_establishment_warehouses');
             $table->foreign('incoming_establishment_id')->references('id')->on('company_establishments');
-            $table->foreign('output_department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('output_warehouse_id')->references('id')->on('company_establishment_warehouses');
             $table->foreign('output_establishment_id')->references('id')->on('company_establishments');
             $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
             $table->foreign('user_id')->references('id')->on('users');

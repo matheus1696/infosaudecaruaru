@@ -1,7 +1,7 @@
 <x-table.table>
     @slot('thead')
         <x-table.th>Descrição Almoxarifado</x-table.th>
-        <x-table.th>Tipo do Almoxarifado</x-table.th>
+        <x-table.th class="w-80">Tipo do Almoxarifado</x-table.th>
         <x-table.th>Unidade</x-table.th>
         <x-table.th class="w-28">Acesso</x-table.th>
     @endslot

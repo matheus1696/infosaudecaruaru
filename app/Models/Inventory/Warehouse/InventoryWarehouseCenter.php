@@ -4,6 +4,7 @@ namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class InventoryWarehouseCenter extends Model
         'quantity_minimum',
         'quantity_maximum',
         'consumable_id',
-        'department_id',
+        'warehouse_id',
         'establishment_id',
         'financial_block_id',
     ];
@@ -31,8 +32,8 @@ class InventoryWarehouseCenter extends Model
         return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id');
     }
     
-    public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id');
+    public function CompanyEstablishmentWarehouse(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'warehouse_id','id');
     }
     
     public function CompanyFinancialBlock(){

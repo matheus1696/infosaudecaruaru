@@ -3,7 +3,7 @@
 namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\User;
@@ -22,9 +22,9 @@ class InventoryWarehouseCenterHistory extends Model
         'quantity',
         'movement',
         'consumable_id',
-        'incoming_department_id',
+        'incoming_warehouse_id',
         'incoming_establishment_id',
-        'output_department_id',
+        'output_warehouse_id',
         'output_establishment_id',
         'financial_block_id',
         'user_id'
@@ -38,16 +38,16 @@ class InventoryWarehouseCenterHistory extends Model
         return $this->belongsTo(CompanyEstablishment::class,'incoming_establishment_id','id');
     }
     
-    public function CompanyEstablishmentDepartmentIncoming(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'incoming_department_id','id');
+    public function CompanyEstablishmentWarehouseIncoming(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'incoming_warehouse_id','id');
     }
 
     public function CompanyEstablishmentOutput(){
         return $this->belongsTo(CompanyEstablishment::class,'output_establishment_id','id');
     }
     
-    public function CompanyEstablishmentDepartmentOutput(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'output_department_id','id');
+    public function CompanyEstablishmentWarehouseOutput(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'output_warehouse_id','id');
     }
     
     public function CompanyFinancialBlock(){

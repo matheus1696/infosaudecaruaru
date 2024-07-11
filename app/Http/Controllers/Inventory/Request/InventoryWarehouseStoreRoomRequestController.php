@@ -20,7 +20,7 @@ use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoomHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class InventoryWarehouseRequestController extends Controller
+class InventoryWarehouseStoreRoomRequestController extends Controller
 {
     /*
      * Controller access permission resource.

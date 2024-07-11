@@ -2,9 +2,8 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="{{$dbDepartment->department}} - {{$dbDepartment->CompanyEstablishment->title}}"
-            routeJoker="{{route('warehouse.centers.requestShow',['center'=>$dbDepartment->id])}}" iconJoker="fas fa-list" btnTitleJoker="Atender Solicitações"
-            routeCreate="{{route('warehouse.centers.entryShow',['center'=>$dbDepartment->id])}}" btnTitleCreate="Entrada"
+            title="{{$dbWarehouse->CompanyEstablishment->title}}"
+            routeCreate="{{route('warehouse.centers.entryShow',['center'=>$dbWarehouse->id])}}" btnTitleCreate="Entrada"
             routeBack="{{route('warehouse.centers.index')}}"
         />
     @endslot

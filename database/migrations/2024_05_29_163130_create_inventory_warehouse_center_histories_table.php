@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_center_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice')->nullable();
-            $table->string('supply_order')->nullable();
-            $table->string('supply_order_parcel')->nullable();
-            $table->string('supply_company')->nullable();
+            $table->string('invoice');
+            $table->string('supply_order');
+            $table->string('supply_order_parcel');
+            $table->unsignedBigInteger('supply_company_id');
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');
@@ -24,10 +24,11 @@ return new class extends Migration
             $table->unsignedInteger('incoming_establishment_id');
             $table->unsignedInteger('output_warehouse_id')->nullable();
             $table->unsignedInteger('output_establishment_id')->nullable();
-            $table->unsignedInteger('financial_block_id')->default(1);
+            $table->unsignedInteger('financial_block_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
             
+            $table->foreign('supply_company_id')->references('id')->on('supply_companies');
             $table->foreign('consumable_id')->references('id')->on('consumables');
             $table->foreign('incoming_warehouse_id')->references('id')->on('company_establishment_warehouses');
             $table->foreign('incoming_establishment_id')->references('id')->on('company_establishments');

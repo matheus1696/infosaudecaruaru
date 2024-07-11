@@ -23,5 +23,25 @@ class CompanyEstablishmentTypeWarehouseSeeder extends Seeder
             'filter'=>strtolower('Centro de Distribuição de Suprimentos'),
             'acronym'=>'CDS',
         ]);
+        CompanyEstablishmentTypeWarehouse::create([
+            'title'=>'Farmácia',
+            'filter'=>strtolower('Farmácia'),
+            'acronym'=>'FAR',
+        ]);
+        CompanyEstablishmentTypeWarehouse::create([
+            'title'=>'Centro de Abastecimento Farmacêutico',
+            'filter'=>strtolower('Centro de Abastecimento Farmacêutico'),
+            'acronym'=>'CAF',
+        ]);
+        CompanyEstablishmentTypeWarehouse::create([
+            'title'=>'Almoxarifado de Gêneros Alimentícios',
+            'filter'=>strtolower('Almoxarifado de Gêneros Alimentícios'),
+            'acronym'=>'AGA',
+        ]);
+        CompanyEstablishmentTypeWarehouse::create([
+            'title'=>'Centro de Gêneros Alimentícios',
+            'filter'=>strtolower('Centro de Gêneros Alimentícios'),
+            'acronym'=>'CGA',
+        ]);
     }
 }

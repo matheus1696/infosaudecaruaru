@@ -15,15 +15,21 @@
             @include('admin.company.establishments.partials.show.establishment_show_description')
         </x-conteiner>
 
-        <x-conteiner>
-            <div>
-                @include('admin.company.establishments.partials.show.establishment_show_department_form')
-            </div>
-        </x-conteiner>
-        <hr>
-        <div>
-            @include('admin.company.establishments.partials.show.establishment_show_department_table')
+        <hr class="py-2">
+
+        <div class="flex justify-between px-2">
+            <h3 class="text-lg font-semibold">Almoxarifados</h3>
+            @include('admin.company.establishments.partials.show.establishment_show_warehouse_form')
         </div>
+        @include('admin.company.establishments.partials.show.establishment_show_warehouse_table')
+
+        <hr class="py-2">
+
+        <div class="flex justify-between px-2">
+            <h3 class="text-lg font-semibold">Departamentos</h3>
+            @include('admin.company.establishments.partials.show.establishment_show_department_form')
+        </div>
+        @include('admin.company.establishments.partials.show.establishment_show_department_table')
 
     @endslot
 </x-pages.index>

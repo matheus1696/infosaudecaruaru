@@ -8,6 +8,8 @@ use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInvent
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomEntryStoreRequest;
 use App\Http\Requests\InventoryWarehouse\InventoryWarehouseStoreRoom\StoreInventoryWarehouseStoreRoomExitStoreRequest;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentTypeWarehouse;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\Warehouse\InventoryWarehouseRequest;
 use App\Models\Inventory\Warehouse\InventoryWarehouseRequestDetail;
@@ -32,10 +34,27 @@ class InventoryWarehouseStoreRoomController extends Controller
      */
     public function index()
     {
-        // Rgistros com relacionamentos paginando os resultados
-        $db = CompanyEstablishmentDepartment::where('has_inventory_warehouse_store_room',TRUE)
+        $dbUser = Auth::user();
+        $dbCompanyEstablishmentTypeWarehouses = CompanyEstablishmentTypeWarehouse::all();
+        $typeWarehouse = FALSE;
+
+        foreach ($dbCompanyEstablishmentTypeWarehouses as $key => $value) {
+            if ($value->title == "Almoxarifado") {
+                $typeWarehouse = $value->id;
+            }
+        }
+
+        if ($dbUser->establishment_id == '') {
+            $db = FALSE;
+        } else {
+            // Registros com relacionamentos paginando os resultados
+            $db = CompanyEstablishmentWarehouse::where('establishment_id',Auth::user()->establishment_id)
+            ->where('type_warehouse_id', $typeWarehouse)
+            ->where('status',TRUE)
+            ->with('CompanyEstablishmentTypeWarehouse')
             ->with('CompanyEstablishment')
             ->paginate(50);
+        }
 
         // Retorna a view com os dados
         return view('inventory.warehouse.store_room.store_room_index', compact('db'));

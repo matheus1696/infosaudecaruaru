@@ -7,20 +7,20 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     *  Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('company_establishment_departments', function (Blueprint $table) {
+        Schema::create('company_establishment_warehouses', function (Blueprint $table) {
             $table->id();
-            $table->string('department');
+            $table->string('title');
             $table->string('filter');
-            $table->string('contact')->nullable();
-            $table->string('extension')->nullable();
-            $table->string('type_contact')->nullable()->default('Without');
+            $table->boolean('status')->default(true);
+            $table->unsignedBigInteger('type_warehouse_id');
             $table->unsignedBigInteger('establishment_id');
             $table->timestamps();
 
+            $table->foreign('type_warehouse_id')->references('id')->on('company_establishment_type_warehouses');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company_establishment_departments');
+        Schema::dropIfExists('company_establishment_warehouses');
     }
 };

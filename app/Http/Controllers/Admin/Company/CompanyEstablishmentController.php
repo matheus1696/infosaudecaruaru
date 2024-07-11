@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyEstablishmentStoreRequest;
 use App\Http\Requests\Company\CompanyEstablishmentUpdateRequest;
+use App\Http\Requests\Company\CompanyEstablishmentWarehousesStoreRequest;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentTypeWarehouse;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyTypeEstablishment;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
@@ -107,6 +110,10 @@ class CompanyEstablishmentController extends Controller
     {
         //
         $db = CompanyEstablishment::find($id);
+
+        $dbEstablishmentWarehouses = CompanyEstablishmentWarehouse::where('establishment_id', $id)->get();
+        $dbEstablishmentTypeWarehouses = CompanyEstablishmentTypeWarehouse::all();
+
         $dbDepartments = CompanyEstablishmentDepartment::where('establishment_id', $id)
             ->orderBy('contact')
             ->get();
@@ -114,10 +121,7 @@ class CompanyEstablishmentController extends Controller
         //Log do Sistema
         Logger::show($db->title);
 
-        return view('admin.company.establishments.establishments_show',[
-            'db'=>$db,
-            'dbDepartments'=>$dbDepartments,
-        ]);
+        return view('admin.company.establishments.establishments_show', compact('db', 'dbDepartments', 'dbEstablishmentWarehouses', 'dbEstablishmentTypeWarehouses'));
     }
 
     /**
@@ -186,5 +190,40 @@ class CompanyEstablishmentController extends Controller
         Logger::status($db->id, $db->status);
 
         return redirect(route('establishments.index'))->with('success','Status alterado com sucesso.');
+    }
+
+    /**
+     * Update the status of the specified item in storage.
+     */
+    public function createWarehouse(CompanyEstablishmentWarehousesStoreRequest $request, string $id)
+    {
+        $request['filter'] = strtolower($request['title']);
+        $request['establishment_id'] = $id;
+
+        CompanyEstablishmentWarehouse::create($request->all());
+
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
+    }
+
+    /**
+     * Update the status of the specified item in storage.
+     */
+    public function updateWarehouse(CompanyEstablishmentWarehousesStoreRequest $request, string $id)
+    {
+        $db = CompanyEstablishmentWarehouse::find($id);
+        $db->update($request->all());
+
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
+    }
+
+    /**
+     * Update the status of the specified item in storage.
+     */
+    public function statusWarehouse(Request $request, string $id)
+    {
+        $db = CompanyEstablishmentWarehouse::find($id);
+        $db->update($request->only('status'));
+
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
     }
 }

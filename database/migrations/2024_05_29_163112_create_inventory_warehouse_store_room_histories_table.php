@@ -16,13 +16,13 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('department_id');
+            $table->unsignedInteger('warehouse_id');
             $table->unsignedInteger('establishment_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
             
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('department_id')->references('id')->on('company_establishment_departments');
+            $table->foreign('warehouse_id')->references('id')->on('company_establishment_warehouses');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
             $table->foreign('user_id')->references('id')->on('users');
         });

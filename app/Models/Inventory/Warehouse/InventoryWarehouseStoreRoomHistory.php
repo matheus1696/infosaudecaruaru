@@ -3,7 +3,7 @@
 namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Consumable\Consumable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +17,7 @@ class InventoryWarehouseStoreRoomHistory extends Model
         'quantity',
         'movement',
         'consumable_id',
-        'department_id',
+        'warehouse_id',
         'establishment_id',
         'user_id'
     ];
@@ -30,8 +30,8 @@ class InventoryWarehouseStoreRoomHistory extends Model
         return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id');
     }
     
-    public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id');
+    public function CompanyEstablishmentWarehouse(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'warehouse_id','id');
     }
     
     public function User(){

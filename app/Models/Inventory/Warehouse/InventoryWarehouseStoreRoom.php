@@ -3,7 +3,7 @@
 namespace App\Models\Inventory\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyEstablishmentDepartment;
+use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Consumable\Consumable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ class InventoryWarehouseStoreRoom extends Model
         'quantity_minimum',
         'quantity_maximum',
         'consumable_id',
-        'department_id',
+        'warehouse_id',
         'establishment_id',
     ];
 
@@ -29,7 +29,7 @@ class InventoryWarehouseStoreRoom extends Model
         return $this->belongsTo(CompanyEstablishment::class,'establishment_id','id')->orderBy('title');
     }
     
-    public function CompanyEstablishmentDepartment(){
-        return $this->belongsTo(CompanyEstablishmentDepartment::class,'department_id','id')->orderBy('department');
+    public function CompanyEstablishmentWarehouse(){
+        return $this->belongsTo(CompanyEstablishmentWarehouse::class,'warehouse_id','id')->orderBy('title');
     }
 }

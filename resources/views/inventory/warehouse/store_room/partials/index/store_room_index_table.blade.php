@@ -1,4 +1,4 @@
-<x-table.table :db="$db">
+<x-table.table>
     @slot('thead')
         <x-table.th>Descrição Almoxarifado</x-table.th>
         <x-table.th>Tipo do Almoxarifado</x-table.th>

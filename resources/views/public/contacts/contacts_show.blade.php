@@ -2,7 +2,10 @@
 
     <!-- Slot Header -->
     @slot('header')
-        <x-header title="{{$dbEstablishment->title}}" route="{{route('contacts.index')}}" btnTitle="Retornar"/>
+        <x-header 
+            title="{{$dbEstablishment->title}}" 
+            routeBack="{{route('contacts.index')}}" btnTitleBack="Retornar"
+        />
     @endslot
 
     @slot('body')     

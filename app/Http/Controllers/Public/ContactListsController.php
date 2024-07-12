@@ -60,7 +60,7 @@ class ContactListsController extends Controller
         $db = CompanyEstablishmentDepartment::where('contact','<>',NULL)
         ->where('establishment_id', $id)
         ->orderBy('contact')
-        ->paginate(20);
+        ->paginate(100);
 
         $dbEstablishment = CompanyEstablishment::find($id);
 
@@ -71,7 +71,7 @@ class ContactListsController extends Controller
                 ->where('establishment_id', $id)
                 ->where('filter','LIKE','%'.strtolower($search['searchName']).'%')
                 ->orderBy('contact')
-                ->paginate(20);
+                ->paginate(100);
         }
 
         return view('public.contacts.contacts_show',[

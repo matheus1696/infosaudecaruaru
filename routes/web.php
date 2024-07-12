@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Inventory\InventoryWarehouseStandardRequestListCo
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
+use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
 use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffCenterController;
 use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffStoreRoomController;
@@ -74,6 +75,11 @@ Route::middleware('auth')->group(function () {
                     Route::put('establishments/{establishment}/warehouse/status',[CompanyEstablishmentController::class,'statusWarehouse'])->name('establishments.statusWarehouse');
                 //Rota - Nível de Atenção
                     Route::resource('financial_blocks',CompanyFinancialBlockController::class);
+                //Rota - Fornecedores
+                    Route::prefix('supply')->group(function (){
+                        //Rota - Fornecedores
+                        Route::resource('companies',SupplyCompanyController::class);
+                    });
 
             });
 

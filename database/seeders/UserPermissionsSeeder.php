@@ -18,7 +18,5 @@ class UserPermissionsSeeder extends Seeder
         UserPermissions::create(['name'=>'user','guard_name'=>'web']);
         UserPermissions::create(['name'=>'inventory_warehouse_store_room','guard_name'=>'web']);
         UserPermissions::create(['name'=>'inventory_warehouse_center','guard_name'=>'web']);
-        UserPermissions::create(['name'=>'inventory_pharmacy_store_room','guard_name'=>'web']);
-        UserPermissions::create(['name'=>'inventory_pharmacy_center','guard_name'=>'web']);
     }
 }

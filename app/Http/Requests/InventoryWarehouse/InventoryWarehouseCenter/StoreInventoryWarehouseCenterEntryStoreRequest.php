@@ -24,7 +24,7 @@ class StoreInventoryWarehouseCenterEntryStoreRequest extends FormRequest
         return [
             'invoice'=>'required',
             'supply_order'=>'required',
-            'supply_company'=>'required',
+            'supply_company_id'=>'required',
             'consumable_id'=>'required',
             'quantity'=>'required|integer|min_digits:1',
         ];

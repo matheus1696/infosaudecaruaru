@@ -18,7 +18,7 @@ class SupplyCompanyController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:sysadmin|admin']);
+        $this->middleware(['permission:inventory_warehouse_center|sysadmin|admin']);
     }
 
     /**
@@ -42,7 +42,10 @@ class SupplyCompanyController extends Controller
      */
     public function store(SupplyCompanyStoreRequest $request)
     {
-        //
+        $request['filter'] = $request['title'];
+        SupplyCompany::create($request->all());
+
+        return redirect()->back();
     }
 
     /**

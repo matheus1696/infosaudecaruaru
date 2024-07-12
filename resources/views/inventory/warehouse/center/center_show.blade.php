@@ -2,7 +2,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header
-            title="{{$dbWarehouse->CompanyEstablishment->title}}"
+            title="{{$dbWarehouse->title}}"
             routeCreate="{{route('warehouse.centers.entryShow',['center'=>$dbWarehouse->id])}}" btnTitleCreate="Entrada"
             routeBack="{{route('warehouse.centers.index')}}"
         />

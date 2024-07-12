@@ -24,6 +24,7 @@
         @endisset
         @if ($name == 'registration') onkeyup="handleRegistration(event)" @endif
         @if ($name == 'cpf') onkeyup="handleCPF(event)" @endif
+        @if ($name == 'cnpj') onkeyup="handleCNPJ(event)" @endif
     >
     @error($name)
         <x-form.errors-message>

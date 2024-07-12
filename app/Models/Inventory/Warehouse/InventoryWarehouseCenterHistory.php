@@ -6,6 +6,7 @@ use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
+use App\Models\Supply\SupplyCompany;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ class InventoryWarehouseCenterHistory extends Model
         'invoice',
         'supply_order',
         'supply_order_parcel',
-        'supply_company',
+        'supply_company_id',
         'quantity',
         'movement',
         'consumable_id',
@@ -32,6 +33,10 @@ class InventoryWarehouseCenterHistory extends Model
 
     public function Consumable(){
         return $this->belongsTo(Consumable::class,'consumable_id','id');
+    }
+
+    public function SupplyCompany(){
+        return $this->belongsTo(SupplyCompany::class,'supply_company_id','id');
     }
 
     public function CompanyEstablishmentIncoming(){

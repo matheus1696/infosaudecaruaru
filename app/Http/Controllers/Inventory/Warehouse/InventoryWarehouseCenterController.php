@@ -10,6 +10,8 @@ use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\Inventory\Warehouse\InventoryWarehouseCenter;
 use App\Models\Inventory\Warehouse\InventoryWarehouseCenterHistory;
+use App\Models\Region\RegionCity;
+use App\Models\Supply\SupplyCompany;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryWarehouseCenterController extends Controller
@@ -96,6 +98,12 @@ class InventoryWarehouseCenterController extends Controller
         // Busca todos os consumíveis ordenados por título
         $dbConsumables = Consumable::orderBy('title')->get();
         
+        // Busca todos os fornecedores ordenados por título
+        $dbSupplyCompanies = SupplyCompany::orderBy('title')->get();
+        
+        // Busca todos os fornecedores ordenados por título
+        $dbRegionCities = RegionCity::orderBy('city')->get();
+        
         // Busca os últimos 20 históricos de movimento de entrada ordenados por data de criação
         $dbHistories = InventoryWarehouseCenterHistory::where('movement', 'Entrada')
             ->orderBy('created_at', 'DESC')
@@ -103,7 +111,7 @@ class InventoryWarehouseCenterController extends Controller
             ->get();
 
         // Retorna a view do formulário de entrada de estoque para o departamento especificado
-        return view('inventory.warehouse.center.center_entry', compact('db', 'dbHistories', 'dbConsumables','dbFinancialBlocks'));
+        return view('inventory.warehouse.center.center_entry', compact('db', 'dbHistories', 'dbConsumables', 'dbRegionCities', 'dbSupplyCompanies','dbFinancialBlocks'));
     }
 
     /**

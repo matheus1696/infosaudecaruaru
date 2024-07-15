@@ -16,7 +16,7 @@
                     </button>
                 </div>
                 <div class="m-4 modal-body">
-                    <x-form.form method="create" route="{{route('establishments.createWarehouse',['establishment'=>$db->id])}}">
+                    <x-form.form method="create" route="{{route('establishments.createWarehouse',['warehouse'=>$db->id])}}">
                         <x-form.input col="12" label="Descrição do Almoxarifado" id="title" name="title" required="required"/>
 
                         <x-form.select col="12" label="Tipo de Almoxarifado" id="type_warehouse_id" name="type_warehouse_id">

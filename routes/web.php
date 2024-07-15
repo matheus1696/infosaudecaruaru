@@ -68,10 +68,11 @@ Route::middleware('auth')->group(function () {
                 //Rota - Dados Estabelecimento de Saúde 
                     Route::put('establishments/status/{establishment}',[CompanyEstablishmentController::class,'status'])->name('establishments.status');
                     Route::resource('establishments',CompanyEstablishmentController::class);
-                    Route::resource('establishment_departments',CompanyEstablishmentDepartmentController::class);                    
-                    Route::post('establishments/{establishment}/warehouse/create',[CompanyEstablishmentController::class,'createWarehouse'])->name('establishments.createWarehouse');
-                    Route::put('establishments/{establishment}/warehouse/update',[CompanyEstablishmentController::class,'updateWarehouse'])->name('establishments.updateWarehouse');
-                    Route::put('establishments/{establishment}/warehouse/status',[CompanyEstablishmentController::class,'statusWarehouse'])->name('establishments.statusWarehouse');
+                    Route::post('establishments/warehouse/{warehouse}create',[CompanyEstablishmentController::class,'createWarehouse'])->name('establishments.createWarehouse');
+                    Route::put('establishments/warehouse/{warehouse}/update',[CompanyEstablishmentController::class,'updateWarehouse'])->name('establishments.updateWarehouse');
+                    Route::delete('establishments/warehouse/{warehouse}/destroy',[CompanyEstablishmentController::class,'destroyWarehouse'])->name('establishments.destroyWarehouse');
+                    Route::put('establishments/warehouse/{warehouse}/status',[CompanyEstablishmentController::class,'statusWarehouse'])->name('establishments.statusWarehouse');
+                    Route::resource('establishment_departments',CompanyEstablishmentDepartmentController::class);
                 //Rota - Nível de Atenção
                     Route::resource('financial_blocks',CompanyFinancialBlockController::class);
                 //Rota - Fornecedores

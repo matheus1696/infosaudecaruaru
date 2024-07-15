@@ -39,7 +39,7 @@
                             
                         </x-button.minButtonModalEdit>
 
-                        <x-button.minButtonDelete route="{{route('establishment_departments.destroy',['establishment_department'=>$dbDepartment->id])}}"></x-button.minButtonDelete>
+                        <x-button.minButtonDelete route="{{route('establishment_departments.destroy',['establishment_department'=>$dbDepartment->id])}}"/>
                     </x-table.td>
                 </x-table.tr>
             @endforeach

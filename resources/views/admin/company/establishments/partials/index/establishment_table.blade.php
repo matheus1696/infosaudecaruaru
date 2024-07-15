@@ -46,12 +46,12 @@
                                     @endslot
 
                                     @slot('tbody')
-                                        @foreach ($dbEstablishmentDepartments as $dbEstablishmentDepartment)
-                                            @if($item->id === $dbEstablishmentDepartment->establishment_id)
+                                        @foreach ($dbDepartments as $dbDepartment)
+                                            @if($item->id === $dbDepartment->establishment_id)
                                             <x-table.tr>
-                                                <x-table.td>{{$dbEstablishmentDepartment->title}}</x-table.td>
-                                                <x-table.td>{{$dbEstablishmentDepartment->contact}}</x-table.td>
-                                                <x-table.td>{{$dbEstablishmentDepartment->extension}}</x-table.td>
+                                                <x-table.td>{{$dbDepartment->title}}</x-table.td>
+                                                <x-table.td>{{$dbDepartment->contact}}</x-table.td>
+                                                <x-table.td>{{$dbDepartment->extension}}</x-table.td>
                                             </x-table.tr>
                                             @endif
                                         @endforeach

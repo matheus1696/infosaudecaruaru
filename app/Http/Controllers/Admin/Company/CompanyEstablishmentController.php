@@ -13,6 +13,8 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyEstablishmentTypeWarehouse;
 use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyTypeEstablishment;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoom;
+use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoomHistory;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
 
@@ -41,9 +43,11 @@ class CompanyEstablishmentController extends Controller
             ->with('RegionCity')
             ->paginate(100);
 
+        //Utilizado para Search
         $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
-
-        $dbEstablishmentDepartments= CompanyEstablishmentDepartment::all();
+        
+        //Lista de Ramais
+        $dbDepartments = CompanyEstablishmentDepartment::all();
 
         //Pesquisar Dados
         $search = $request->all();
@@ -56,12 +60,7 @@ class CompanyEstablishmentController extends Controller
         //Log do Sistema
         Logger::access();
 
-        return view('admin.company.establishments.establishments_index',[
-            'search'=>$search,
-            'db'=>$db,
-            'dbEstablishments'=>$dbEstablishments,
-            'dbEstablishmentDepartments'=>$dbEstablishmentDepartments,
-        ]);
+        return view('admin.company.establishments.establishments_index', compact('search', 'db', 'dbEstablishments', 'dbDepartments'));
     }
 
     /**
@@ -201,7 +200,7 @@ class CompanyEstablishmentController extends Controller
 
         CompanyEstablishmentWarehouse::create($request->all());
 
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Almoxarifado salvo com sucesso');
     }
 
     /**
@@ -212,7 +211,27 @@ class CompanyEstablishmentController extends Controller
         $db = CompanyEstablishmentWarehouse::find($id);
         $db->update($request->all());
 
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Almoxarifado atualizado com sucesso');
+    }   
+
+    /**
+     * Update the status of the specified item in storage.
+     */
+    public function destroyWarehouse(string $id)
+    {
+        $db = InventoryWarehouseStoreRoom::where('warehouse_id',$id)->first();
+        $dbHistory = InventoryWarehouseStoreRoomHistory::where('warehouse_id',$id)->get();
+
+        if ($dbHistory->count() > 0) {
+            return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('error','Almoxarifado contém histórico de movimentação no estoque.');
+        }
+        if ($db->count() > 0) {
+            return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('error','Almoxarifado contém itens no estoque.');
+        }
+
+        $db->delete();
+
+        return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('success','Almoxarifado excluído com sucesso');
     }
 
     /**
@@ -223,6 +242,6 @@ class CompanyEstablishmentController extends Controller
         $db = CompanyEstablishmentWarehouse::find($id);
         $db->update($request->only('status'));
 
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Cadastro salvo com sucesso');
+        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Status do almoxarifado alterado com sucesso');
     }
 }

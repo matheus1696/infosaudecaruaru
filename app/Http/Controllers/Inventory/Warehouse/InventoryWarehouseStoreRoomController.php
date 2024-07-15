@@ -79,7 +79,7 @@ class InventoryWarehouseStoreRoomController extends Controller
         }
 
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
-        $db = InventoryWarehouseStoreRoom::where('warehouse_id',$id)->paginate(50);
+        $db = InventoryWarehouseStoreRoom::where('warehouse_id',$id)->orderBy('consumable_id')->paginate(100);
 
         // Retorna a view com os dados do departamento e do almoxarifado
         return view('inventory.warehouse.store_room.store_room_show', compact('db','dbWarehouse'));

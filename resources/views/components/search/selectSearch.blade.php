@@ -1,4 +1,4 @@
-<div class="flex items-center gap-2 {{$class ?? ''}} w-full lg:w-auto">
+<div class="flex items-center gap-1 {{$class ?? ''}} w-full">
     @include('components.search.labelSearch')
     <select
         id="{{$id}}" 

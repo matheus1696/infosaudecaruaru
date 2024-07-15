@@ -12,7 +12,7 @@ class CompanyEstablishmentDepartment extends Model
     protected $table = "company_establishment_departments";
 
     protected $fillable = [
-        'department',
+        'title',
         'filter',
         'contact',
         'extension',

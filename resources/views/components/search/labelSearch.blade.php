@@ -1,3 +1,3 @@
-<div class="w-32 lg:w-auto">        
+<div>        
     <label for="{{$id}}" class="pt-2 text-sm font-semibold">{{$label ?? ""}}:</label>
 </div>

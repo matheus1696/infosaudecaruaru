@@ -36,13 +36,13 @@ class CompanyEstablishmentDepartmentController extends Controller
     {
         //Dados dos Formulários
         $data = $request->all();
-        $data['filter'] = strtolower($data['department']);
+        $data['filter'] = strtolower($data['title']);
 
         //Salvando Dados
         CompanyEstablishmentDepartment::create($data);
 
         //Log do Sistema
-        Logger::store($data['department']);
+        Logger::store($data['title']);
 
         return redirect(route('establishments.show',['establishment'=>$data['establishment_id']]))
             ->with('success','Cadastro salvo com sucesso');

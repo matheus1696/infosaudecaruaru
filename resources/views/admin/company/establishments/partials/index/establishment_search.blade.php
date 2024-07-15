@@ -1,7 +1,5 @@
 <!-- Search -->
 <x-search.formSearch>
-    <x-search.inputSearch label="CNES" id="searchCod" value="{{ $search['searchCod'] ?? '' }}"/>
-
     <x-search.selectSearch label="Unidade" id="searchName" class="flex-1">
         @foreach ($dbEstablishments as $dbEstablishment)
             <option 

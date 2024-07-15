@@ -39,7 +39,7 @@ class CompanyEstablishmentController extends Controller
             ->with('FinancialBlock')
             ->with('TypeEstablishment')
             ->with('RegionCity')
-            ->paginate(20);
+            ->paginate(100);
 
         $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
 
@@ -47,11 +47,10 @@ class CompanyEstablishmentController extends Controller
 
         //Pesquisar Dados
         $search = $request->all();
-        if (isset($search['searchName']) || isset($search['searchCod'])) {
-            $db = CompanyEstablishment::where('code','LIKE','%'.strtolower($search['searchCod']).'%')
-                ->where('filter','LIKE','%'.strtolower($search['searchName']).'%')
+        if (isset($search['searchName'])) {
+            $db = CompanyEstablishment::where('filter','LIKE','%'.strtolower($search['searchName']).'%')
                 ->orderBy('title')
-                ->paginate(20);
+                ->paginate(100);
         }
 
         //Log do Sistema

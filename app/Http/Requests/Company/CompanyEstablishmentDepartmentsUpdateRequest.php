@@ -23,7 +23,15 @@ class CompanyEstablishmentDepartmentsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'department' => 'required|min:6',
+            'title' => 'required|min:6',
+            'contact' => [
+                'nullable',
+                Rule::unique('company_establishment_departments')->ignore($this->establishment_department),
+            ],
+            'extension' => [
+                'nullable',
+                Rule::unique('company_establishment_departments')->ignore($this->establishment_department),
+            ],
             'type_contact' => 'required',
         ];
     }

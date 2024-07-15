@@ -22,7 +22,9 @@ class CompanyEstablishmentDepartmentsStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'department' => 'required|min:6',
+            'title' => 'required|min:6',
+            'contact' => 'nullable|unique:company_establishment_departments',
+            'extension' => 'nullable|unique:company_establishment_departments',
             'type_contact' => 'required',
         ];
     }

@@ -24,7 +24,7 @@ class CompanyTypeEstablishmentController extends Controller
     public function index()
     {
         //Listagem de Dados
-        $db = CompanyTypeEstablishment::select()->orderBy('status','DESC')->orderBy('title')->paginate(20);
+        $db = CompanyTypeEstablishment::select()->orderBy('status','DESC')->orderBy('title')->paginate(100);
         $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
 
         //Log do Sistema

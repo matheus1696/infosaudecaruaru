@@ -11,7 +11,7 @@
         @slot('tbody')
             @foreach ($dbDepartments as $dbDepartment)
                 <x-table.tr>
-                    <x-table.td>{{$dbDepartment->department}}</x-table.td>
+                    <x-table.td>{{$dbDepartment->title}}</x-table.td>
                     <x-table.td class="text-center">{{$dbDepartment->contact}}</x-table.td>
                     <x-table.td class="text-center">{{$dbDepartment->extension}}</x-table.td>
                     <x-table.td class="text-center">                        
@@ -25,7 +25,7 @@
 
                             <x-form.form route="{{route('establishment_departments.update',['establishment_department'=>$dbDepartment->id])}}" method="edit">
                                 
-                                <x-form.input col="4" label="Departamento" id="department_{{$dbDepartment->id}}" name="department" value="{{ $dbDepartment->department}}" required="required"/>
+                                <x-form.input col="4" label="Departamento" id="department_{{$dbDepartment->id}}" name="title" value="{{ $dbDepartment->title}}" required="required"/>
                                 <x-form.input col="3" type="tel" label="Telefone" id="contact_{{$dbDepartment->id}}" name="contact" value="{{ $dbDepartment->contact}}" required="required"/>
                                 <x-form.input col="2" type="number" label="Ramal" id="extension_{{$dbDepartment->id}}" name="extension" value="{{ $dbDepartment->extension}}" required="required"/>
                                 

@@ -28,7 +28,7 @@ class ConsumableController extends Controller
     public function index()
     {
         //Listagem de Dados
-        $db = Consumable::select()->orderBy('status','DESC')->orderBy('title')->paginate(20);
+        $db = Consumable::select()->orderBy('status','DESC')->orderBy('title')->paginate(100);
 
         //Log do Sistema
         Logger::access();

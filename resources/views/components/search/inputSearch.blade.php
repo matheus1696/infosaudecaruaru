@@ -1,4 +1,4 @@
-<div class="flex items-center gap-2 {{$class ?? ''}} w-full lg:w-auto">
+<div class="flex items-center gap-1 w-full {{$class ?? ''}}">
     @include('components.search.labelSearch')
     <input 
         type="{{$type ?? 'text'}}" 

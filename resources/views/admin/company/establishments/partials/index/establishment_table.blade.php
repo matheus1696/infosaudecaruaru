@@ -7,7 +7,7 @@
         <x-table.th>Bairro</x-table.th>
         <x-table.th>Bloco Financeiro</x-table.th>
         <x-table.th class="w-28">Status</x-table.th>
-        <x-table.th class="w-40"></x-table.th>
+        <x-table.th class="w-28"></x-table.th>
     @endslot
 
     <!-- Components TBody -->
@@ -49,7 +49,7 @@
                                         @foreach ($dbEstablishmentDepartments as $dbEstablishmentDepartment)
                                             @if($item->id === $dbEstablishmentDepartment->establishment_id)
                                             <x-table.tr>
-                                                <x-table.td>{{$dbEstablishmentDepartment->department}}</x-table.td>
+                                                <x-table.td>{{$dbEstablishmentDepartment->title}}</x-table.td>
                                                 <x-table.td>{{$dbEstablishmentDepartment->contact}}</x-table.td>
                                                 <x-table.td>{{$dbEstablishmentDepartment->extension}}</x-table.td>
                                             </x-table.tr>

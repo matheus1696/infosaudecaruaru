@@ -26,7 +26,7 @@ class CompanyOccupationController extends Controller
         $db = CompanyOccupation::select()
             ->orderBy('status','DESC')
             ->orderBy('title')
-            ->paginate(20);
+            ->paginate(100);
 
         $dbCompanyOccupations = CompanyOccupation::select()->orderBy('title')->get();
 
@@ -41,7 +41,7 @@ class CompanyOccupationController extends Controller
 
             if (!empty($search['searchCod'])) {$query->where('code', $search['searchCod']);}
 
-            $db = $query->orderBy('title')->paginate(20);
+            $db = $query->orderBy('title')->paginate(100);
         }  
 
         //Log do Sistema

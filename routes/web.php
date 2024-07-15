@@ -11,27 +11,26 @@ use App\Http\Controllers\Admin\Company\CompanyOccupationController;
 use App\Http\Controllers\Admin\Company\CompanyOrganizationController;
 use App\Http\Controllers\Admin\Company\CompanyOrganizationLinkedUserController;
 use App\Http\Controllers\Admin\Company\CompanyTypeEstablishmentController;
-use App\Http\Controllers\Admin\Medication\MedicationClassificationController;
-use App\Http\Controllers\Admin\Medication\MedicationController;
-use App\Http\Controllers\Admin\Medication\MedicationTypeController;
-use App\Http\Controllers\Admin\Medication\MedicationUnitController;
 use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
 use App\Http\Controllers\Admin\Consumable\ConsumableUnitController;
-use App\Http\Controllers\Admin\Inventory\InventoryWarehouseStandardRequestController;
-use App\Http\Controllers\Admin\Inventory\InventoryWarehouseStandardRequestListController;
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
-use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffCenterController;
-use App\Http\Controllers\Inventory\Foodstuff\InventoryFoodstuffStoreRoomController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseStoreRoomController;
 use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseCenterController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
+
+
+
+Route::get('/',function(){return redirect()->route('login');});
+
+//Lista Telefônica
+Route::resource('contacts', ContactListsController::class);
 
 //Camada de Seguraça para Usuários Logados
 Route::middleware('auth')->group(function () {
@@ -163,11 +162,6 @@ Route::middleware('auth')->group(function () {
     Route::put('profiles/password/{profile}',[ProfileController::class,'updatePassword'])->name('profiles.updatePassword');
     Route::resource('profiles', ProfileController::class);
 });
-
-Route::get('/',function(){return redirect()->route('login');});
-
-//Lista Telefônica
-Route::resource('contacts', ContactListsController::class);
 
 //Rotas de Autenticação
 Auth::routes(['verify' => true]);

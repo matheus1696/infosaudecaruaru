@@ -10,6 +10,7 @@ use App\Models\Inventory\Warehouse\InventoryWarehouseRequest;
 use App\Models\Inventory\Warehouse\InventoryWarehouseRequestDetail;
 use Illuminate\Support\Facades\Auth;
 
+
 class InventoryWarehouseCenterController extends Controller
 {
     

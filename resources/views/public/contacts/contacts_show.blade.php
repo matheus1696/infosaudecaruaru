@@ -25,7 +25,7 @@
             @slot('tbody')
                 @foreach ($db as $item)
                     <x-table.tr>
-                        <x-table.td>{{$item->department}}</x-table.td>                            
+                        <x-table.td>{{$item->title}}</x-table.td>                            
                         <x-table.td class="text-center">{{$item->contact}}</x-table.td>                            
                         <x-table.td class="text-center">{{$item->extension}}</x-table.td>
                     </x-table.tr>

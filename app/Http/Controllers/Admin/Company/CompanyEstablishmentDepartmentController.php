@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Company;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyEstablishmentDepartmentsStoreRequest;
 use App\Http\Requests\Company\CompanyEstablishmentDepartmentsUpdateRequest;
@@ -123,24 +122,5 @@ class CompanyEstablishmentDepartmentController extends Controller
             return redirect(route('establishments.show',['establishment'=>$dbEstablishments]))
                 ->with('errors','Existe setores vinculados a '.$db->title);
         }
-    }
-
-    public function hasInventory(Request $request, string $id)
-    {
-        //Dados dos Formulários
-        $data = $request->only('has_inventory_warehouse_store_room','has_inventory_warehouse_center','has_inventory_pharmacy_store_room','has_inventory_pharmacy_center','has_inventory_foodstuff_store_room','has_inventory_foodstuff_center');
-
-        if (count($data) == 0) {
-            return redirect()->back()->with('error','Informação não encontrada.');
-        }
-
-        //Salvando Dados
-        $db = CompanyEstablishmentDepartment::find($id);
-        $db->update($data);
-
-        //Log do Sistema
-        Logger::status($db->id, $db->status);
-
-        return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('success','Estoque alterado com sucesso.');
     }
 }

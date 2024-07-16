@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('company_establishment_warehouses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('filter');
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('type_warehouse_id');

@@ -13,8 +13,8 @@ use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyEstablishmentTypeWarehouse;
 use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyTypeEstablishment;
-use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoom;
-use App\Models\Inventory\Warehouse\InventoryWarehouseStoreRoomHistory;
+use App\Models\Inventory\Warehouse\InventoryWarehouseItems;
+use App\Models\Inventory\Warehouse\InventoryWarehouseMoviment;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
 
@@ -219,19 +219,23 @@ class CompanyEstablishmentController extends Controller
      */
     public function destroyWarehouse(string $id)
     {
-        $db = InventoryWarehouseStoreRoom::where('warehouse_id',$id)->first();
-        $dbHistory = InventoryWarehouseStoreRoomHistory::where('warehouse_id',$id)->get();
-
+        $db = CompanyEstablishmentWarehouse::find($id);
+        $dbItems = InventoryWarehouseItems::where('warehouse_id',$id)->get();
+        $dbHistory = InventoryWarehouseMoviment::where('incoming_warehouse_id',$id)
+            ->orWhere('output_warehouse_id',$id)
+            ->get();
+            
         if ($dbHistory->count() > 0) {
-            return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('error','Almoxarifado contém histórico de movimentação no estoque.');
+            return redirect()->back()->with('error','Almoxarifado contém histórico de movimentação no estoque.');
         }
-        if ($db->count() > 0) {
-            return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('error','Almoxarifado contém itens no estoque.');
+
+        if ($dbItems->count() > 0) {
+            return redirect()->back()->with('error','Almoxarifado contém itens no estoque.');
         }
 
         $db->delete();
 
-        return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('success','Almoxarifado excluído com sucesso');
+        return redirect()->back()->with('success','Almoxarifado excluído com sucesso');
     }
 
     /**

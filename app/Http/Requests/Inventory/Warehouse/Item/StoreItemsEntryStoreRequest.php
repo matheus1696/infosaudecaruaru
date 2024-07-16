@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Company;
+namespace App\Http\Requests\Inventory\Warehouse\Item;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
+class StoreItemsEntryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,11 @@ class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|unique:company_establishment_warehouses',
-            'type_warehouse_id' => 'required',
+            'invoice'=>'required',
+            'supply_order'=>'required',
+            'supply_company_id'=>'required',
+            'consumable_id'=>'required',
+            'quantity'=>'required|integer|min_digits:1',
         ];
     }
 }

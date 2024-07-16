@@ -38,7 +38,6 @@ class DatabaseSeeder extends Seeder
             ConsumableTypeSeeder::class,
             ConsumableUnitSeeder::class,
             ConsumableSeeder::class,
-            InventoryWarehouseRequestStatusSeeder::class,
         ]);
     }
 }

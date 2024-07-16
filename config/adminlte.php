@@ -300,42 +300,15 @@ return [
         [
             'type'    => 'sidebar-menu-search',
             'text'    => 'Buscar Menu',
-        ], 
-
-        //Estoque
-        [
-            'text'    => 'Estoque',
-            'classes' => 'btn-sm',
-            'icon'    => 'fas fa-boxes pr-2',
-            'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
-            'submenu' => [
-                
-                [
-                    'text'    => 'Almoxarifado',
-                    'classes' => 'btn-sm',
-                    'route'   => 'warehouse.store_rooms.index',
-                    'icon'    => 'fas fa-box pr-2',
-                    'can'     => ['inventory_warehouse_store_room','sysadmin','admin'],
-                ],
-            ]
         ],
         
         //Centros de Distribuições
         [
-            'text'    => 'Centros de Distribuição',
+            'text'    => 'Suprimentos',
             'classes' => 'btn-sm',
-            'icon'    => 'fas fa-truck-moving pr-2',
+            'route'   => 'warehouses.index',
+            'icon'    => 'fas fa-warehouse pr-2',
             'can'     => ['inventory_warehouse_center','sysadmin','admin'],
-            'submenu' => [
-                
-                [
-                    'text'    => 'Almoxarifado Central',
-                    'classes' => 'btn-sm',
-                    'route'   => 'warehouse.centers.index',
-                    'icon'    => 'fas fa-warehouse pr-2',
-                    'can'     => ['inventory_warehouse_center','sysadmin','admin'],
-                ],
-            ]
         ],
         
         //Lista Telefônica

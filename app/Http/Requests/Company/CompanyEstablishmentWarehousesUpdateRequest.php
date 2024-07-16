@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
 {
@@ -22,7 +23,10 @@ class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:6',
+            'title' => [
+                'nullable',
+                Rule::unique('company_establishment_warehouses')->ignore($this->warehouse),
+            ],
             'type_warehouse_id' => 'required',
         ];
     }

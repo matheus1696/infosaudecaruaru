@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('establishment_id');
             $table->timestamps();
 
-            $table->foreign('type_warehouse_id')->references('id')->on('company_establishment_type_warehouses');
+            $table->foreign('type_warehouse_id')->references('id')->on('company_establishment_warehouse_types');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
         });
     }

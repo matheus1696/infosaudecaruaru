@@ -3,8 +3,8 @@
         @slot('thead')
             <x-table.th>Setor</x-table.th>
             <x-table.th class="w-32">Telefone</x-table.th>
-            <x-table.th class="w-28">Ramal</x-table.th>
-            <x-table.th class="w-32">Tipo de contato</x-table.th>
+            <x-table.th class="w-28 hidden md:table-cell">Ramal</x-table.th>
+            <x-table.th class="w-32 hidden md:table-cell">Tipo</x-table.th>
             <x-table.th class="w-32"></x-table.th>
         @endslot
     
@@ -13,8 +13,8 @@
                 <x-table.tr>
                     <x-table.td>{{$dbDepartment->title}}</x-table.td>
                     <x-table.td class="text-center">{{$dbDepartment->contact}}</x-table.td>
-                    <x-table.td class="text-center">{{$dbDepartment->extension}}</x-table.td>
-                    <x-table.td class="text-center">                        
+                    <x-table.td class="text-center hidden md:table-cell">{{$dbDepartment->extension}}</x-table.td>
+                    <x-table.td class="text-center hidden md:table-cell">                        
                         @if($dbDepartment->type_contact == "Without") Sem Ramal @endif
                         @if($dbDepartment->type_contact == "Main") Contato Externo @endif
                         @if($dbDepartment->type_contact == "Internal") Ramal Interno @endif
@@ -29,7 +29,7 @@
                                 <x-form.input col="3" type="tel" label="Telefone" id="contact_{{$dbDepartment->id}}" name="contact" value="{{ $dbDepartment->contact}}" required="required"/>
                                 <x-form.input col="2" type="number" label="Ramal" id="extension_{{$dbDepartment->id}}" name="extension" value="{{ $dbDepartment->extension}}" required="required"/>
                                 
-                                <x-form.select col="3" label="Tipo de Contato" id="type_contact_{{$dbDepartment->id}}" name="type_contact">
+                                <x-form.select col="3" label="Tipo" id="type_contact_{{$dbDepartment->id}}" name="type_contact">
                                     <option @if($dbDepartment->type_contact === "Without") selected @endif value="Without">Sem Ramal</option>
                                     <option @if($dbDepartment->type_contact === "Main") selected @endif value="Main">Contato Externo</option>
                                     <option @if($dbDepartment->type_contact === "Internal") selected @endif value="Internal">Ramal Interno</option>

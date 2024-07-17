@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('filter');
+            $table->string('type')->default('store_room');
             $table->string('acronym')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();

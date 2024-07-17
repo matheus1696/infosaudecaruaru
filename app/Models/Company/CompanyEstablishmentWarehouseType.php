@@ -12,6 +12,7 @@ class CompanyEstablishmentWarehouseType extends Model
     protected $fillable = [
         'title',
         'filter',
+        'type',
         'acronym',
         'status',
     ];

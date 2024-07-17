@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             CompanyFinancialBlockSeeder::class,
             CompanyEstablishmentSeeder::class,
             CompanyEstablishmentDepartmentSeeder::class,            
-            CompanyEstablishmentTypeWarehouseSeeder::class,
+            CompanyEstablishmentWarehouseTypeSeeder::class,
             ConsumableClassificationSeeder::class,
             ConsumableTypeSeeder::class,
             ConsumableUnitSeeder::class,

@@ -22,7 +22,8 @@ class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'nullable|unique:company_establishment_warehouses',
+            'title' => 'required|unique:company_establishment_warehouses',
+            'type' => 'required',
             'type_warehouse_id' => 'required',
         ];
     }

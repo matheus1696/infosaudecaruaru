@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyEstablishmentStoreRequest;
 use App\Http\Requests\Company\CompanyEstablishmentUpdateRequest;
 use App\Http\Requests\Company\CompanyEstablishmentWarehousesStoreRequest;
+use App\Http\Requests\Company\CompanyEstablishmentWarehousesUpdateRequest;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
@@ -206,12 +207,12 @@ class CompanyEstablishmentController extends Controller
     /**
      * Update the status of the specified item in storage.
      */
-    public function updateWarehouse(CompanyEstablishmentWarehousesStoreRequest $request, string $id)
+    public function updateWarehouse(CompanyEstablishmentWarehousesUpdateRequest $request, string $id)
     {
         $db = CompanyEstablishmentWarehouse::find($id);
         $db->update($request->all());
 
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Almoxarifado atualizado com sucesso');
+        return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('success','Almoxarifado atualizado com sucesso');
     }   
 
     /**

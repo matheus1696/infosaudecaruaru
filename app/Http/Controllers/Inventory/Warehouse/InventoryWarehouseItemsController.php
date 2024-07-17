@@ -31,7 +31,7 @@ class InventoryWarehouseItemsController extends Controller
     {
         // Registros com relacionamentos paginando os resultados
         $db = CompanyEstablishmentWarehouse::where('status',TRUE)
-                ->with('CompanyEstablishmentTypeWarehouse')
+                ->with('CompanyEstablishmentWarehouseType')
                 ->with('CompanyEstablishment')
                 ->get();
 
@@ -148,7 +148,52 @@ class InventoryWarehouseItemsController extends Controller
         return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
     }
 
-    
+    /**
+     * Display the specified resource.
+     */
+    public function entryStore(StoreItemsEntryStoreRequest $request, string $id)
+    {        
+        // Busca o registro do departamento pelo ID
+        $dbWarehouse = CompanyEstablishmentWarehouse::find($id);
+
+        // Verifica se o departamento existe e tem almoxarifado vinculado
+        if (!$dbWarehouse) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('warehouses.index')->with('error', 'Setor sem almoxarifado central vinculado.');
+        }
+
+        // Define os dados da entrada no estoque
+        $request['movement'] = 'Entrada';
+        $request['incoming_warehouse_id'] = $dbWarehouse->id; 
+        $request['incoming_establishment_id'] = $dbWarehouse->establishment_id;
+        $request['user_id'] = Auth::user()->id;
+
+        // Cria um registro de histórico de movimentação
+        InventoryWarehouseMoviment::create($request->all());
+
+        //Adaptação do Request para o WarehouseCenter
+        $request['warehouse_id'] = $dbWarehouse->id; 
+        $request['establishment_id'] = $dbWarehouse->establishment_id;
+
+        // Verifica se já existe um registro do item no estoque do departamento
+        $db = InventoryWarehouseItems::where('consumable_id', $request['consumable_id'])
+            ->where('warehouse_id', $request['warehouse_id'])
+            ->where('financial_block_id',$request['financial_block_id'])
+            ->first();
+
+        // Se não existir, cria um novo registro de item no estoque
+        if (!$db) {
+            InventoryWarehouseItems::create($request->all());
+            return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+        }
+
+        // Se já existir, atualiza a quantidade do item no estoque
+        $db->quantity += $request['quantity'];
+        $db->save();
+
+        // Redireciona de volta para a página anterior com uma mensagem de sucesso
+        return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+    }    
 
     /**
      * Display the specified resource.

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Company;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
+class CompanyEstablishmentWarehousesUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
     {
         return [
             'title' => [
-                'nullable',
+                'required',
                 Rule::unique('company_establishment_warehouses')->ignore($this->warehouse),
             ],
+            'type' => 'required',
             'type_warehouse_id' => 'required',
         ];
     }

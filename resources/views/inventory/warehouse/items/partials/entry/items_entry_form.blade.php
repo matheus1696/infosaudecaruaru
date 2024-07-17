@@ -45,7 +45,7 @@
     </div>
 
 
-    <x-form.form method="edit" route="{{route('warehouses.entryStore',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
+    <x-form.form method="create" route="{{route('warehouses.entryWarehouseCenter',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
         
         <x-form.input col="3" label="Nota Fiscal" id="invoice" name="invoice"/>
         <x-form.input col="3" label="O.F." id="supply_order" name="supply_order"/>
@@ -86,7 +86,7 @@
 
 @if ($db->CompanyEstablishmentWarehouseType->type == "store_room")
 
-    <x-form.form method="edit" route="{{route('warehouses.entryStore',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
+    <x-form.form method="create" route="{{route('warehouses.entryWarehouseStoreRoom',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
 
         <x-form.select col="10" label="Suprimentos" id="consumable_id" name="consumable_id">
             @foreach ($dbConsumables as $dbConsumable)

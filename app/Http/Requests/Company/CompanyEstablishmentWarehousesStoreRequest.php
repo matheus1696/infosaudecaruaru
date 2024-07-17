@@ -23,7 +23,6 @@ class CompanyEstablishmentWarehousesStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:company_establishment_warehouses',
-            'type' => 'required',
             'type_warehouse_id' => 'required',
         ];
     }

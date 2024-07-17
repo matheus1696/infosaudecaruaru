@@ -84,7 +84,6 @@ Route::middleware('auth')->group(function () {
 
             //Grupo de Rotas - Configuração de Localização
             Route::prefix('region')->group(function (){
-
                 //Rota - Dados Paises
                     Route::put('countries/status/{country}',[RegionCountryController::class,'status'])->name('countries.status');
                     Route::resource('countries',RegionCountryController::class);
@@ -94,12 +93,10 @@ Route::middleware('auth')->group(function () {
                 //Rota - Dados Cidades
                     Route::put('cities/status/{city}',[RegionCityController::class,'status'])->name('cities.status');
                     Route::resource('cities',RegionCityController::class);
-
             });
 
             //Grupo de Rotas - Configuração de Localização
             Route::prefix('consumable')->group(function (){
-
                 //Rota - Apresentação de Medicamentos
                     Route::put('consumable_classifications/status/{consumable_classification}',[ConsumableClassificationController::class,'status'])->name('consumable_classifications.status');
                     Route::resource('consumable_classifications',ConsumableClassificationController::class);
@@ -119,12 +116,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('inventory')->group(function (){
 
             //Grupo de Rotas - Warehouse
-            Route::prefix('warehouse')->group(function (){
+            Route::prefix('warehouses')->group(function (){
                 Route::get('warehouses',[InventoryWarehouseItemsController::class,'index'])->name('warehouses.index');
                 Route::get('warehouses/{warehouse}',[InventoryWarehouseItemsController::class,'show'])->name('warehouses.show');
-                Route::get('warehouses/{warehouse}/request/{request}/edit',[InventoryWarehouseItemsController::class,'edit'])->name('warehouses.edit');
                 Route::get('warehouses/{warehouse}/entry/show',[InventoryWarehouseItemsController::class,'entryShow'])->name('warehouses.entryShow');
-                Route::put('warehouses/{warehouse}/entry/store',[InventoryWarehouseItemsController::class,'entryStore'])->name('warehouses.entryStore');
+                Route::post('warehouses/{warehouse}/entry/item/store/room',[InventoryWarehouseItemsController::class,'entryWarehouseCenter'])->name('warehouses.entryWarehouseCenter');
+                Route::post('warehouses/{warehouse}/entry/item/center',[InventoryWarehouseItemsController::class,'entryWarehouseStoreRoom'])->name('warehouses.entryWarehouseStoreRoom');
+                Route::post('warehouses/{warehouse}/exit/item/{item}/store/room',[InventoryWarehouseItemsController::class,'exitWarehouseCenter'])->name('warehouses.exitWarehouseCenter');
+                Route::post('warehouses/{warehouse}/exit/item/{item}/center',[InventoryWarehouseItemsController::class,'exitWarehouseStoreRoom'])->name('warehouses.exitWarehouseStoreRoom');
             });
         });
     });

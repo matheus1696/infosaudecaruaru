@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventory_warehouse_moviments', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice');
-            $table->string('supply_order');
-            $table->string('supply_order_parcel');
-            $table->unsignedBigInteger('supply_company_id');
+            $table->string('invoice')->nullable();
+            $table->string('supply_order')->nullable();
+            $table->string('supply_order_parcel')->nullable();
+            $table->unsignedBigInteger('supply_company_id')->nullable();
             $table->integer('quantity');
             $table->string('movement');
             $table->unsignedInteger('consumable_id');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('incoming_establishment_id');
             $table->unsignedInteger('output_warehouse_id')->nullable();
             $table->unsignedInteger('output_establishment_id')->nullable();
-            $table->unsignedInteger('financial_block_id');
+            $table->unsignedInteger('financial_block_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->timestamps();
             

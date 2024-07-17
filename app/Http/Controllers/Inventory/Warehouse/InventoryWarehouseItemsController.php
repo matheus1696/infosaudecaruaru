@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Inventory\Warehouse;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\Warehouse\Item\StoreItemsEntryStoreRequest;
-use App\Http\Requests\InventoryWarehouse\InventoryWarehouseCenter\StoreInventoryWarehouseCenterEntryStoreRequest;
-use App\Models\Company\CompanyEstablishmentTypeWarehouse;
 use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
-use App\Models\Inventory\Warehouse\InventoryWarehouseCenter;
-use App\Models\Inventory\Warehouse\InventoryWarehouseCenterHistory;
 use App\Models\Inventory\Warehouse\InventoryWarehouseItems;
 use App\Models\Inventory\Warehouse\InventoryWarehouseMoviment;
 use App\Models\Region\RegionCity;
@@ -54,7 +50,7 @@ class InventoryWarehouseItemsController extends Controller
         // Verifica se o departamento existe e se tem almoxarifado vinculado
         if (!$dbWarehouse) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error','Setor sem almoxarifado central vinculado.');
+            return redirect()->route('warehouses.index')->with('error','Setor sem almoxarifado central vinculado.');
         }        
 
         // Obtém os registros do almoxarifado relacionados ao departamento, com paginação
@@ -80,7 +76,7 @@ class InventoryWarehouseItemsController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$db) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado central vinculado.');
+            return redirect()->route('warehouses.index')->with('error', 'Setor sem almoxarifado central vinculado.');
         }
         
         // Busca todos os consumíveis ordenados por título
@@ -116,12 +112,61 @@ class InventoryWarehouseItemsController extends Controller
         // Verifica se o departamento existe e tem almoxarifado vinculado
         if (!$dbWarehouse) {
             // Redireciona se não houver almoxarifado vinculado
-            return redirect()->route('warehouse_centers.index')->with('error', 'Setor sem almoxarifado central vinculado.');
+            return redirect()->route('warehouses.index')->with('error', 'Setor sem almoxarifado central vinculado.');
         }
 
         // Define os dados da entrada no estoque
         $request['movement'] = 'Entrada';
         $request['incoming_warehouse_id'] = $dbWarehouse->id; 
+        $request['incoming_establishment_id'] = $dbWarehouse->establishment_id;
+        $request['user_id'] = Auth::user()->id;
+
+        // Cria um registro de histórico de movimentação
+        InventoryWarehouseMoviment::create($request->all());
+
+        //Adaptação do Request para o WarehouseCenter
+        $request['warehouse_id'] = $dbWarehouse->id; 
+        $request['establishment_id'] = $dbWarehouse->establishment_id;
+
+        // Verifica se já existe um registro do item no estoque do departamento
+        $db = InventoryWarehouseItems::where('consumable_id', $request['consumable_id'])
+            ->where('warehouse_id', $request['warehouse_id'])
+            ->where('financial_block_id',$request['financial_block_id'])
+            ->first();
+
+        // Se não existir, cria um novo registro de item no estoque
+        if (!$db) {
+            InventoryWarehouseItems::create($request->all());
+            return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+        }
+
+        // Se já existir, atualiza a quantidade do item no estoque
+        $db->quantity += $request['quantity'];
+        $db->save();
+
+        // Redireciona de volta para a página anterior com uma mensagem de sucesso
+        return redirect()->back()->with('success', 'Cadastro realizado com sucesso');
+    }
+
+    
+
+    /**
+     * Display the specified resource.
+     */
+    public function exitStore(StoreItemsEntryStoreRequest $request, string $id)
+    {        
+        // Busca o registro do departamento pelo ID
+        $dbWarehouse = CompanyEstablishmentWarehouse::find($id);
+
+        // Verifica se o departamento existe e tem almoxarifado vinculado
+        if (!$dbWarehouse) {
+            // Redireciona se não houver almoxarifado vinculado
+            return redirect()->route('warehouses.index')->with('error', 'Setor sem almoxarifado central vinculado.');
+        }
+
+        // Define os dados da saída no estoque
+        $request['movement'] = 'Saída';
+        $request['incoming_warehouse_id'] = $dbWarehouse->id;
         $request['incoming_establishment_id'] = $dbWarehouse->establishment_id;
         $request['user_id'] = Auth::user()->id;
 

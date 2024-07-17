@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Company\CompanyEstablishmentTypeWarehouse;
+use App\Models\Company\CompanyEstablishmentWarehouseType;
 use Illuminate\Database\Seeder;
 
-class CompanyEstablishmentTypeWarehouseSeeder extends Seeder
+class CompanyEstablishmentWarehouseTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,32 +13,32 @@ class CompanyEstablishmentTypeWarehouseSeeder extends Seeder
     public function run(): void
     {
         //
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Almoxarifado',
             'filter'=>strtolower('Almoxarifado'),
             'acronym'=>'ALX',
         ]);
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Centro de Distribuição de Suprimentos',
             'filter'=>strtolower('Centro de Distribuição de Suprimentos'),
             'acronym'=>'CDS',
         ]);
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Farmácia',
             'filter'=>strtolower('Farmácia'),
             'acronym'=>'FAR',
         ]);
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Centro de Abastecimento Farmacêutico',
             'filter'=>strtolower('Centro de Abastecimento Farmacêutico'),
             'acronym'=>'CAF',
         ]);
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Almoxarifado de Gêneros Alimentícios',
             'filter'=>strtolower('Almoxarifado de Gêneros Alimentícios'),
             'acronym'=>'AGA',
         ]);
-        CompanyEstablishmentTypeWarehouse::create([
+        CompanyEstablishmentWarehouseType::create([
             'title'=>'Centro de Gêneros Alimentícios',
             'filter'=>strtolower('Centro de Gêneros Alimentícios'),
             'acronym'=>'CGA',

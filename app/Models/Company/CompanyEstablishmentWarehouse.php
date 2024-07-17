@@ -19,8 +19,8 @@ class CompanyEstablishmentWarehouse extends Model
         'establishment_id',
     ];
 
-    public function CompanyEstablishmentTypeWarehouse(){
-        return $this->belongsTo(CompanyEstablishmentTypeWarehouse::class,'type_warehouse_id','id');
+    public function CompanyEstablishmentWarehouseType(){
+        return $this->belongsTo(CompanyEstablishmentWarehouseType::class,'type_warehouse_id','id');
     }
 
     public function CompanyEstablishment(){

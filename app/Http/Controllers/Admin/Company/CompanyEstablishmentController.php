@@ -10,7 +10,7 @@ use App\Http\Requests\Company\CompanyEstablishmentWarehousesStoreRequest;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
-use App\Models\Company\CompanyEstablishmentTypeWarehouse;
+use App\Models\Company\CompanyEstablishmentWarehouseType;
 use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyTypeEstablishment;
 use App\Models\Inventory\Warehouse\InventoryWarehouseItems;
@@ -110,7 +110,7 @@ class CompanyEstablishmentController extends Controller
         $db = CompanyEstablishment::find($id);
 
         $dbEstablishmentWarehouses = CompanyEstablishmentWarehouse::where('establishment_id', $id)->get();
-        $dbEstablishmentTypeWarehouses = CompanyEstablishmentTypeWarehouse::all();
+        $dbEstablishmentTypeWarehouses = CompanyEstablishmentWarehouseType::all();
 
         $dbDepartments = CompanyEstablishmentDepartment::where('establishment_id', $id)
             ->orderBy('contact')

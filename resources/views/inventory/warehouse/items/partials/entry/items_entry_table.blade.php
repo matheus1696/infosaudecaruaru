@@ -1,6 +1,6 @@
 <h3 class="text-center text-lg mt-3 mb-2">Últimos Cadastros Realizados</h3>
 
-@if ($db->CompanyEstablishmentWarehouseType->type == "center")
+@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "center")
     <x-table.table>
         @slot('thead')
             <x-table.th class="w-20">Data</x-table.th>
@@ -30,7 +30,7 @@
     </x-table.table>    
 @endif
 
-@if ($db->CompanyEstablishmentWarehouseType->type == "store_room")
+@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "store_room")
     <x-table.table>
         @slot('thead')
             <x-table.th class="w-20">Data</x-table.th>

@@ -4,7 +4,7 @@
         <x-table.th>Blocos Financeiros</x-table.th>
         <x-table.th class="w-28">Cor</x-table.th>
         <x-table.th class="w-28">Status</x-table.th>
-        <x-table.th class="w-40"></x-table.th>
+        <x-table.th class="w-28"></x-table.th>
     @endslot
 
     @slot('tbody')

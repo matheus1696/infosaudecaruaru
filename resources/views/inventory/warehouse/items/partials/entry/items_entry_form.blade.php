@@ -1,19 +1,19 @@
-@if ($db->CompanyEstablishmentWarehouseType->type == "center")
+@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "center")
 
     <div class="flex justify-end mb-2">
         <!-- Adicionar Item -->
         <div class="inline-block">
             <!-- Modal toggle -->
-            <button data-toggle="modal" data-target="#modal_create_item_consumable_{{$db->department_id}}" class="px-2 py-1 text-xs text-white bg-green-700 rounded-lg shadow-md hover:bg-green-600" type="button">
+            <button data-toggle="modal" data-target="#modal_create_supply_{{$dbWarehouse->id}}" class="px-2 py-1 text-xs text-white bg-green-700 rounded-lg shadow-md hover:bg-green-600" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="ml-1 font-semibold">Add. Fornecedor</span>
             </button>
 
-            <div id="modal_create_item_consumable_{{$db->department_id}}" class="modal fade"  role="dialog" aria-labelledby="modal_label_create_item_consumable_{{$db->department_id}}" aria-hidden="true">
+            <div id="modal_create_supply_{{$dbWarehouse->id}}" class="modal fade" role="dialog" aria-labelledby="modal_label_create_{{$dbWarehouse->department_id}}" aria-hidden="true">
                 <div class="text-left modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="text-lg font-semibold modal-title" id="modal_label_create_item_consumable_{{$db->department_id}}">Adicionar Fornecedor</h5>
+                            <h5 class="text-lg font-semibold modal-title" id="modal_label_create_{{$dbWarehouse->id}}">Adicionar Fornecedor</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -45,8 +45,8 @@
     </div>
 
 
-    <x-form.form method="create" route="{{route('warehouses.entryWarehouseCenter',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
-        
+    <x-form.form method="create" route="{{route('warehouses.entryWarehouseCenter',['warehouse'=>$dbWarehouse->id])}}" title="Adicionar ao Estoque" color="green">
+
         <x-form.input col="3" label="Nota Fiscal" id="invoice" name="invoice"/>
         <x-form.input col="3" label="O.F." id="supply_order" name="supply_order"/>
 
@@ -79,14 +79,14 @@
                 </option>
             @endforeach
         </x-form.select>
-        <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$db->quantity}}"/>
+        <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$dbWarehouse->quantity}}"/>
     </x-form.form>
     
 @endif
 
-@if ($db->CompanyEstablishmentWarehouseType->type == "store_room")
+@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "store_room")
 
-    <x-form.form method="create" route="{{route('warehouses.entryWarehouseStoreRoom',['warehouse'=>$db->id])}}" title="Adicionar ao Estoque" color="green">
+    <x-form.form method="create" route="{{route('warehouses.entryWarehouseStoreRoom',['warehouse'=>$dbWarehouse->id])}}" title="Adicionar ao Estoque" color="green">
 
         <x-form.select col="10" label="Suprimentos" id="consumable_id" name="consumable_id">
             @foreach ($dbConsumables as $dbConsumable)
@@ -95,7 +95,7 @@
                 </option>
             @endforeach
         </x-form.select>
-        <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$db->quantity}}"/>
+        <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$dbWarehouse->quantity}}"/>
         <x-form.textarea col="12" name="description" value="Entrada Avulsa" />
     </x-form.form>
     

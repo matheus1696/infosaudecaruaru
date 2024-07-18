@@ -25,6 +25,7 @@ class StoreItemsEntryWarehouseCenterRequest extends FormRequest
             'invoice'=>'required',
             'supply_order'=>'required',
             'supply_company_id'=>'required',
+            'supply_order_parcel'=>'required',
             'consumable_id'=>'required',
             'quantity'=>'required|integer|min_digits:1',
         ];

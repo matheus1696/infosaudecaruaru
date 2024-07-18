@@ -13,15 +13,6 @@
                     <x-button.buttonStatus condition="{{$item->status}}" route="{{route('type_establishments.update',['type_establishment'=>$item->id])}}" name="status" />
                 </x-table.td>
                 <x-table.td class="text-center">
-                    <x-button.minButtonModalInfo id="TypeEstablishmentsModal{{$item->id}}" title="Estabelecimentos Cadastrados">
-                        <ul>
-                            @foreach ($dbEstablishments as $dbEstablishment)
-                                @if ($dbEstablishment->type_establishment_id == $item->id)
-                                    <li>{{$dbEstablishment->title}}</li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </x-button.minButtonModalInfo>
                     <x-button.minButtonEdit route="{{route('type_establishments.edit',['type_establishment'=>$item->id])}}" />
                     <x-button.minButtonDelete route="{{route('type_establishments.destroy',['type_establishment'=>$item->id])}}" />
                 </x-table.td>

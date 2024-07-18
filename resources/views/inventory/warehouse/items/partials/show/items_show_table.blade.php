@@ -16,7 +16,6 @@
             <x-table.th>Suprimentos</x-table.th>
                 <x-table.th class="w-32">Bloco Fin.</x-table.th>
             <x-table.th class="w-28">Quantidade</x-table.th>
-            <x-table.th class="w-28"></x-table.th>
         @endslot
 
         @slot('tbody')
@@ -25,14 +24,6 @@
                     <x-table.td>{{$dbItem->Consumable->title}}</x-table.td>
                     <x-table.td>{{$dbItem->CompanyFinancialBlock->acronym ?? ""}}</x-table.td>
                     <x-table.td>{{$dbItem->quantity}}</x-table.td>
-                    <x-table.td>
-                        <x-button.minButtonModal id="Warehouse_Consumable_{{$dbItem->id}}" title="{{$dbItem->Consumable->title}}" icon="fas fa-long-arrow-alt-up rotate-45" btnTitle="Saída" color="red">
-                            <x-form.form method="post" route="{{route('warehouses.exitWarehouseStoreRoom',['warehouse'=>$dbWarehouse->id, 'item'=>$dbItem])}}">
-                                <x-form.input col="10" label="Suprimento" name="disabled" disabled="disabled" value="{{$dbItem->Consumable->title}}"/>
-                                <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" required="required"/>
-                            </x-form.form>
-                        </x-button.minButtonModal>
-                    </x-table.td>
                 </x-table.tr>
             @endforeach
         @endslot
@@ -56,7 +47,7 @@
                     <x-table.td>{{$dbItem->quantity}}</x-table.td>
                     <x-table.td>
                         <x-button.minButtonModal id="Warehouse_Consumable_{{$dbItem->id}}" title="{{$dbItem->Consumable->title}}" icon="fas fa-long-arrow-alt-up rotate-45" btnTitle="Saída" color="red">
-                            <x-form.form method="post" route="{{route('warehouses.exitWarehouseStoreRoom',['warehouse'=>$dbWarehouse->id, 'item'=>$dbItem])}}">
+                            <x-form.form method="post" route="{{route('warehouses.exitWarehouseStoreRoom',['warehouse'=>$dbWarehouse->id, 'item'=>$dbItem->consumable_id])}}">
                                 <x-form.input col="10" label="Suprimento" name="disabled" disabled="disabled" value="{{$dbItem->Consumable->title}}"/>
                                 <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" required="required"/>
                                 <x-form.textarea col="12" name="description" />

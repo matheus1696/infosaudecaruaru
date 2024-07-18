@@ -1,11 +1,21 @@
 <x-pages.index>
     <!-- Slot Header -->
     @slot('header')
-        <x-header
-            title="{{$dbWarehouse->title}}"
-            routeCreate="{{route('warehouses.entryShow',['warehouse'=>$dbWarehouse->id])}}" btnTitleCreate="Entrada"
-            routeBack="{{route('warehouses.index')}}"
-        />
+        @if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "center")
+            <x-header
+                title="{{$dbWarehouse->title}}"
+                routeCreate="{{route('warehouses.entryShow',['warehouse'=>$dbWarehouse->id])}}" btnTitleCreate="Entrada"
+                routeBack="{{route('warehouses.index')}}"
+            />
+        @endif
+
+        @if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "store_room")
+            <x-header
+                title="{{$dbWarehouse->title}}"
+                routeJoker="{{route('warehouses.entryShow',['warehouse'=>$dbWarehouse->id])}}" iconJoker="fas fa-plus" btnTitleJoker="Entrada Avulsa"
+                routeBack="{{route('warehouses.index')}}"
+            />
+        @endif
     @endslot
         
     <!-- Slot Body -->

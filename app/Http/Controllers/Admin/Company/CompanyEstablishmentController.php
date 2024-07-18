@@ -6,16 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyEstablishmentStoreRequest;
 use App\Http\Requests\Company\CompanyEstablishmentUpdateRequest;
-use App\Http\Requests\Company\CompanyEstablishmentWarehousesStoreRequest;
-use App\Http\Requests\Company\CompanyEstablishmentWarehousesUpdateRequest;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyTypeEstablishment;
-use App\Models\Company\Warehouse\CompanyEstablishmentWarehouse;
-use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseItem;
-use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseMoviment;
-use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseType;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
 
@@ -110,9 +104,6 @@ class CompanyEstablishmentController extends Controller
         //
         $db = CompanyEstablishment::find($id);
 
-        $dbEstablishmentWarehouses = CompanyEstablishmentWarehouse::where('establishment_id', $id)->get();
-        $dbEstablishmentTypeWarehouses = CompanyEstablishmentWarehouseType::all();
-
         $dbDepartments = CompanyEstablishmentDepartment::where('establishment_id', $id)
             ->orderBy('contact')
             ->get();
@@ -120,7 +111,7 @@ class CompanyEstablishmentController extends Controller
         //Log do Sistema
         Logger::show($db->title);
 
-        return view('admin.company.establishments.establishments_show', compact('db', 'dbDepartments', 'dbEstablishmentWarehouses', 'dbEstablishmentTypeWarehouses'));
+        return view('admin.company.establishments.establishments_show', compact('db', 'dbDepartments'));
     }
 
     /**

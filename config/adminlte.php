@@ -302,15 +302,6 @@ return [
             'text'    => 'Buscar Menu',
         ],
         
-        //Centros de Distribuições
-        [
-            'text'    => 'Suprimentos',
-            'classes' => 'btn-sm',
-            'route'   => 'warehouses.index',
-            'icon'    => 'fas fa-warehouse pr-2',
-            'can'     => ['inventory_warehouse_center','sysadmin','admin'],
-        ],
-        
         //Lista Telefônica
         [
             'text'    => 'Lista Telefônica',

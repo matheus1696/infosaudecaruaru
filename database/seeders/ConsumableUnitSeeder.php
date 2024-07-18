@@ -14,12 +14,12 @@ class ConsumableUnitSeeder extends Seeder
     public function run(): void
     {
         //
-        ConsumableUnit::create(['code'=>'UND', 'title'=>'Unidade', 'filter'=>'unidade' ]);
-        ConsumableUnit::create(['code'=>'BNG', 'title'=>'Bisnaga', 'filter'=>'bisnaga' ]);
-        ConsumableUnit::create(['code'=>'FRAS', 'title'=>'Frasco', 'filter'=>'frasco' ]);
-        ConsumableUnit::create(['code'=>'LIQ', 'title'=>'Liquido', 'filter'=>'liguido' ]);
-        ConsumableUnit::create(['code'=>'SCH', 'title'=>'Sachê', 'filter'=>'sachê' ]);
-        ConsumableUnit::create(['code'=>'CX', 'title'=>'Caixa', 'filter'=>'caixa' ]);
-        ConsumableUnit::create(['code'=>'RSM', 'title'=>'Resma', 'filter'=>'resma' ]);
+        ConsumableUnit::create(['acronym'=>'UND', 'title'=>'Unidade', 'filter'=>'unidade' ]);
+        ConsumableUnit::create(['acronym'=>'BNG', 'title'=>'Bisnaga', 'filter'=>'bisnaga' ]);
+        ConsumableUnit::create(['acronym'=>'FRAS', 'title'=>'Frasco', 'filter'=>'frasco' ]);
+        ConsumableUnit::create(['acronym'=>'LIQ', 'title'=>'Liquido', 'filter'=>'liguido' ]);
+        ConsumableUnit::create(['acronym'=>'SCH', 'title'=>'Sachê', 'filter'=>'sachê' ]);
+        ConsumableUnit::create(['acronym'=>'CX', 'title'=>'Caixa', 'filter'=>'caixa' ]);
+        ConsumableUnit::create(['acronym'=>'RSM', 'title'=>'Resma', 'filter'=>'resma' ]);
     }
 }

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('consumable_classifications', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('filter');       
+            $table->string('filter');
+            $table->string('description')->nullable();  
             $table->boolean('status')->default(TRUE);
             $table->timestamps();
         });

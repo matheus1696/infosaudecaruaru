@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('consumables', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique()->nullable();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('filter');
             $table->string('description')->nullable();
             $table->boolean('status')->default(TRUE);

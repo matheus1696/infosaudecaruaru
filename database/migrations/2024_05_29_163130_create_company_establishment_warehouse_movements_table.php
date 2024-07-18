@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('movement');
             $table->string('description')->nullable();
             $table->unsignedInteger('consumable_id');
-            $table->unsignedInteger('incoming_warehouse_id');
-            $table->unsignedInteger('incoming_establishment_id');
+            $table->unsignedInteger('incoming_warehouse_id')->nullable();
+            $table->unsignedInteger('incoming_establishment_id')->nullable();
             $table->unsignedInteger('output_warehouse_id')->nullable();
             $table->unsignedInteger('output_establishment_id')->nullable();
             $table->unsignedInteger('financial_block_id')->nullable();

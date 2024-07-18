@@ -260,8 +260,6 @@ class CompanyEstablishmentWarehouseItemController extends Controller
         // Define os dados da saída no estoque
         $request['consumable_id'] = $idItem;
         $request['movement'] = 'Saída';
-        $request['incoming_warehouse_id'] = $dbWarehouse->id; 
-        $request['incoming_establishment_id'] = $dbWarehouse->establishment_id;
         $request['output_warehouse_id'] = $dbWarehouse->id; 
         $request['output_establishment_id'] = $dbWarehouse->establishment_id;
         $request['user_id'] = Auth::user()->id;

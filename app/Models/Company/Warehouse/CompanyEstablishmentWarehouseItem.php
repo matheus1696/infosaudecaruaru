@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Models\Inventory\Warehouse;
+namespace App\Models\Company\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyEstablishmentDepartment;
-use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseItems extends Model
+class CompanyEstablishmentWarehouseItem extends Model
 {
     use HasFactory;
 

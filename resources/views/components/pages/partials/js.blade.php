@@ -42,7 +42,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
                 $('.summernote').summernote({
-                    height: 75,
+                    height: 100,
                     toolbar: [
                         // [groupName, [list of button]]
                         ['style', ['bold', 'italic', 'underline', 'clear',]],
@@ -51,7 +51,7 @@
                         ['fontsize', ['fontsize']],
                         ['height', ['height']],
                         ['font', ['superscript', 'subscript']],
-                        ['table', ['table','addRowDown', 'addRowUp', 'addColLeft', 'addColRight','delete','deleteRow', 'deleteCol', 'deleteTable']],
+                        // ['table', ['table','addRowDown', 'addRowUp', 'addColLeft', 'addColRight','delete','deleteRow', 'deleteCol', 'deleteTable']],
                         ['view', ['fullscreen']],
                     ],
                     placeholder: 'Digite aqui...',

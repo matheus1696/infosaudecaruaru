@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Models\Inventory\Warehouse;
+namespace App\Models\Company\Warehouse;
 
 use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Consumable\Consumable;
 use App\Models\Supply\SupplyCompany;
@@ -11,7 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryWarehouseMoviment extends Model
+class CompanyEstablishmentWarehouseMoviment extends Model
 {
     use HasFactory;
 
@@ -22,6 +21,7 @@ class InventoryWarehouseMoviment extends Model
         'supply_company_id',
         'quantity',
         'movement',
+        'description',
         'consumable_id',
         'incoming_warehouse_id',
         'incoming_establishment_id',

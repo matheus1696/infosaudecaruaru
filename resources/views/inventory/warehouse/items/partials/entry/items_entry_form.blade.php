@@ -96,6 +96,7 @@
             @endforeach
         </x-form.select>
         <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" min="1" max="{{$db->quantity}}"/>
+        <x-form.textarea col="12" name="description" value="Entrada Avulsa" />
     </x-form.form>
     
 @endif

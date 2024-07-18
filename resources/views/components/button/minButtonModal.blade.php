@@ -2,7 +2,7 @@
     <!-- Modal toggle -->
     <button 
         data-toggle="modal"
-        data-target="#modalInfo_{{$id}}"
+        data-target="#buttonModal_{{$id}}"
         class="px-2 py-1 m-1 text-xs text-white bg-{{$color ?? 'green'}}-700 rounded-lg shadow-md hover:bg-{{$color ?? 'green'}}-600" 
         type="button"
     >
@@ -10,11 +10,11 @@
         @isset($btnTitle) <span class="ml-1 font-semibold">{{$btnTitle}}</span> @endisset
     </button>
 
-    <div id="modalInfo_{{$id}}" class="modal fade"  role="dialog" aria-labelledby="modalLabelInfo_{{$id}}" aria-hidden="true">
+    <div id="buttonModal_{{$id}}" class="modal fade"  role="dialog" aria-labelledby="modalLabel_{{$id}}" aria-hidden="true">
         <div class="text-left modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="text-lg font-semibold modal-title" id="modalLabelInfo_{{$id}}">{{$title}}</h5>
+                    <h5 class="text-lg font-semibold modal-title" id="modalLabel_{{$id}}">{{$title}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>

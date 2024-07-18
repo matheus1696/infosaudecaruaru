@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Models\Company;
+namespace App\Models\Company\Warehouse;
 
+use App\Models\Company\CompanyEstablishment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CompanyEstablishmentWarehouse extends Model
 {
     use HasFactory;
-
-    protected $table = "company_establishment_warehouses";
 
     protected $fillable = [
         'title',

@@ -11,11 +11,11 @@ use App\Http\Requests\Company\CompanyEstablishmentWarehousesUpdateRequest;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
-use App\Models\Company\CompanyEstablishmentWarehouseType;
-use App\Models\Company\CompanyEstablishmentWarehouse;
 use App\Models\Company\CompanyTypeEstablishment;
-use App\Models\Inventory\Warehouse\InventoryWarehouseItems;
-use App\Models\Inventory\Warehouse\InventoryWarehouseMoviment;
+use App\Models\Company\Warehouse\CompanyEstablishmentWarehouse;
+use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseItem;
+use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseMoviment;
+use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseType;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
 
@@ -189,64 +189,5 @@ class CompanyEstablishmentController extends Controller
         Logger::status($db->id, $db->status);
 
         return redirect(route('establishments.index'))->with('success','Status alterado com sucesso.');
-    }
-
-    /**
-     * Update the status of the specified item in storage.
-     */
-    public function createWarehouse(CompanyEstablishmentWarehousesStoreRequest $request, string $id)
-    {
-        $request['filter'] = strtolower($request['title']);
-        $request['establishment_id'] = $id;
-
-        CompanyEstablishmentWarehouse::create($request->all());
-
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Almoxarifado salvo com sucesso');
-    }
-
-    /**
-     * Update the status of the specified item in storage.
-     */
-    public function updateWarehouse(CompanyEstablishmentWarehousesUpdateRequest $request, string $id)
-    {
-        $db = CompanyEstablishmentWarehouse::find($id);
-        $db->update($request->all());
-
-        return redirect(route('establishments.show',['establishment'=>$db->establishment_id]))->with('success','Almoxarifado atualizado com sucesso');
-    }   
-
-    /**
-     * Update the status of the specified item in storage.
-     */
-    public function destroyWarehouse(string $id)
-    {
-        $db = CompanyEstablishmentWarehouse::find($id);
-        $dbItems = InventoryWarehouseItems::where('warehouse_id',$id)->get();
-        $dbHistory = InventoryWarehouseMoviment::where('incoming_warehouse_id',$id)
-            ->orWhere('output_warehouse_id',$id)
-            ->get();
-            
-        if ($dbHistory->count() > 0) {
-            return redirect()->back()->with('error','Almoxarifado contém histórico de movimentação no estoque.');
-        }
-
-        if ($dbItems->count() > 0) {
-            return redirect()->back()->with('error','Almoxarifado contém itens no estoque.');
-        }
-
-        $db->delete();
-
-        return redirect()->back()->with('success','Almoxarifado excluído com sucesso');
-    }
-
-    /**
-     * Update the status of the specified item in storage.
-     */
-    public function statusWarehouse(Request $request, string $id)
-    {
-        $db = CompanyEstablishmentWarehouse::find($id);
-        $db->update($request->only('status'));
-
-        return redirect(route('establishments.show',['establishment'=>$id]))->with('success','Status do almoxarifado alterado com sucesso');
     }
 }

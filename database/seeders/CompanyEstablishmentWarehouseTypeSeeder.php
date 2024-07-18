@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Company\CompanyEstablishmentWarehouseType;
+use App\Models\Company\Warehouse\CompanyEstablishmentWarehouseType;
 use Illuminate\Database\Seeder;
 
 class CompanyEstablishmentWarehouseTypeSeeder extends Seeder

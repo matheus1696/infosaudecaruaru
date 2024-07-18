@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventory_warehouse_moviments', function (Blueprint $table) {
+        Schema::create('company_establishment_warehouse_moviments', function (Blueprint $table) {
             $table->id();
             $table->string('invoice')->nullable();
             $table->string('supply_order')->nullable();
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('supply_company_id')->nullable();
             $table->integer('quantity');
             $table->string('movement');
+            $table->string('description')->nullable();
             $table->unsignedInteger('consumable_id');
             $table->unsignedInteger('incoming_warehouse_id');
             $table->unsignedInteger('incoming_establishment_id');
@@ -44,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_warehouse_moviments');
+        Schema::dropIfExists('company_establishment_warehouse_moviments');
     }
 };

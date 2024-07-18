@@ -3,7 +3,7 @@
     <textarea
         name="{{$name}}"
         id="{{$id ?? $name}}"
-        class="w-full px-2 py-2 summernote"
+        class="w-full summernote"
     >@if(empty($value)){{old($name)}}@else{!!$value!!}@endif</textarea>
 
     @error($name)

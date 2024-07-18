@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\Company\CompanyOccupationController;
 use App\Http\Controllers\Admin\Company\CompanyOrganizationController;
 use App\Http\Controllers\Admin\Company\CompanyOrganizationLinkedUserController;
 use App\Http\Controllers\Admin\Company\CompanyTypeEstablishmentController;
+use App\Http\Controllers\Admin\Company\Warehouse\CompanyEstablishmentWarehouseController;
+use App\Http\Controllers\Admin\Company\Warehouse\CompanyEstablishmentWarehouseItemController;
 use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
@@ -20,7 +22,6 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
-use App\Http\Controllers\Inventory\Warehouse\InventoryWarehouseItemsController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 
@@ -49,7 +50,6 @@ Route::middleware('auth')->group(function () {
                     Route::put('users/permission/{user}',[UsersController::class,'permission'])->name('users.permission');
                     Route::get('users/verify/{user}',[UsersController::class,'verify'])->name('users.verify');
                     Route::resource('users',UsersController::class);
-
             });
 
             //Grupo de Rotas - Configurações da Organização
@@ -78,6 +78,13 @@ Route::middleware('auth')->group(function () {
                     Route::prefix('supply')->group(function (){
                         //Rota - Fornecedores
                         Route::resource('companies',SupplyCompanyController::class);
+                    });
+                //Rotas do Almoxarifado
+                    Route::prefix('warehouse')->group(function (){
+                        Route::post('establishments/warehouse/{warehouse}create',[CompanyEstablishmentWarehouseController::class,'createWarehouse'])->name('establishments.createWarehouse');
+                        Route::put('establishments/warehouse/{warehouse}/update',[CompanyEstablishmentWarehouseController::class,'updateWarehouse'])->name('establishments.updateWarehouse');
+                        Route::delete('establishments/warehouse/{warehouse}/destroy',[CompanyEstablishmentWarehouseController::class,'destroyWarehouse'])->name('establishments.destroyWarehouse');
+                        Route::put('establishments/warehouse/{warehouse}/status',[CompanyEstablishmentWarehouseController::class,'statusWarehouse'])->name('establishments.statusWarehouse');
                     });
 
             });
@@ -117,13 +124,13 @@ Route::middleware('auth')->group(function () {
 
             //Grupo de Rotas - Warehouse
             Route::prefix('warehouses')->group(function (){
-                Route::get('warehouses',[InventoryWarehouseItemsController::class,'index'])->name('warehouses.index');
-                Route::get('warehouses/{warehouse}',[InventoryWarehouseItemsController::class,'show'])->name('warehouses.show');
-                Route::get('warehouses/{warehouse}/entry/show',[InventoryWarehouseItemsController::class,'entryShow'])->name('warehouses.entryShow');
-                Route::post('warehouses/{warehouse}/entry/item/store/room',[InventoryWarehouseItemsController::class,'entryWarehouseCenter'])->name('warehouses.entryWarehouseCenter');
-                Route::post('warehouses/{warehouse}/entry/item/center',[InventoryWarehouseItemsController::class,'entryWarehouseStoreRoom'])->name('warehouses.entryWarehouseStoreRoom');
-                Route::post('warehouses/{warehouse}/exit/item/{item}/store/room',[InventoryWarehouseItemsController::class,'exitWarehouseCenter'])->name('warehouses.exitWarehouseCenter');
-                Route::post('warehouses/{warehouse}/exit/item/{item}/center',[InventoryWarehouseItemsController::class,'exitWarehouseStoreRoom'])->name('warehouses.exitWarehouseStoreRoom');
+                Route::get('warehouses',[CompanyEstablishmentWarehouseItemController::class,'index'])->name('warehouses.index');
+                Route::get('warehouses/{warehouse}',[CompanyEstablishmentWarehouseItemController::class,'show'])->name('warehouses.show');
+                Route::get('warehouses/{warehouse}/entry/show',[CompanyEstablishmentWarehouseItemController::class,'entryShow'])->name('warehouses.entryShow');
+                Route::post('warehouses/{warehouse}/entry/item/store/room',[CompanyEstablishmentWarehouseItemController::class,'entryWarehouseCenter'])->name('warehouses.entryWarehouseCenter');
+                Route::post('warehouses/{warehouse}/entry/item/center',[CompanyEstablishmentWarehouseItemController::class,'entryWarehouseStoreRoom'])->name('warehouses.entryWarehouseStoreRoom');
+                Route::post('warehouses/{warehouse}/exit/item/{item}/store/room',[CompanyEstablishmentWarehouseItemController::class,'exitWarehouseCenter'])->name('warehouses.exitWarehouseCenter');
+                Route::post('warehouses/{warehouse}/exit/item/{item}/center',[CompanyEstablishmentWarehouseItemController::class,'exitWarehouseStoreRoom'])->name('warehouses.exitWarehouseStoreRoom');
             });
         });
     });

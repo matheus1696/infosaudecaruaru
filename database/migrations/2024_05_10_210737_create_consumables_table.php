@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code')->unique()->nullable();
             $table->string('title')->unique();
             $table->string('filter');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('status')->default(TRUE);
             $table->unsignedBigInteger('consumable_classification_id');
             $table->unsignedBigInteger('consumable_unit_id');

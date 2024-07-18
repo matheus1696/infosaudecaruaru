@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('supply_companies', function (Blueprint $table) {
             $table->id();
-            $table->string('cnpj')->unique();
             $table->string('title');
             $table->string('surname')->nullable();
+            $table->string('cnpj')->unique();
             $table->string('filter');
             $table->string('address');
             $table->string('number');

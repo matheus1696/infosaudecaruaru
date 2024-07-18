@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consumable_units', function (Blueprint $table) {
+        Schema::create('warehouse_store_rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('acronym');
-            $table->string('title');
-            $table->string('filter');
-            $table->text('description')->nullable();            
+            $table->string('title')->unique();
             $table->boolean('status')->default(TRUE);
+            $table->unsignedBigInteger('establishment_id');
             $table->timestamps();
+
+            $table->foreign('establishment_id')->references('id')->on('company_establishments');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consumable_units');
+        Schema::dropIfExists('warehouse_store_rooms');
     }
 };

@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
+use App\Http\Controllers\Inventory\WarehouseStoreRoomController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 
@@ -105,6 +106,14 @@ Route::middleware('auth')->group(function () {
                     Route::put('consumables/status/{consumable}',[ConsumableController::class,'status'])->name('consumables.status');
                     Route::resource('consumables',ConsumableController::class);
             });
+        });
+
+        //Grupo de Rotas - Configuração de Localização
+        Route::prefix('inventory')->group(function (){
+            //Rota - Cadastro de Almoxarifado
+            Route::post('warehouse_store_rooms/create',[UsersController::class,'store'])->name('warehouse_store_room.store');
+            Route::put('warehouse_store_rooms/{warehouse_store_room}/update',[UsersController::class,'update'])->name('warehouse_store_room.update');
+            Route::put('warehouse_store_rooms/{warehouse_store_room}/status',[UsersController::class,'status'])->name('warehouse_store_room.status');
         });
     });
 

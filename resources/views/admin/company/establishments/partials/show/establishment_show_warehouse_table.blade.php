@@ -10,16 +10,18 @@
             @foreach ($dbWarehouses as $dbWarehouse)
                 <x-table.tr>
                     <x-table.td>{{$dbWarehouse->title}}</x-table.td>
-                    <x-table.td class="text-center">{{$dbWarehouse->status}}</x-table.td>
+                    <x-table.td>
+                        <x-button.buttonStatus condition="{{$dbWarehouse->status}}" name="status" route="{{route('warehouse_store_room.status',['warehouse_store_room'=>$dbWarehouse->id])}}" />
+                    </x-table.td>
                     <x-table.td class="text-center">                        
-                        <x-button.minButtonModalEdit id="Departamento{{$dbWarehouse->id}}" title="{{$dbWarehouse->department}}">                            
-                            <x-form.form method="create" route="{{route('establishment_departments.store')}}">
+                        <x-button.minButtonModalEdit id="Departamento{{$dbWarehouse->id}}" title="{{$dbWarehouse->title}}">                            
+                            <x-form.form method="edit" route="{{route('warehouse_store_room.update',['warehouse_store_room'=>$dbWarehouse->id])}}">
                                 <input type="hidden" id="establishment_id" name="establishment_id" value="{{$db->id}}">
-                                <x-form.input col="12" label="Título" id="title" name="title" required="required"/>
+                                <x-form.input col="12" label="Título" id="title" name="title" value="{{$dbWarehouse->title}}"/>
                             </x-form.form>                            
                         </x-button.minButtonModalEdit>
 
-                        <x-button.minButtonDelete route="{{route('establishment_departments.destroy',['establishment_department'=>$dbWarehouse->id])}}"/>
+                        <x-button.minButtonDelete route="{{route('warehouse_store_room.destroy',['warehouse_store_room'=>$dbWarehouse->id])}}"/>
                     </x-table.td>
                 </x-table.tr>
             @endforeach

@@ -11,7 +11,7 @@ class StoreWarehouseStoreRoomRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreWarehouseStoreRoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=>'required|min:2|unique:warehouse_store_rooms'
         ];
     }
 }

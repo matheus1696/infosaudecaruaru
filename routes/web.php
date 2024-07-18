@@ -111,9 +111,10 @@ Route::middleware('auth')->group(function () {
         //Grupo de Rotas - Configuração de Localização
         Route::prefix('inventory')->group(function (){
             //Rota - Cadastro de Almoxarifado
-            Route::post('warehouse_store_rooms/create',[UsersController::class,'store'])->name('warehouse_store_room.store');
-            Route::put('warehouse_store_rooms/{warehouse_store_room}/update',[UsersController::class,'update'])->name('warehouse_store_room.update');
-            Route::put('warehouse_store_rooms/{warehouse_store_room}/status',[UsersController::class,'status'])->name('warehouse_store_room.status');
+            Route::post('warehouse_store_rooms/create',[WarehouseStoreRoomController::class,'store'])->name('warehouse_store_room.store');
+            Route::put('warehouse_store_rooms/{warehouse_store_room}/update',[WarehouseStoreRoomController::class,'update'])->name('warehouse_store_room.update');
+            Route::delete('warehouse_store_rooms/{warehouse_store_room}/destroy',[WarehouseStoreRoomController::class,'destroy'])->name('warehouse_store_room.destroy');
+            Route::put('warehouse_store_rooms/{warehouse_store_room}/status',[WarehouseStoreRoomController::class,'status'])->name('warehouse_store_room.status');
         });
     });
 

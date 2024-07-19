@@ -304,6 +304,14 @@ return [
         
         //Lista Telefônica
         [
+            'text'    => 'Almoxarifado',
+            'classes' => 'btn-sm',
+            'route'   => 'inventory_store_room_items.index',
+            'icon'    => 'fas fa-boxes pr-2',
+        ],
+        
+        //Lista Telefônica
+        [
             'text'    => 'Lista Telefônica',
             'classes' => 'btn-sm',
             'route'   => 'contacts.index',

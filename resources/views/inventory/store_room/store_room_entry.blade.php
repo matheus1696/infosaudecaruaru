@@ -3,16 +3,16 @@
     @slot('header')
         <x-header
             title="Entrada de Suprimento"
-            routeBack="{{route('warehouses.show',['warehouse'=>$dbWarehouse->id])}}"
+            routeBack="{{route('inventory_store_room_items.show',['inventory_store_room_item'=>$dbStoreRoom->id])}}"
         />
     @endslot
         
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            @include('inventory.warehouse.items.partials.entry.items_entry_form')
+            @include('inventory.store_room.partials.entry.store_room_entry_form')
         </x-conteiner>
         <hr>
-        @include('inventory.warehouse.items.partials.entry.items_entry_table')
+        @include('inventory.store_room.partials.entry.store_room_entry_table')
     @endslot
 </x-pages.index>

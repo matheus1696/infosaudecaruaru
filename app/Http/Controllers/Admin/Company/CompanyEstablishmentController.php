@@ -10,10 +10,9 @@ use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyEstablishmentDepartment;
 use App\Models\Company\CompanyTypeEstablishment;
-use App\Models\Inventory\WarehouseStoreRoom;
+use App\Models\Inventory\InventoryStoreRoom;
 use App\Models\Region\RegionCity;
 use App\Services\Logger;
-
 
 class CompanyEstablishmentController extends Controller
 {
@@ -105,7 +104,7 @@ class CompanyEstablishmentController extends Controller
         //
         $db = CompanyEstablishment::find($id);
 
-        $dbWarehouses = WarehouseStoreRoom::where('establishment_id',$id)->get();
+        $dbStoreRooms = InventoryStoreRoom::where('establishment_id',$id)->get();
 
         $dbDepartments = CompanyEstablishmentDepartment::where('establishment_id', $id)
             ->orderBy('contact')
@@ -114,7 +113,7 @@ class CompanyEstablishmentController extends Controller
         //Log do Sistema
         Logger::show($db->title);
 
-        return view('admin.company.establishments.establishments_show', compact('db', 'dbDepartments', 'dbWarehouses'));
+        return view('admin.company.establishments.establishments_show', compact('db', 'dbDepartments', 'dbStoreRooms'));
     }
 
     /**

@@ -9,30 +9,6 @@
     </div>
 @endif
 
-@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "center")
-
-    <x-table.table :db="$dbItems">
-        @slot('thead')
-            <x-table.th>Suprimentos</x-table.th>
-                <x-table.th class="w-32">Bloco Fin.</x-table.th>
-            <x-table.th class="w-28">Quantidade</x-table.th>
-        @endslot
-
-        @slot('tbody')
-            @foreach ($dbItems as $dbItem)
-                <x-table.tr>
-                    <x-table.td>{{$dbItem->Consumable->title}}</x-table.td>
-                    <x-table.td>{{$dbItem->CompanyFinancialBlock->acronym ?? ""}}</x-table.td>
-                    <x-table.td>{{$dbItem->quantity}}</x-table.td>
-                </x-table.tr>
-            @endforeach
-        @endslot
-    </x-table.table>
-
-@endif
-
-@if ($dbWarehouse->CompanyEstablishmentWarehouseType->type == "store_room")
-
     <x-table.table :db="$dbItems">
         @slot('thead')
             <x-table.th>Suprimentos</x-table.th>
@@ -47,7 +23,9 @@
                     <x-table.td>{{$dbItem->quantity}}</x-table.td>
                     <x-table.td>
                         <x-button.minButtonModal id="Warehouse_Consumable_{{$dbItem->id}}" title="{{$dbItem->Consumable->title}}" icon="fas fa-long-arrow-alt-up rotate-45" btnTitle="Saída" color="red">
-                            <x-form.form method="post" route="{{route('warehouses.exitWarehouseStoreRoom',['warehouse'=>$dbWarehouse->id, 'item'=>$dbItem->consumable_id])}}">
+                            <x-form.form method="post" route="{{route('inventory_store_room_items.exitStore')}}">
+                                <input hidden name="inventory_store_room_id" value="{{$dbItem->inventory_store_room_id}}">
+                                <input hidden name="consumable_id" value="{{$dbItem->consumable_id}}">
                                 <x-form.input col="10" label="Suprimento" name="disabled" disabled="disabled" value="{{$dbItem->Consumable->title}}"/>
                                 <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" required="required"/>
                                 <x-form.textarea col="12" name="description" />
@@ -58,5 +36,3 @@
             @endforeach
         @endslot
     </x-table.table>
-
-@endif

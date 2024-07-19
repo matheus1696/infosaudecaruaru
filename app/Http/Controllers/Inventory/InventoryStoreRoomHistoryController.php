@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Models\Inventory\WarehouseStoreRoomHistory;
-use App\Http\Requests\Inventory\StoreWarehouseStoreRoomHistoryRequest;
-use App\Http\Requests\Inventory\UpdateWarehouseStoreRoomHistoryRequest;
+use App\Http\Requests\Inventory\StoreInventoryStoreRoomHistoryRequest;
+use App\Http\Requests\Inventory\UpdateInventroyStoreRoomHistoryRequest;
+use App\Models\Inventory\InventoryStoreRoomHistory;
 
-class WarehouseStoreRoomHistoryController extends Controller
+class InventoryStoreRoomHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class WarehouseStoreRoomHistoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWarehouseStoreRoomHistoryRequest $request)
+    public function store(StoreInventoryStoreRoomHistoryRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class WarehouseStoreRoomHistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(WarehouseStoreRoomHistory $warehouseStoreRoomHistory)
+    public function show(InventoryStoreRoomHistory $inventoryStoreRoomHistory)
     {
         //
     }
@@ -44,7 +44,7 @@ class WarehouseStoreRoomHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(WarehouseStoreRoomHistory $warehouseStoreRoomHistory)
+    public function edit(InventoryStoreRoomHistory $inventoryStoreRoomHistory)
     {
         //
     }
@@ -52,7 +52,7 @@ class WarehouseStoreRoomHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWarehouseStoreRoomHistoryRequest $request, WarehouseStoreRoomHistory $warehouseStoreRoomHistory)
+    public function update(UpdateInventroyStoreRoomHistoryRequest $request, InventoryStoreRoomHistory $inventoryStoreRoomHistory)
     {
         //
     }
@@ -60,7 +60,7 @@ class WarehouseStoreRoomHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WarehouseStoreRoomHistory $warehouseStoreRoomHistory)
+    public function destroy(InventoryStoreRoomHistory $inventoryStoreRoomHistory)
     {
         //
     }

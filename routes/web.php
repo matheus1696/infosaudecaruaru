@@ -20,7 +20,8 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
-use App\Http\Controllers\Inventory\WarehouseStoreRoomController;
+use App\Http\Controllers\Inventory\InventoryStoreRoomController;
+use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
 
@@ -111,10 +112,17 @@ Route::middleware('auth')->group(function () {
         //Grupo de Rotas - Configuração de Localização
         Route::prefix('inventory')->group(function (){
             //Rota - Cadastro de Almoxarifado
-            Route::post('warehouse_store_rooms/create',[WarehouseStoreRoomController::class,'store'])->name('warehouse_store_room.store');
-            Route::put('warehouse_store_rooms/{warehouse_store_room}/update',[WarehouseStoreRoomController::class,'update'])->name('warehouse_store_room.update');
-            Route::delete('warehouse_store_rooms/{warehouse_store_room}/destroy',[WarehouseStoreRoomController::class,'destroy'])->name('warehouse_store_room.destroy');
-            Route::put('warehouse_store_rooms/{warehouse_store_room}/status',[WarehouseStoreRoomController::class,'status'])->name('warehouse_store_room.status');
+            Route::post('store/rooms/store',[InventoryStoreRoomController::class,'store'])->name('inventory_store_rooms.store');
+            Route::put('store/rooms/{inventory_store_room}/update',[InventoryStoreRoomController::class,'update'])->name('inventory_store_rooms.update');
+            Route::delete('store/rooms/{inventory_store_room}/destroy',[InventoryStoreRoomController::class,'destroy'])->name('inventory_store_rooms.destroy');
+            Route::put('store/rooms/{inventory_store_room}/status',[InventoryStoreRoomController::class,'status'])->name('inventory_store_rooms.status');
+
+            //Rota - Almoxarifado
+            Route::get('store/rooms/items/index',[InventoryStoreRoomItemController::class,'index'])->name('inventory_store_room_items.index');
+            Route::get('store/rooms/items/{inventory_store_room_item}/show',[InventoryStoreRoomItemController::class,'show'])->name('inventory_store_room_items.show');
+            Route::get('store/rooms/items/{inventory_store_room_item}/entry/show',[InventoryStoreRoomItemController::class,'entryShow'])->name('inventory_store_room_items.entryShow');
+            Route::post('store/rooms/items/entry',[InventoryStoreRoomItemController::class,'entryStore'])->name('inventory_store_room_items.entryStore');
+            Route::post('store/rooms/items/exit',[InventoryStoreRoomItemController::class,'exitStore'])->name('inventory_store_room_items.exitStore');
         });
     });
 

@@ -3,15 +3,16 @@
 namespace App\Http\Requests\Inventory;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreWarehouseStoreRoomConsumableRequest extends FormRequest
+class UpdateInventoryStoreRoomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,12 @@ class StoreWarehouseStoreRoomConsumableRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        return [            
+            'title' => [
+                'required',
+                'min:2',
+                Rule::unique('inventory_store_rooms')->ignore($this->warehouse_store_room),
+            ],
         ];
     }
 }

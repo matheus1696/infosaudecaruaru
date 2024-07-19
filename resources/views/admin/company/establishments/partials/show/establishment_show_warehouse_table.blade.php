@@ -7,21 +7,21 @@
         @endslot
     
         @slot('tbody')
-            @foreach ($dbWarehouses as $dbWarehouse)
+            @foreach ($dbStoreRooms as $dbStoreRoom)
                 <x-table.tr>
-                    <x-table.td>{{$dbWarehouse->title}}</x-table.td>
+                    <x-table.td>{{$dbStoreRoom->title}}</x-table.td>
                     <x-table.td>
-                        <x-button.buttonStatus condition="{{$dbWarehouse->status}}" name="status" route="{{route('warehouse_store_room.status',['warehouse_store_room'=>$dbWarehouse->id])}}" />
+                        <x-button.buttonStatus condition="{{$dbStoreRoom->status}}" name="status" route="{{route('inventory_store_rooms.status',['inventory_store_room'=>$dbStoreRoom->id])}}" />
                     </x-table.td>
                     <x-table.td class="text-center">                        
-                        <x-button.minButtonModalEdit id="Departamento{{$dbWarehouse->id}}" title="{{$dbWarehouse->title}}">                            
-                            <x-form.form method="edit" route="{{route('warehouse_store_room.update',['warehouse_store_room'=>$dbWarehouse->id])}}">
+                        <x-button.minButtonModalEdit id="Departamento{{$dbStoreRoom->id}}" title="{{$dbStoreRoom->title}}">                            
+                            <x-form.form method="edit" route="{{route('inventory_store_rooms.update',['inventory_store_room'=>$dbStoreRoom->id])}}">
                                 <input type="hidden" id="establishment_id" name="establishment_id" value="{{$db->id}}">
-                                <x-form.input col="12" label="Título" id="title" name="title" value="{{$dbWarehouse->title}}"/>
+                                <x-form.input col="12" label="Título" id="title" name="title" value="{{$dbStoreRoom->title}}"/>
                             </x-form.form>                            
                         </x-button.minButtonModalEdit>
 
-                        <x-button.minButtonDelete route="{{route('warehouse_store_room.destroy',['warehouse_store_room'=>$dbWarehouse->id])}}"/>
+                        <x-button.minButtonDelete route="{{route('inventory_store_rooms.destroy',['inventory_store_room'=>$dbStoreRoom->id])}}"/>
                     </x-table.td>
                 </x-table.tr>
             @endforeach

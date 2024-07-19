@@ -6,6 +6,6 @@
         
     <!-- Slot Body -->
     @slot('body')
-        @include('inventory.warehouse.items.partials.index.items_index_table')
+        @include('inventory.store_room.partials.index.store_room_index_table')
     @endslot
 </x-pages.index>

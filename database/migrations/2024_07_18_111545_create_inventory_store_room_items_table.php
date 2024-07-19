@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('warehouse_store_room_consumables', function (Blueprint $table) {
+        Schema::create('inventory_store_room_items', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
             $table->integer('quantity_minimum')->nullable();
             $table->integer('quantity_maximum')->nullable();
             $table->unsignedBigInteger('consumable_id');
-            $table->unsignedBigInteger('warehouse_store_room_id');
+            $table->unsignedBigInteger('inventory_store_room_id');
             $table->timestamps();
+
+            $table->foreign('consumable_id')->references('id')->on('consumables');
+            $table->foreign('inventory_store_room_id')->references('id')->on('inventory_store_rooms');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouse_store_room_consumables');
+        Schema::dropIfExists('inventory_store_room_items');
     }
 };

@@ -9,11 +9,19 @@ use App\Http\Requests\Inventory\UpdateInventoryStoreRoomRequest;
 use App\Models\Inventory\InventoryStoreRoom;
 use App\Models\Inventory\InventoryStoreRoomItem;
 use App\Models\Inventory\InventoryStoreRoomPermission;
-use App\Models\Inventory\InventoryStoreRoomPermissionUser;
 use Illuminate\Http\Request;
 
 class InventoryStoreRoomController extends Controller
 {
+    
+    /*
+     * Controller access permission resource.
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:inventory_store_room|sysadmin|admin']);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

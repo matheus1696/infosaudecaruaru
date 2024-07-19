@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Auth;
 
 class InventoryStoreRoomItemController extends Controller
 {
+    
+    /*
+     * Controller access permission resource.
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:inventory_store_room|sysadmin|admin']);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -48,8 +57,7 @@ class InventoryStoreRoomItemController extends Controller
      */
     public function show(string $id)
     {
-        //
-        
+        //        
         $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
         ->where('inventory_store_room_id',$id)
         ->first();
@@ -61,10 +69,13 @@ class InventoryStoreRoomItemController extends Controller
         $dbStoreRoom = InventoryStoreRoom::find($id);
 
         if (!$dbStoreRoom) {
-            
             return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
+        } elseif (!$dbStoreRoom->status) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
         } else {            
-            $dbItems = InventoryStoreRoomItem::where('inventory_store_room_id', $id)->paginate(100);
+            $dbItems = InventoryStoreRoomItem::where('inventory_store_room_id', $id)
+            ->orderBy('consumable_id')
+            ->paginate(100);
 
             return view('inventory.store_room.store_room_show', compact('dbStoreRoom', 'dbItems'));
         }
@@ -75,15 +86,24 @@ class InventoryStoreRoomItemController extends Controller
      */
     public function entryShow(string $id)
     {
-        //
+        //        
+        $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
+        ->where('inventory_store_room_id',$id)
+        ->first();
+
+        if (!$dbPermissions) {
+            return redirect()->route('home')->with('error','Usuário sem acesso ao almoxarifado selecionado');
+        }
+
         $dbStoreRoom = InventoryStoreRoom::find($id);
 
         if (!$dbStoreRoom) {
-            
             return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
+        } elseif (!$dbStoreRoom->status) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
         } else {
             $dbConsumables = Consumable::all();
-            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)->limit(20)->orderBy('created_at',)->get();
+            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)->limit(20)->orderBy('created_at','DESC')->get();
     
             return view('inventory.store_room.store_room_entry', compact('dbStoreRoom', 'dbConsumables', 'dbHistories'));
         }
@@ -95,27 +115,43 @@ class InventoryStoreRoomItemController extends Controller
     public function entryStore(StoreInventoryStoreRoomItemRequest $request)
     {
         //
-        $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$request['inventory_store_room_id'])
-        ->where('consumable_id',$request['consumable_id'])
+        $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
+        ->where('inventory_store_room_id',$request['inventory_store_room_id'])
         ->first();
 
-        if (!$dbItem) {
-            InventoryStoreRoomItem::create($request->all());
-        } else {
-            $dbItem->update([
-                'quantity' => $dbItem->quantity + $request['quantity']
-            ]);
+        if (!$dbPermissions) {
+            return redirect()->route('home')->with('error','Usuário sem acesso ao almoxarifado selecionado');
         }
 
-        InventoryStoreRoomHistory::create([
-            'quantity'=>$request['quantity'],
-            'consumable_id'=>$request['consumable_id'],
-            'inventory_store_room_id'=>$request['inventory_store_room_id'],
-            'movement'=>'Entrada Avulsa',
-            'user_id'=>Auth::user()->id,
-        ]);
-        
-        return redirect()->back()->with('success','Item cadastrado com sucesso');
+        $dbStoreRoom = InventoryStoreRoom::find($request['inventory_store_room_id']);
+
+        if (!$dbStoreRoom) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
+        } elseif (!$dbStoreRoom->status) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
+        } else {
+            $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$request['inventory_store_room_id'])
+            ->where('consumable_id',$request['consumable_id'])
+            ->first();
+    
+            if (!$dbItem) {
+                InventoryStoreRoomItem::create($request->all());
+            } else {
+                $dbItem->update([
+                    'quantity' => $dbItem->quantity + $request['quantity']
+                ]);
+            }
+    
+            InventoryStoreRoomHistory::create([
+                'quantity'=>$request['quantity'],
+                'consumable_id'=>$request['consumable_id'],
+                'inventory_store_room_id'=>$request['inventory_store_room_id'],
+                'movement'=>'Entrada Avulsa',
+                'user_id'=>Auth::user()->id,
+            ]);
+            
+            return redirect()->back()->with('success','Item cadastrado com sucesso');
+        }
     }    
 
     /**
@@ -123,24 +159,40 @@ class InventoryStoreRoomItemController extends Controller
      */
     public function exitStore(StoreInventoryStoreRoomItemRequest $request)
     {
-        //        
-        $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$request['inventory_store_room_id'])
-        ->where('consumable_id',$request['consumable_id'])
+        //                
+        $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
+        ->where('inventory_store_room_id',$request['inventory_store_room_id'])
         ->first();
-        
-        $dbItem->update([
-            'quantity' => $dbItem->quantity - $request['quantity'],
-            'description' => $request['descripiton']
-        ]);
 
-        InventoryStoreRoomHistory::create([
-            'quantity'=>$request['quantity'],
-            'consumable_id'=>$request['consumable_id'],
-            'inventory_store_room_id'=>$request['inventory_store_room_id'],
-            'movement'=>'Saída',
-            'user_id'=>Auth::user()->id,
-        ]);
+        if (!$dbPermissions) {
+            return redirect()->route('home')->with('error','Usuário sem acesso ao almoxarifado selecionado');
+        }
 
-        return redirect()->back()->with('success','Saída realizada com sucesso');
+        $dbStoreRoom = InventoryStoreRoom::find($request['inventory_store_room_id']);
+
+        if (!$dbStoreRoom) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
+        } elseif (!$dbStoreRoom->status) {
+            return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
+        } else {
+            $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$request['inventory_store_room_id'])
+            ->where('consumable_id',$request['consumable_id'])
+            ->first();
+            
+            $dbItem->update([
+                'quantity' => $dbItem->quantity - $request['quantity'],
+                'description' => $request['descripiton']
+            ]);
+    
+            InventoryStoreRoomHistory::create([
+                'quantity'=>$request['quantity'],
+                'consumable_id'=>$request['consumable_id'],
+                'inventory_store_room_id'=>$request['inventory_store_room_id'],
+                'movement'=>'Saída',
+                'user_id'=>Auth::user()->id,
+            ]);
+    
+            return redirect()->back()->with('success','Saída realizada com sucesso');
+        }
     }
 }

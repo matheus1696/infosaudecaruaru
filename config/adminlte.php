@@ -308,6 +308,7 @@ return [
             'classes' => 'btn-sm',
             'route'   => 'inventory_store_room_items.index',
             'icon'    => 'fas fa-boxes pr-2',
+            'can'     => ['inventory_store_room','sysadmin','admin'],
         ],
         
         //Lista Telefônica

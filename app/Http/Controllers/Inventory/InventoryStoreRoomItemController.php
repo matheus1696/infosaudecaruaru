@@ -8,6 +8,7 @@ use App\Models\Consumable\Consumable;
 use App\Models\Inventory\InventoryStoreRoom;
 use App\Models\Inventory\InventoryStoreRoomHistory;
 use App\Models\Inventory\InventoryStoreRoomItem;
+use App\Models\Inventory\InventoryStoreRoomPermission;
 use Illuminate\Support\Facades\Auth;
 
 class InventoryStoreRoomItemController extends Controller
@@ -18,9 +19,22 @@ class InventoryStoreRoomItemController extends Controller
     public function index()
     {
         //
-        $dbStoreRooms = InventoryStoreRoom::all();
+        $dbPermission = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)->get();
 
-        return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
+        if ($dbPermission->count() <= 0) {
+            dd('Mensagem de que o usuário não está vinculado a nenhum almoxarifado');
+        }
+
+        if ($dbPermission->count() == 1) {
+            return redirect()->route('inventory_store_room_items.show',['inventory_store_room_item'=>$dbPermission->first()->inventory_store_room_id]);
+        }        
+
+        if ($dbPermission->count() > 1) {
+
+            $dbStoreRooms = InventoryStoreRoom::all();
+    
+            return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
+        }
     }
 
     /**
@@ -54,7 +68,7 @@ class InventoryStoreRoomItemController extends Controller
             return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
         } else {
             $dbConsumables = Consumable::all();
-            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)->limit(20)->orderBy('created_at','DESC')->get();
+            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)->limit(20)->orderBy('created_at',)->get();
     
             return view('inventory.store_room.store_room_entry', compact('dbStoreRoom', 'dbConsumables', 'dbHistories'));
         }

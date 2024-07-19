@@ -19,19 +19,25 @@ class InventoryStoreRoomItemController extends Controller
     public function index()
     {
         //
-        $dbPermission = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)->get();
+        $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)->get();
 
-        if ($dbPermission->count() <= 0) {
+        if ($dbPermissions->count() <= 0) {
             dd('Mensagem de que o usuário não está vinculado a nenhum almoxarifado');
         }
 
-        if ($dbPermission->count() == 1) {
-            return redirect()->route('inventory_store_room_items.show',['inventory_store_room_item'=>$dbPermission->first()->inventory_store_room_id]);
+        if ($dbPermissions->count() == 1) {
+            return redirect()->route('inventory_store_room_items.show',['inventory_store_room_item'=>$dbPermissions->first()->inventory_store_room_id]);
         }        
 
-        if ($dbPermission->count() > 1) {
+        if ($dbPermissions->count() > 1) {
 
-            $dbStoreRooms = InventoryStoreRoom::all();
+            $dbStoreRooms = InventoryStoreRoom::query();
+
+            foreach ($dbPermissions as $key => $dbPermission) {
+                if ($dbPermission->user_id == Auth::user()->id) {
+                    $dbStoreRooms->orWhere('inventory_store_room_id', $dbPermission->inventory_store_room_id);
+                }
+            }
     
             return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
         }

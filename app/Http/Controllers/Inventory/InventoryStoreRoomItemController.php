@@ -103,7 +103,11 @@ class InventoryStoreRoomItemController extends Controller
             return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
         } else {
             $dbConsumables = Consumable::all();
-            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)->limit(20)->orderBy('created_at','DESC')->get();
+            $dbHistories = InventoryStoreRoomHistory::where('inventory_store_room_id',$id)
+            ->where('movement','Entrada Avulsa')
+            ->limit(20)
+            ->orderBy('created_at','DESC')
+            ->get();
     
             return view('inventory.store_room.store_room_entry', compact('dbStoreRoom', 'dbConsumables', 'dbHistories'));
         }

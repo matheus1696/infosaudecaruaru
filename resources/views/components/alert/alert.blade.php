@@ -24,14 +24,14 @@
     setTimeout( function relogio() {
     let = document.querySelector('.borderAlert').classList.remove('w-full')
     let = document.querySelector('.borderAlert').classList.add('w-1')
-    }, 2300)
+    }, 3300)
     setTimeout( function relogio() {
         let = document.querySelector('.alert').classList.add('opacity-0')
-    }, 3000)
+    }, 4000)
     setTimeout( function relogio() {
     let = document.querySelector('.borderAlert').classList.remove('z-50')
         let = document.querySelector('.alert').classList.add('-z-50')
-    }, 3300)
+    }, 5300)
 </script>
 
 

@@ -128,8 +128,12 @@ Route::middleware('auth')->group(function () {
     });
 
     //Rotas de Perfil do Usuário
-    Route::put('profiles/password/{profile}',[ProfileController::class,'updatePassword'])->name('profiles.updatePassword');
-    Route::resource('profiles', ProfileController::class);
+    Route::get('profiles/profile',[ProfileController::class,'editProfile'])->name('profiles.editProfile');
+    Route::put('profiles/profile',[ProfileController::class,'updateProfile'])->name('profiles.updateProfile');
+    Route::get('profiles/professional',[ProfileController::class,'editProfessional'])->name('profiles.editProfessional');
+    Route::put('profiles/professional',[ProfileController::class,'updateProfessional'])->name('profiles.updateProfessional');
+    Route::get('profiles/password',[ProfileController::class,'editPassword'])->name('profiles.editPassword');
+    Route::put('profiles/password',[ProfileController::class,'updatePassword'])->name('profiles.updatePassword');
 });
 
 //Rotas de Autenticação

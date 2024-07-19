@@ -2,7 +2,7 @@
 <x-conteiner>
     <h3 class="mb-3 text-lg font-semibold text-center">Dados do Pessoais</h3>
 
-    <x-form.form method="edit" route="{{route('profiles.update',['profile'=>$db->id])}}">
+    <x-form.form method="edit" route="{{route('profiles.updateProfile')}}">
             
             <x-form.input col="12" label="Nome Completo" name="name" id="name" value="{{$db->name}}" required="required" placeholder="Fulano da Pereira da Silva Dómino"/>
 

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Profile;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Profile\ProfileUpdateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Models\Company\CompanyEstablishment;
+use App\Http\Requests\Profile\UserPasswordUpdateRequest;
+use App\Http\Requests\Profile\UserProfessionalUpdateRequest;
+use App\Http\Requests\Profile\UserProfileUpdateRequest;
 use App\Models\Profile\Profile;
 use App\Models\User\UserSex;
 use App\Services\Logger;
@@ -24,76 +23,77 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Show the form for editing the specified resource.
      */
-    public function index()
+    public function editProfile()
     {
-        //Redirecionando para Perfil
-        if (Auth::user()) {
-            return redirect(route('profiles.edit',[Auth::user()->id]));
-        }
+        //Listando Dados
+        $db = Profile::find(Auth::user()->id);
+        $dbUserSex = UserSex::where('status',true)->orderBy('sex')->get();
 
-        return redirect(route('login'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return redirect()->route('login');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-        return redirect()->route('login');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-        return redirect()->route('login');
+        return view('users.profile.profile_index',[
+            'db'=>$db,
+            'dbUserSex'=>$dbUserSex,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editProfessional()
     {
         //Listando Dados
-        $db = Profile::find($id);
-        $dbUserSex = UserSex::where('status',true)->orderBy('sex')->get();
-        $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
+        $db = Profile::find(Auth::user()->id);
 
-        if ($db && $db->id === Auth::user()->id) {
-            //Log do Sistema
-            Logger::editUserProfile($db->name);
+        Logger::editUserProfile($db->name);
 
-            return view('users.profile.profile_index',[
-                'db'=>$db,
-                'dbUserSex'=>$dbUserSex,
-                'dbEstablishments'=>$dbEstablishments,
-            ]);
-        } else {
-            //Log do Sistema
-            Logger::errorUserNoExistent('Usuário informado não existe');
+        return view('users.profile.profile_professional',[
+            'db'=>$db,
+        ]);
+    }
 
-            return redirect(route('home'));
-        }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function editPassword()
+    {
+        //   
+        $db = Profile::find(Auth::user()->id);
+
+        return view('users.profile.profile_password', compact('db'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserUpdateRequest $request, string $id)
+    public function updateProfile(UserProfileUpdateRequest $request, string $id)
+    {
+        //Listando Usuário
+        $db = Profile::find($id);
+
+        if ($db && $db->id === Auth::user()->id) {
+            //Alterando Dados do Usuário
+            $data = $request->all();
+
+            trim($data['name']);
+
+            $db->update($data);
+            
+            //Log do Sistema
+            Logger::updateUserProfileData($db->name);
+
+            return redirect(route('profiles.edit',['profile'=>$id]))
+                ->with('success','Alteração dos dados realizada com sucesso.');
+
+        } else {
+            return redirect(route('home'));
+        };
+    }    
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateProfessional(UserProfessionalUpdateRequest $request, string $id)
     {
         //Listando Usuário
         $db = Profile::find($id);
@@ -120,7 +120,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updatePassword(ProfileUpdateRequest $request, string $id)
+    public function updatePassword(UserPasswordUpdateRequest $request, string $id)
     {
         //Listando Usuário
         $db = Profile::find($id);

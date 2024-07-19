@@ -4,7 +4,7 @@ namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileUpdateRequest extends FormRequest
+class UserProfessionalUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

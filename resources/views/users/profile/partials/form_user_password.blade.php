@@ -2,7 +2,7 @@
 <x-conteiner>
     <h3 class="mb-3 text-lg font-semibold text-center">Alteração de Senha</h3>
 
-    <x-form.form method="edit" route="{{route('profiles.updatePassword',['profile'=>$db->id])}}">
+    <x-form.form method="edit" route="{{route('profiles.updatePassword')}}">
         @csrf @method('PUT')
 
             <!-- Inicio de Componentização de Input e Select -->

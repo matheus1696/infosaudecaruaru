@@ -57,7 +57,7 @@ class InventoryStoreRoomItemController extends Controller
      */
     public function show(string $id)
     {
-        //        
+        //
         $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
         ->where('inventory_store_room_id',$id)
         ->first();

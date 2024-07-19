@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity');
             $table->string('movement');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('consumable_id');
             $table->unsignedBigInteger('inventory_store_room_id');
             $table->unsignedBigInteger('user_id');

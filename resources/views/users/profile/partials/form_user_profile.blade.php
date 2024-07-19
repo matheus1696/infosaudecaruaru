@@ -6,7 +6,7 @@
             
             <x-form.input col="12" label="Nome Completo" name="name" id="name" value="{{$db->name}}" required="required" placeholder="Fulano da Pereira da Silva Dómino"/>
 
-            <x-form.input col="6" label="Data Nascimento" type="date" name="birthday" id="birthday" value="{{$db->birthday}}" max="{{date('Y-m-d')}}" min="{{date('1900-01-01')}}"/>
+            <x-form.input col="6" label="Data Nascimento" type="date" name="birthday" id="birthday" value="{{$db->birthday}}" max="{{date('2010-01-01')}}" min="{{date('1900-01-01')}}"/>
 
             <x-form.select col="6" label="Sexo" name="sex_id" id="sex_id">
                 @foreach ($dbUserSex as $UserSex)

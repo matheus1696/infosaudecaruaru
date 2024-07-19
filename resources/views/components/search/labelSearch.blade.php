@@ -1,3 +1,3 @@
 <div>        
-    <label for="{{$id}}" class="pt-2 text-sm font-semibold">{{$label ?? ""}}:</label>
+    <label for="select_search_{{$id ?? $name}}" class="pt-2 text-sm font-semibold">{{$label ?? ""}}:</label>
 </div>

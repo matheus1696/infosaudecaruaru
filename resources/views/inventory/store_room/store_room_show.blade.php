@@ -10,6 +10,7 @@
         
     <!-- Slot Body -->
     @slot('body')
+        @include('inventory.store_room.partials.show.store_room_show_search')
         @include('inventory.store_room.partials.show.store_room_show_table')
     @endslot
 </x-pages.index>

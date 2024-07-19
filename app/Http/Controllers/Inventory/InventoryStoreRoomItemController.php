@@ -9,7 +9,10 @@ use App\Models\Inventory\InventoryStoreRoom;
 use App\Models\Inventory\InventoryStoreRoomHistory;
 use App\Models\Inventory\InventoryStoreRoomItem;
 use App\Models\Inventory\InventoryStoreRoomPermission;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\search;
 
 class InventoryStoreRoomItemController extends Controller
 {
@@ -55,7 +58,7 @@ class InventoryStoreRoomItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $search, string $id)
     {
         //
         $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
@@ -72,12 +75,21 @@ class InventoryStoreRoomItemController extends Controller
             return redirect()->route('home')->with('error','Almoxarifado selecionado não existe');
         } elseif (!$dbStoreRoom->status) {
             return redirect()->route('home')->with('error','Almoxarifado selecionado está desabilitado');
-        } else {            
-            $dbItems = InventoryStoreRoomItem::where('inventory_store_room_id', $id)
-            ->orderBy('consumable_id')
-            ->paginate(100);
+        } else {
 
-            return view('inventory.store_room.store_room_show', compact('dbStoreRoom', 'dbItems'));
+            $dbConsumables = Consumable::all();
+                    
+            $dbItems = InventoryStoreRoomItem::query();
+            $dbItems->where('inventory_store_room_id', $id);
+            
+            if (isset($search['consumable_id']) && $search['consumable_id']) {
+                $dbItems->where('consumable_id', $search['consumable_id']);
+            }
+            
+            $dbItems->orderBy('consumable_id');
+            $dbItems->get();
+
+            return view('inventory.store_room.store_room_show', compact('search','dbStoreRoom', 'dbConsumables', 'dbItems'));
         }
     }
 

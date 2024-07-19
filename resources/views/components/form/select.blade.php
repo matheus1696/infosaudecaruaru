@@ -2,7 +2,7 @@
     @include('components.form.label')
     <select
         name="{{$name}}"
-        id="{{$id ?? $name}}"
+        id="form_{{$id ?? $name}}"
         class="w-full outline-none select2"
         @isset($onchange) onchange="{{$onchange}}" @endisset
         required

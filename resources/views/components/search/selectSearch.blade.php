@@ -1,8 +1,8 @@
 <div class="flex items-center gap-1 {{$class ?? ''}} w-full">
     @include('components.search.labelSearch')
     <select
-        id="{{$id}}" 
-        name="{{$id}}" 
+        id="select_search_{{$id ?? $name}}" 
+        name="{{$name}}" 
         value="{{$value ?? ''}}"
         class="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md focus:bg-white focus:outline-none select2"
     >       

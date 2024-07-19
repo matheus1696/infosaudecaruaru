@@ -3,7 +3,7 @@
     <input
         type="{{$type ?? "text"}}"
         name="{{$name}}"
-        id="{{$id ?? $name}}"
+        id="form_{{$id ?? $name}}"
         class="w-full px-2 py-2 text-sm border border-gray-800 rounded-md outline-none disabled:bg-gray-200"
         @isset($min) min="{{$min}}" @endisset        
         @isset($max) max="{{$max}}" @endisset

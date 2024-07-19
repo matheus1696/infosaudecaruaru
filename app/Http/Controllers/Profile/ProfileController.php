@@ -10,7 +10,6 @@ use App\Http\Requests\Profile\ProfileUpdateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Profile\Profile;
-use App\Models\User;
 use App\Models\User\UserSex;
 use App\Services\Logger;
 

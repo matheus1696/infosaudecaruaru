@@ -181,7 +181,7 @@ class InventoryStoreRoomItemController extends Controller
             
             $dbItem->update([
                 'quantity' => $dbItem->quantity - $request['quantity'],
-                'description' => $request['descripiton']
+                'description' => trim($request['descripiton'])
             ]);
     
             InventoryStoreRoomHistory::create([

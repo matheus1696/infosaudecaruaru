@@ -102,6 +102,9 @@ class ProfileController extends Controller
         if ($db && $db->id === Auth::user()->id) {
             //Alterando Dados do Usuário
             $data = $request->all();
+
+            trim($data['name']);
+
             $db->update($data);
             
             //Log do Sistema

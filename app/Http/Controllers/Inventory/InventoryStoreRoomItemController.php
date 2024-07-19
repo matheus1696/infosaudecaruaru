@@ -22,7 +22,7 @@ class InventoryStoreRoomItemController extends Controller
         $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)->get();
 
         if ($dbPermissions->count() <= 0) {
-            dd('Mensagem de que o usuário não está vinculado a nenhum almoxarifado');
+            $dbStoreRooms = FALSE;
         }
 
         if ($dbPermissions->count() == 1) {
@@ -38,9 +38,9 @@ class InventoryStoreRoomItemController extends Controller
                     $dbStoreRooms->orWhere('inventory_store_room_id', $dbPermission->inventory_store_room_id);
                 }
             }
-    
-            return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
         }
+    
+        return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
     }
 
     /**
@@ -49,6 +49,15 @@ class InventoryStoreRoomItemController extends Controller
     public function show(string $id)
     {
         //
+        
+        $dbPermissions = InventoryStoreRoomPermission::where('user_id',Auth::user()->id)
+        ->where('inventory_store_room_id',$id)
+        ->first();
+
+        if (!$dbPermissions) {
+            return redirect()->route('home')->with('error','Usuário sem acesso ao almoxarifado selecionado');
+        }
+
         $dbStoreRoom = InventoryStoreRoom::find($id);
 
         if (!$dbStoreRoom) {
@@ -120,7 +129,16 @@ class InventoryStoreRoomItemController extends Controller
         ->first();
         
         $dbItem->update([
-            'quantity' => $dbItem->quantity - $request['quantity']
+            'quantity' => $dbItem->quantity - $request['quantity'],
+            'description' => $request['descripiton']
+        ]);
+
+        InventoryStoreRoomHistory::create([
+            'quantity'=>$request['quantity'],
+            'consumable_id'=>$request['consumable_id'],
+            'inventory_store_room_id'=>$request['inventory_store_room_id'],
+            'movement'=>'Saída',
+            'user_id'=>Auth::user()->id,
         ]);
 
         return redirect()->back()->with('success','Saída realizada com sucesso');

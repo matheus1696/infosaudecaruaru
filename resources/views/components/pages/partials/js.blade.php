@@ -2,6 +2,7 @@
 <script src="{{asset('assets/js/maskphone.js')}}"></script>
 <script src="{{asset('assets/js/maskcpf.js')}}"></script>
 <script src="{{asset('assets/js/maskregistration.js')}}"></script>
+<script src="{{asset('assets/js/maskrmatriculation.js')}}"></script>
 
 <!-- Scripts Proteção de envio do formulário -->
 <script>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('cpf')->nullable();
             $table->string('registration')->nullable();
+            $table->string('matriculation')->nullable();
             $table->string('contact_1')->nullable();
             $table->string('contact_2')->nullable();
             $table->date('birthday')->nullable();

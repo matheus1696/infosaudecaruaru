@@ -22,7 +22,7 @@ class UserProfessionalUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [            
-            'registration' => 'nullable|min:8|max:9'
+            'matriculation' => 'nullable|min:8|max:10'
         ];
     }
 }

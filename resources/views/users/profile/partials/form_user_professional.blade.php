@@ -4,13 +4,13 @@
 
     <x-form.form method="edit" route="{{route('profiles.updateProfessional')}}">                
             
-            <x-form.input col="12" label="Matricula" name="registration" id="registration" value="{{$db->registration}}" maxlength="8" minlength="8" placeholder="99.999-2"/>
+            <x-form.input col="12" label="Matricula" name="matriculation" value="{{$db->matriculation}}" maxlength="8" minlength="8" placeholder="99.999-2"/>
 
-            <x-form.input col="12" label="Estabelecimento" name="disabled" id="disabled" value="{{$db->CompanyEstablishment->title ?? ''}}" disabled="disabled" />
+            <x-form.inputDisabled col="12" label="Estabelecimento" value="{{$db->CompanyEstablishment->title ?? ''}}" />
 
-            <x-form.input col="12" label="Departamento" name="disabled" id="disabled" value="{{$db->CompanyEstablishmentDepartment->department ?? ''}}" disabled="disabled" />
+            <x-form.inputDisabled col="12" label="Departamento" value="{{$db->CompanyEstablishmentDepartment->department ?? ''}}" />
 
-            <x-form.input col="12" label="Cargo" name="disabled" id="disabled" value="{{$db->CompanyOccupation->title ?? ''}}" disabled="disabled" />
+            <x-form.inputDisabled col="12" label="Cargo" value="{{$db->CompanyOccupation->title ?? ''}}" />
 
     </x-form.form>
 </x-conteiner>

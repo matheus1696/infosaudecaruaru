@@ -5,7 +5,13 @@ const handleRegistration = (event) => {
 
 const registrationMask = (value) => {
     if (!value) return "";
-    value = value.replace(/\D/g,'');
-    value = value.replace(/^(\d{2})(\d{3})(\d)/g,"$1.$2-$3");
+    value = value.replace(/\D/g,''); // Remove todos os caracteres não numéricos
+
+    if (value.length > 7) {
+        value = value.replace(/^(\d{2})(\d{3})(\d)/, "$1.$2.$3");
+    } else {
+        value = value.replace(/^(\d{1})(\d{3})(\d)/, "$1.$2.$3");
+    }
+
     return value;
 }

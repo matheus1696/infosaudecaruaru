@@ -117,6 +117,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('store/rooms/{inventory_store_room}/destroy',[InventoryStoreRoomController::class,'destroy'])->name('inventory_store_rooms.destroy');
             Route::put('store/rooms/{inventory_store_room}/status',[InventoryStoreRoomController::class,'status'])->name('inventory_store_rooms.status');
             Route::post('store/rooms/{inventory_store_room}/permission',[InventoryStoreRoomController::class,'permission'])->name('inventory_store_rooms.permission');
+            Route::delete('store/rooms/{inventory_store_room}/revoke',[InventoryStoreRoomController::class,'revoke'])->name('inventory_store_rooms.revoke');
 
             //Rota - Almoxarifado
             Route::get('store/rooms/items/index',[InventoryStoreRoomItemController::class,'index'])->name('inventory_store_room_items.index');

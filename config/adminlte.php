@@ -323,7 +323,7 @@ return [
         [
             'text'    => 'Perfil',
             'classes' => 'btn-sm',
-            'icon'    => 'fas fa-user pr-2',
+            'icon'    => 'fas fa-user-circle pr-2',
             'can'     => 'user',
             'submenu' => [
 
@@ -332,7 +332,7 @@ return [
                     'text'    => 'Dados dos Usuários',
                     'classes' => 'btn-sm',
                     'route'   => 'profiles.editProfile',
-                    'icon'    => 'fas fa-users pr-2',
+                    'icon'    => 'fas fa-user pr-2',
                     'icon_color' => 'teal',
                     'can'     => 'user',
                 ],
@@ -342,7 +342,7 @@ return [
                     'text'    => 'Dados dos Profissionais',
                     'classes' => 'btn-sm',
                     'route'   => 'profiles.editProfessional',
-                    'icon'    => 'fas fa-users pr-2',
+                    'icon'    => 'fas fa-id-badge pr-2',
                     'icon_color' => 'teal',
                     'can'     => 'user',
                 ],
@@ -352,7 +352,7 @@ return [
                     'text'    => 'Alterar Senha',
                     'classes' => 'btn-sm',
                     'route'   => 'profiles.editPassword',
-                    'icon'    => 'fas fa-users pr-2',
+                    'icon'    => 'fas fa-key pr-2',
                     'icon_color' => 'teal',
                     'can'     => 'user',
                 ],
@@ -369,7 +369,7 @@ return [
 
                 //Dados dos Usuários e Permissões dos Módulos
                 [
-                    'text'    => 'Dados dos Usuários',
+                    'text'    => 'Lista de Usuários',
                     'classes' => 'btn-sm',
                     'route'   => 'users.index',
                     'icon'    => 'fas fa-users pr-2',

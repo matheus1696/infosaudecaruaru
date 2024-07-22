@@ -12,8 +12,6 @@ use App\Models\Inventory\InventoryStoreRoomPermission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\search;
-
 class InventoryStoreRoomItemController extends Controller
 {
     

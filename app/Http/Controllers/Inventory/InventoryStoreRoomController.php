@@ -50,9 +50,10 @@ class InventoryStoreRoomController extends Controller
     public function destroy(InventoryStoreRoom $inventoryStoreRoom)
     {
         //
-        $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$inventoryStoreRoom->id)->count();
+        $dbItem = InventoryStoreRoomItem::where('inventory_store_room_id',$inventoryStoreRoom->id)->count();        
+        $dbPermission = InventoryStoreRoomPermission::where('inventory_store_room_id',$inventoryStoreRoom->id)->count();
 
-        if ($dbItem <= 0) {
+        if ($dbItem < 1 && $dbPermission < 1) {
             $inventoryStoreRoom->delete();
     
             return redirect()->back()->with('success','Almoxarifado excluído com sucesso');
@@ -62,7 +63,7 @@ class InventoryStoreRoomController extends Controller
                 'status' => FALSE
             ]);
 
-            return redirect()->back()->with('error','Almoxarifado contém itens cadastrados, realizada somente a desativação');
+            return redirect()->back()->with('error','Almoxarifado contém itens cadastrados ou usuários vinculados, realizada somente a desativação');
         }        
     }
 
@@ -83,7 +84,7 @@ class InventoryStoreRoomController extends Controller
     public function permission(StoreInventoryStoreRoomPermissionRequest $request)
     {
         //
-        $dbPermission = InventoryStoreRoomPermission::where('user_id',$request['id'])
+        $dbPermission = InventoryStoreRoomPermission::where('user_id',$request['user_id'])
         ->where('inventory_store_room_id',$request['inventory_store_room_id'])
         ->count();
 
@@ -94,5 +95,17 @@ class InventoryStoreRoomController extends Controller
         } else {
             return redirect()->back()->with('error','Usuário com permissão atribuida ao almoxarifado selecionado');
         }
+    }   
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function revoke(string $id)
+    {
+        //
+        $dbPermission = InventoryStoreRoomPermission::find($id);
+        $dbPermission->delete();
+            
+        return redirect()->back()->with('success','Permissão de acesso do usuário revogada');
     }
 }

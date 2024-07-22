@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'cpf',
         'registration',
+        'matriculation',
         'contact_1',
         'contact_2',
         'birthday',

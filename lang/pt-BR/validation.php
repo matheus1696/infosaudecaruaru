@@ -16,13 +16,13 @@ return [
     'accepted'             => 'O campo :attribute deve ser aceito.',
     'accepted_if'          => 'O :attribute deve ser aceito quando :other for :value.',
     'active_url'           => 'O campo :attribute não é uma URL válida.',
-    'after'                => 'O campo :attribute deve ser uma data posterior a :date.',
+    'after'                => 'A :attribute deve ser posterior a :date.',
     'after_or_equal'       => 'O campo :attribute deve ser uma data posterior ou igual a :date.',
     'alpha'                => 'O campo :attribute só pode conter letras.',
     'alpha_dash'           => 'O campo :attribute só pode conter letras, números e traços.',
     'alpha_num'            => 'O campo :attribute só pode conter letras e números.',
     'array'                => 'O campo :attribute deve ser uma matriz.',
-    'before'               => 'O campo :attribute deve ser uma data anterior :date.',
+    'before'               => 'A :attribute deve ser anterior a :date.',
     'before_or_equal'      => 'O campo :attribute deve ser uma data anterior ou igual a :date.',
     'between'              => [
         'numeric' => 'O campo :attribute deve ser entre :min e :max.',
@@ -161,8 +161,7 @@ return [
         ],
         'password' => [
             'regex' => 'O campo :attribute deve conter apenas letras, números e caracteres especiais.',
-        ],
-    
+        ],    
     ],
 
     /*
@@ -180,7 +179,7 @@ return [
         'acronym'               => 'sigla',
         'address'               => 'endereço',
         'age'                   => 'idade',
-        'birth_date'            => 'data de nascimento',
+        'birthday'              => 'data de nascimento',
         'blood_type'            => 'tipo sanguíneo',
         'body'                  => 'conteúdo',
         'category'              => 'categoria',

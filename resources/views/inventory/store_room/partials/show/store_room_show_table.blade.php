@@ -26,7 +26,7 @@
                             <x-form.form method="post" route="{{route('inventory_store_room_items.exitStore')}}">
                                 <input hidden name="inventory_store_room_id" value="{{$dbItem->inventory_store_room_id}}">
                                 <input hidden name="consumable_id" value="{{$dbItem->consumable_id}}">
-                                <x-form.input col="10" label="Suprimento" name="disabled" disabled="disabled" value="{{$dbItem->Consumable->title}}"/>
+                                <x-form.inputDisabled col="10" label="Suprimento" value="{{$dbItem->Consumable->title}}"/>
                                 <x-form.input col="2" type="number" label="Quantidade" id="quantity" name="quantity" required="required"/>
                                 <x-form.textarea col="12" name="description" />
                             </x-form.form>

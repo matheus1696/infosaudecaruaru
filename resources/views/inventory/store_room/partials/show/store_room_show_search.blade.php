@@ -4,8 +4,8 @@
         @foreach ($dbConsumables as $dbConsumable)
             <option 
                 value="{{$dbConsumable->id}}"
-                @isset($search['searchName'])
-                    @if($dbConsumable->title == $search['consumable_id']) selected @endif
+                @isset($search['consumable_id'])
+                    @if($dbConsumable->id == $search['consumable_id']) selected @endif
                 @endisset
             >
                 {{$dbConsumable->title}}

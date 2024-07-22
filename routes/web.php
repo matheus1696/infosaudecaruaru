@@ -121,8 +121,8 @@ Route::middleware('auth')->group(function () {
 
             //Rota - Almoxarifado
             Route::get('store/rooms/items/index',[InventoryStoreRoomItemController::class,'index'])->name('inventory_store_room_items.index');
-            Route::get('store/rooms/items/{inventory_store_room_item}/show',[InventoryStoreRoomItemController::class,'show'])->name('inventory_store_room_items.show');
-            Route::get('store/rooms/items/{inventory_store_room_item}/entry/show',[InventoryStoreRoomItemController::class,'entryShow'])->name('inventory_store_room_items.entryShow');
+            Route::get('store/rooms/{inventory_store_room_item}/items/show',[InventoryStoreRoomItemController::class,'show'])->name('inventory_store_room_items.show');
+            Route::get('store/rooms/{inventory_store_room_item}/items/entry/show',[InventoryStoreRoomItemController::class,'entryShow'])->name('inventory_store_room_items.entryShow');
             Route::post('store/rooms/items/entry',[InventoryStoreRoomItemController::class,'entryStore'])->name('inventory_store_room_items.entryStore');
             Route::post('store/rooms/items/exit',[InventoryStoreRoomItemController::class,'exitStore'])->name('inventory_store_room_items.exitStore');
         });

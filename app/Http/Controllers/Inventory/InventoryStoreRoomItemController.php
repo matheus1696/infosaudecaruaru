@@ -41,13 +41,15 @@ class InventoryStoreRoomItemController extends Controller
 
         if ($dbPermissions->count() > 1) {
 
-            $dbStoreRooms = InventoryStoreRoom::query();
+            $query = InventoryStoreRoom::query();
 
-            foreach ($dbPermissions as $key => $dbPermission) {
-                if ($dbPermission->user_id == Auth::user()->id) {
-                    $dbStoreRooms->orWhere('inventory_store_room_id', $dbPermission->inventory_store_room_id);
+            foreach ($dbPermissions as $dbPermission) {
+                if ($dbPermission->user_id === Auth::user()->id) {
+                    $query->orWhere('id', $dbPermission->inventory_store_room_id);
                 }
             }
+
+            $dbStoreRooms = $query->get();
         }
     
         return view('inventory.store_room.store_room_index', compact('dbStoreRooms'));
@@ -77,15 +79,15 @@ class InventoryStoreRoomItemController extends Controller
 
             $dbConsumables = Consumable::all();
                     
-            $dbItems = InventoryStoreRoomItem::query();
-            $dbItems->where('inventory_store_room_id', $id);
+            $query = InventoryStoreRoomItem::query();
+            $query->where('inventory_store_room_id', $id);
             
-            if (isset($search['consumable_id']) && $search['consumable_id']) {
-                $dbItems->where('consumable_id', $search['consumable_id']);
+            if (isset($search['consumable_id'])) {
+                $query->where('consumable_id', $search['consumable_id']);
             }
             
-            $dbItems->orderBy('consumable_id');
-            $dbItems->get();
+            $query->orderBy('consumable_id');
+            $dbItems = $query->get();
 
             return view('inventory.store_room.store_room_show', compact('search','dbStoreRoom', 'dbConsumables', 'dbItems'));
         }

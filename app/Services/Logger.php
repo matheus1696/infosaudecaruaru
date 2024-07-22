@@ -22,12 +22,16 @@ use App\Models\SystemLogs;
 	##Logs Especificos - 7000 a 8999
 		##Usuários
 			#editUserProfile = Formulário de Alteração do Perfil do Usuário = 8900
-			#updateUserProfileData = Alteração no Perfil do Usuário = 8901
-			#updateUserProfilePassword = Alteração na Senha do Usuário = 8902
-			#updateUserProfileDestroy = Exclusão do Usuário = 8903
+			#updateUserProfile = Alteração no Perfil do Usuário = 8901
+			#editUserProfessional = Formulário de Alteração do Perfil do Usuário = 8902
+			#updateUserProfessional = Alteração no Perfil do Usuário = 8903
+			#editUserPassword = Formulário de Alteração do Perfil do Usuário = 8904
+			#updateUserPassword = Alteração no Perfil do Usuário = 8905
+            
+
 			#updateUserPermission = Alteração nas Permissões do Usuário = 8904
 			#updateUserVerify = Verificação da conta do Usuário = 8905
-			#errorUserNoExistent = Tentativa de acesso a o perfil do usuário inexistente = 8906
+			#errorUserNoExistent = Tentativa de acesso a o perfil do usuário inexistente = 8999
 	##Erros
 		#error = Erros de Acesso = 9000
 
@@ -85,38 +89,34 @@ class Logger
     //Update Profile
         public static function editUserProfile($message){
             self::Logs(8900,"Acesso ao formulário de edição do perfil do usuário " . $message . ".");
-        }      
-
-        public static function errorUserNoExistent(){
-            self::Logs(8901,"Tentativa de acesso a o perfil do usuário inexistente");
         }
 
-        public static function updateUserProfileData($message){
-            self::Logs(8902,"Edição dos dados do usuário " . $message . ".");
+        public static function updateUserProfile($message){
+            self::Logs(8901,"Alteração dos dados do perfil do usuário " . $message . ".");
         }
 
-        public static function updateUserProfilePassword($message){
-            self::Logs(8903,"Alteração de senha do usuário " . $message . ".");
+        public static function editUserProfessional($message){
+            self::Logs(8902,"Acesso ao formulário de edição do dados profissionais do usuário " . $message . ".");
         }
 
-        public static function errorUserDiferentEdit(){
-            self::Logs(8904,"Tentativa de altualização de perfil do usuário diferente ou inexistente");
+        public static function updateUserProfessional($message){
+            self::Logs(8902,"Alteração dos dados profissionais do usuário " . $message . ".");
         }
 
-        public static function updateProfileDestroy($message){
-            self::Logs(8905,"Exclusão do usuário " . $message . ".");
-        }          
+        public static function editUserPassword($message){
+            self::Logs(8904,"Acesso ao formulário de edição da senha do usuário " . $message . ".");
+        }
 
-        public static function errorUserDiferentDestroy(){
-            self::Logs(8906,"Tentativa de exclusão de perfil do usuário diferente ou inexistente");
+        public static function updateUserPassword($message){
+            self::Logs(8905,"Alteração de senha do usuário " . $message . ".");
         }
 
         public static function updateUserPermission($message){
-            self::Logs(8907,"Alterando permissão do usuário " . $message . ".");
+            self::Logs(8906,"Alterando permissão do usuário " . $message . ".");
         }
 
         public static function updateUserVerify($message){
-            self::Logs(8908,"Encaminhado verificação de conta do usuário " . $message . ".");
+            self::Logs(8907,"Encaminhado verificação de conta do usuário " . $message . ".");
         }
 
     //Errors

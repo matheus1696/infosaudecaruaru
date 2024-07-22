@@ -30,11 +30,8 @@ class ProfileController extends Controller
         //Listando Dados
         $db = Profile::find(Auth::user()->id);
         $dbUserSex = UserSex::where('status',true)->orderBy('sex')->get();
-
-        return view('users.profile.profile_index',[
-            'db'=>$db,
-            'dbUserSex'=>$dbUserSex,
-        ]);
+        Logger::editUserProfile($db->name);
+        return view('users.profile.profile_index', compact('db','dbUserSex'));
     }
 
     /**
@@ -44,12 +41,8 @@ class ProfileController extends Controller
     {
         //Listando Dados
         $db = Profile::find(Auth::user()->id);
-
-        Logger::editUserProfile($db->name);
-
-        return view('users.profile.profile_professional',[
-            'db'=>$db,
-        ]);
+        Logger::editUserProfessional($db->name);
+        return view('users.profile.profile_professional', compact('db'));
     }
 
     /**
@@ -59,85 +52,61 @@ class ProfileController extends Controller
     {
         //   
         $db = Profile::find(Auth::user()->id);
-
+        Logger::editUserPassword($db->name);
         return view('users.profile.profile_password', compact('db'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function updateProfile(UserProfileUpdateRequest $request, string $id)
+    public function updateProfile(UserProfileUpdateRequest $request)
     {
         //Listando Usuário
-        $db = Profile::find($id);
+        $db = Profile::find(Auth::user()->id);
 
-        if ($db && $db->id === Auth::user()->id) {
-            //Alterando Dados do Usuário
-            $data = $request->all();
+        //Alterando Dados do Usuário
+        trim($request['name']);
+        $db->update($request->all());
+        
+        //Log do Sistema
+        Logger::updateUserProfile($db->name);
 
-            trim($data['name']);
-
-            $db->update($data);
-            
-            //Log do Sistema
-            Logger::updateUserProfileData($db->name);
-
-            return redirect(route('profiles.edit',['profile'=>$id]))
-                ->with('success','Alteração dos dados realizada com sucesso.');
-
-        } else {
-            return redirect(route('home'));
-        };
+        return redirect()->back()->with('success','Alteração dos dados realizada com sucesso.');
     }    
 
     /**
      * Update the specified resource in storage.
      */
-    public function updateProfessional(UserProfessionalUpdateRequest $request, string $id)
+    public function updateProfessional(UserProfessionalUpdateRequest $request)
     {
         //Listando Usuário
-        $db = Profile::find($id);
-
-        if ($db && $db->id === Auth::user()->id) {
-            //Alterando Dados do Usuário
-            $data = $request->all();
-
-            trim($data['name']);
-
-            $db->update($data);
+        $db = Profile::find(Auth::user()->id);
+        
+        //Alterando Dados do Usuário
+        trim($request['name']);
+        $db->update($request->all());
             
-            //Log do Sistema
-            Logger::updateUserProfileData($db->name);
+        //Log do Sistema
+        Logger::updateUserProfessional($db->name);
 
-            return redirect(route('profiles.edit',['profile'=>$id]))
-                ->with('success','Alteração dos dados realizada com sucesso.');
-
-        } else {
-            return redirect(route('home'));
-        };
+        return redirect()->back()->with('success','Alteração dos dados realizada com sucesso.');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function updatePassword(UserPasswordUpdateRequest $request, string $id)
+    public function updatePassword(UserPasswordUpdateRequest $request)
     {
         //Listando Usuário
-        $db = Profile::find($id);
+        $db = Profile::find($request->all());
+        
+        //Alterando Dados do Usuário
+        $db->password = Hash::make($request['password']);
+        $db->save();
 
-        if ($db && $db->id === Auth::user()->id) {
+        //Log do Sistema
+        Logger::updateUserPassword($db->name);
 
-            $db->password = Hash::make($request['password']);
-            $db->save();
-
-            //Log do Sistema
-            Logger::updateUserProfilePassword($db->name);
-
-            return redirect(route('profiles.edit',['profile'=>$id]))
-                ->with('success','Alteração de senha realizada com sucesso.');
-
-        } else {
-            return redirect(route('home'));
-        };
+        return redirect()->back()->with('success','Alteração de senha realizada com sucesso.');
     }
 }

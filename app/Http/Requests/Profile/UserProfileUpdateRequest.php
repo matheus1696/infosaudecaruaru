@@ -22,8 +22,12 @@ class UserProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [            
-            'password_current' => 'required|min:4|current_password|regex:/^[a-zA-Z0-9!#@$%&*()+-/?]+$/',
-            'password' => 'required|min:4|confirmed|regex:/^[a-zA-Z0-9!#@$%&*()+-/?]+$/',
+            'name' => 'nullable|min:1|max:50',
+            'cpf' => 'nullable|cpf|formato_cpf',
+            'registration' => 'nullable|min:7',
+            'contact_1' => 'nullable|celular_com_ddd',
+            'contact_2' => 'nullable|celular_com_ddd',
+            'password' => 'nullable|min:8|confirmed|current_password',
         ];
     }
 }

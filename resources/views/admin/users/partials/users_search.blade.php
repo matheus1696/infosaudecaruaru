@@ -1,6 +1,6 @@
 <!-- Search -->
 <x-search.formSearch>
-    <x-search.selectSearch label="Nome do Usuário" id="searchName" class="flex-1">
+    <x-search.selectSearch label="Nome do Usuário" name="searchName" class="flex-1">
         @foreach ($dbUsers as $dbUser)
             <option 
                 value="{{$dbUser->name}}"
@@ -13,7 +13,7 @@
         @endforeach
     </x-search.selectSearch>
 
-    <x-search.selectSearch label="Email" id="searchEmail" class="flex-1">
+    <x-search.selectSearch label="Email" name="searchEmail" class="flex-1">
         @foreach ($dbUsers as $dbUser)
             <option 
                 value="{{$dbUser->email}}"

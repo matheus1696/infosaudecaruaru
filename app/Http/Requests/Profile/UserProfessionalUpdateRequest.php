@@ -22,8 +22,7 @@ class UserProfessionalUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [            
-            'password_current' => 'required|min:4|current_password|regex:/^[a-zA-Z0-9!#@$%&*()+-/?]+$/',
-            'password' => 'required|min:4|confirmed|regex:/^[a-zA-Z0-9!#@$%&*()+-/?]+$/',
+            'registration' => 'nullable|min:8|max:9'
         ];
     }
 }

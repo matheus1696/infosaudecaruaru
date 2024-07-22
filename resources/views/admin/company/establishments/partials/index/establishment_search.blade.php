@@ -1,6 +1,6 @@
 <!-- Search -->
 <x-search.formSearch>
-    <x-search.selectSearch label="Unidade" id="searchName" class="flex-1">
+    <x-search.selectSearch label="Unidade" name="searchName" class="flex-1">
         @foreach ($dbEstablishments as $dbEstablishment)
             <option 
                 value="{{$dbEstablishment->title}}"

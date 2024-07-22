@@ -9,6 +9,7 @@
     >
         <option selected disabled>Selecione</option>
         {{$slot}}
+        
     </select>
 
     @error($name)

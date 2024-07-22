@@ -10,10 +10,7 @@
 
             <x-form.select col="6" label="Sexo" name="sex_id">
                 @foreach ($dbUserSex as $UserSex)
-                <option 
-                    value="{{$UserSex->id}}"
-                    @if ($db->sex_id == $UserSex->id) selected @endif
-                >
+                <option  value="{{$UserSex->id}}" @if ($db->sex_id == $UserSex->id) selected @endif >
                     {{$UserSex->sex}}
                 </option>
                 @endforeach

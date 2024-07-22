@@ -14,8 +14,6 @@
         @if (empty($placeholder)) placeholder="{{$label ?? ""}}" @else placeholder="{{$placeholder}}" @endif
         {{$required ?? ""}}
         {{$autofocus ?? ""}}
-        
-        @isset($onchange) onchange="{{$onchange}}" @endisset
 
         @isset($type)
             @if ($type == 'tel') onkeyup="handlePhone(event)" @endif

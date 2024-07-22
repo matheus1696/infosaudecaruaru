@@ -153,14 +153,14 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'attribute-name'   => [
+            'rule-name'    => 'custom-message',
         ],
         'password_current' => [
-            'regex' => 'O campo :attribute deve conter apenas letras, números e caracteres especiais.',
+            'regex'        => 'O campo :attribute deve conter apenas letras, números e caracteres especiais.',
         ],
         'password' => [
-            'regex' => 'O campo :attribute deve conter apenas letras, números e caracteres especiais.',
+            'regex'        => 'O campo :attribute deve conter apenas letras, números e caracteres especiais.',
         ],    
     ],
 

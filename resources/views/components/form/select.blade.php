@@ -7,7 +7,7 @@
         @isset($onchange) onchange="{{$onchange}}" @endisset
         required
     >
-        <option selected disabled class="disabled:bg-gray-200">Selecione</option>
+        <option selected disabled>Selecione</option>
         {{$slot}}
     </select>
 

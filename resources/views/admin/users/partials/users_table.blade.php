@@ -44,11 +44,11 @@
                                 <x-form.form method="edit" route="{{route('users.update',['user'=>$item->id])}}">
 
                                     <!-- Inicio de Componentização de Select -->
-                                    <x-form.select col="12" label="Setor" name="company_id" id="company_id_{{$item}}">
+                                    <x-form.select col="12" label="Setor" name="organization_id" id="organization_id{{$item}}">
                                         @foreach ($dbCompanyOrganizational as $dbCompanyOrganization)
                                             <option 
                                                 value="{{$dbCompanyOrganization->id}}" 
-                                                @if ($item->company_id == $dbCompanyOrganization->id) selected @endif>
+                                                @if ($item->organization_id == $dbCompanyOrganization->id) selected @endif>
                                                     @for ($i = 0; $i < $dbCompanyOrganization->number_hierarchy; $i++) <span> - </span> @endfor
                                                     {{$dbCompanyOrganization->acronym}} - {{$dbCompanyOrganization->title}}
                                             </option>

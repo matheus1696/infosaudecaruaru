@@ -112,9 +112,6 @@ class UsersController extends Controller
         //Alterando Dados do Usuário
         $data = $request->only('organization_id','occupation_id','establishment_id');
         $db->update($data);
-
-        //Log do Sistema
-        Logger::updateUserProfileData($db->name);
         
         return(redirect(route('users.index'))
             ->with('success',`Permissão do Usuário Alteradas`));

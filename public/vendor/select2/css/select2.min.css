@@ -9,7 +9,7 @@
       box-sizing: border-box;
       cursor: pointer;
       display: block;
-      height: 38px;
+      min-height: 38px;
       width: auto;
       user-select: none;
       -webkit-user-select: none; }
@@ -34,7 +34,7 @@
       box-sizing: border-box;
       cursor: pointer;
       display: block;
-      height: 38px;
+      min-height: 38px;
       width: auto;
       user-select: none;
       -webkit-user-select: none; }

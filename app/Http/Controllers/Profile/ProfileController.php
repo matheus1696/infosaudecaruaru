@@ -9,6 +9,7 @@ use App\Http\Requests\Profile\UserPasswordUpdateRequest;
 use App\Http\Requests\Profile\UserProfessionalUpdateRequest;
 use App\Http\Requests\Profile\UserProfileUpdateRequest;
 use App\Models\Profile\Profile;
+use App\Models\User;
 use App\Models\User\UserSex;
 use App\Services\Logger;
 
@@ -97,14 +98,14 @@ class ProfileController extends Controller
      */
     public function updatePassword(UserPasswordUpdateRequest $request)
     {
-        //Listando Usuário
-        $db = Profile::find($request->all());
+        // Obtendo o usuário autenticado
+        $db = User::find(Auth::user()->id);
         
-        //Alterando Dados do Usuário
-        $db->password = Hash::make($request['password']);
-        $db->save();
+        // Alterando a senha do usuário
+        $db->password = Hash::make($request->input('password'));
+        $db->save(); // Persistindo as mudanças
 
-        //Log do Sistema
+        // Log do Sistema
         Logger::updateUserPassword($db->name);
 
         return redirect()->back()->with('success','Alteração de senha realizada com sucesso.');

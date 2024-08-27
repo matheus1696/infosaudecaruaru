@@ -18,13 +18,19 @@ class ContactListsController extends Controller
     {            
         $db = CompanyEstablishment::where('status',true)->orderBy('title')->get();
         $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
-        $dbContacts = CompanyEstablishmentDepartment::where('contact','<>',NULL)->get();
+        $dbContacts = CompanyEstablishmentDepartment::where('contact','<>',NULL)->orderBy('contact')->get();
 
         //Pesquisar Dados
         $search = $request->all();
         if (isset($search['searchName'])) {
             $db = CompanyEstablishment::where('status',true)
                 ->where('filter','LIKE','%'.strtolower($search['searchName']).'%')
+                ->get();
+        }
+
+        if (isset($search['searchExtension'])) {
+            $db = CompanyEstablishment::where('status',true)
+                ->where('id',$search['searchExtension'])
                 ->get();
         }
 

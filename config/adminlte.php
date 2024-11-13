@@ -523,6 +523,25 @@ return [
                         ],
                     ]
                 ],
+
+                //Configuração de Frota
+                [
+                    'text'    => 'Configuração de Frota',
+                    'classes' => 'btn-sm',
+                    'icon'    => 'fas fa-car pr-2',
+                    'icon_color' => 'info',
+                    'can'     => ['sysadmin','admin'],
+                    'submenu' => [
+                        
+                        [
+                            'text'    => 'Lista de Modelos',
+                            'classes' => 'btn-sm',
+                            'route'   => 'fleet_models.index',
+                            'icon'    => 'fas fa-border-style pr-2',
+                            'can'     => ['sysadmin','admin'],
+                        ],
+                    ]
+                ],
             ],
         ],
 

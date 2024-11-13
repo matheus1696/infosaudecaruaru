@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
+use App\Http\Controllers\FleetModelsController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -106,6 +107,12 @@ Route::middleware('auth')->group(function () {
                 //Rota - Medicamentos
                     Route::put('consumables/status/{consumable}',[ConsumableController::class,'status'])->name('consumables.status');
                     Route::resource('consumables',ConsumableController::class);
+            });
+
+            //Grupo de Rotas - Configuração de Frotas
+            Route::prefix('fleet')->group(function (){
+                //Rota - Dados dos Modelos das Frotas
+                    Route::resource('fleet_models',FleetModelsController::class);
             });
         });
 

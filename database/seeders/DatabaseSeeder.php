@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Fleet\FleetVehicles;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -38,6 +39,8 @@ class DatabaseSeeder extends Seeder
             ConsumableUnitSeeder::class,
             ConsumableSeeder::class,
             SupplyCompanySeeder::class,
+            FleetManufacturerSeeder::class,
+            FleetModelsSeeder::class,
         ]);
     }
 }

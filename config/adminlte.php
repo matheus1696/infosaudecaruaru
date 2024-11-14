@@ -319,6 +319,56 @@ return [
             'icon'    => 'fas fa-car pr-2',
         ],
 
+        
+        
+        //Lista Telefônica
+        [
+            'text'    => 'Lista Telefônica',
+            'classes' => 'btn-sm',
+            'route'   => 'contacts.index',
+            'icon'    => 'fas fa-phone-volume pr-2',
+        ],  
+
+        //Perfil
+        [
+            'text'    => 'Perfil',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-user-circle pr-2',
+            'can'     => 'user',
+            'submenu' => [
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Dados dos Usuários',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editProfile',
+                    'icon'    => 'fas fa-user pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Dados dos Profissionais',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editProfessional',
+                    'icon'    => 'fas fa-id-badge pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Alterar Senha',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editPassword',
+                    'icon'    => 'fas fa-key pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+            ]
+        ],
+
         //Configurações de Perfil
         [
             'text'    => 'Configurações de Perfis',
@@ -337,7 +387,7 @@ return [
                     'can'     => ['sysadmin','admin'],
                 ],
             ]
-        ], 
+        ],
 
         //Configurações de Sistema
         [
@@ -503,54 +553,6 @@ return [
                     ]
                 ],
             ],
-        ],
-        
-        //Lista Telefônica
-        [
-            'text'    => 'Lista Telefônica',
-            'classes' => 'btn-sm',
-            'route'   => 'contacts.index',
-            'icon'    => 'fas fa-phone-volume pr-2',
-        ],  
-
-        //Perfil
-        [
-            'text'    => 'Perfil',
-            'classes' => 'btn-sm',
-            'icon'    => 'fas fa-user-circle pr-2',
-            'can'     => 'user',
-            'submenu' => [
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Dados dos Usuários',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editProfile',
-                    'icon'    => 'fas fa-user pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Dados dos Profissionais',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editProfessional',
-                    'icon'    => 'fas fa-id-badge pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Alterar Senha',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editPassword',
-                    'icon'    => 'fas fa-key pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-            ]
         ],
 
     ],    

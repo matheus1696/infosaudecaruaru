@@ -43,6 +43,7 @@ class FleetVehiclesController extends Controller
     {
         //
         $request['current_odometer'] = $request['inicial_odometer'];
+        $request['license_plate'] = strtoupper($request['license_plate']);
 
         FleetVehicles::create($request->all());
 
@@ -52,9 +53,13 @@ class FleetVehiclesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FleetVehicles $fleetVehicles)
+    public function show(string $id)
     {
         //
+        $db = FleetVehicles::find($id);
+
+        return view('fleet.fleet_vehicle.fleet_vehicle_show', compact('db'));
+
     }
 
     /**
@@ -76,11 +81,13 @@ class FleetVehiclesController extends Controller
      */
     public function update(UpdateFleetVehiclesRequest $request, string $id)
     {
-        //        
+        //
+        $request['license_plate'] = strtoupper($request['license_plate']);
+
         $db = FleetVehicles::find($id);
         $db->update($request->all());
 
-        return redirect()->back();
+        return redirect()->route('fleet_vehicles.show',['fleet_vehicle'=>$db->id]);
     }
 
     /**

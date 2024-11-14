@@ -19,14 +19,16 @@ return new class extends Migration
             $table->integer('year_manufacture');
             $table->integer('year_models');
             $table->string('owner_status');
-            $table->integer('inicial_odometer');
-            $table->integer('current_odometer');
+            $table->integer('inicial_odometer')->nullable();
+            $table->integer('current_odometer')->nullable();
             $table->unsignedBigInteger('establishment_id')->nullable();
+            $table->unsignedBigInteger('financial_block_id')->nullable();
             $table->string('status')->default('Ativo');
             $table->timestamps();
 
             $table->foreign('model_id')->references('id')->on('fleet_models');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
+            $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
         });
     }
 

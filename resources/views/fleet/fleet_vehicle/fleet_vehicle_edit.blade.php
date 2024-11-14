@@ -1,0 +1,16 @@
+<x-pages.index>
+    <!-- Slot Header -->
+    @slot('header')
+        <x-header title="Frota de Veículos" routeBack="{{route('fleet_vehicles.index')}}"/>
+    @endslot        
+
+    <!-- Slot Body -->
+    @slot('body')
+        <x-conteiner>
+            <x-form.form method="edit" route="{{route('fleet_vehicles.update',['fleet_vehicle'=>$db->id])}}">
+                @include('fleet.fleet_vehicle.partials.fleet_vehicle_form')
+            </x-form.form>
+        </x-conteiner>
+    @endslot
+    
+</x-pages.index>

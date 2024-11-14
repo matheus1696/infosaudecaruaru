@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
 use App\Http\Controllers\Admin\Fleet\FleetModelsController;
+use App\Http\Controllers\Admin\Fleet\FleetVehiclesController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -113,6 +114,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('fleet')->group(function (){
                 //Rota - Dados dos Modelos das Frotas
                     Route::resource('fleet_models',FleetModelsController::class);
+                    Route::resource('fleet_vehicles',FleetVehiclesController::class);
             });
         });
 
@@ -132,6 +134,12 @@ Route::middleware('auth')->group(function () {
             Route::get('store/rooms/{inventory_store_room_item}/items/entry/show',[InventoryStoreRoomItemController::class,'entryShow'])->name('inventory_store_room_items.entryShow');
             Route::post('store/rooms/items/entry',[InventoryStoreRoomItemController::class,'entryStore'])->name('inventory_store_room_items.entryStore');
             Route::post('store/rooms/items/exit',[InventoryStoreRoomItemController::class,'exitStore'])->name('inventory_store_room_items.exitStore');
+        });
+
+        //Grupo de Rotas - Configuração de Frotas
+        Route::prefix('fleet')->group(function (){
+            //Rota - Controle das Frotas
+                Route::resource('fleet_vehicles',FleetVehiclesController::class);
         });
     });
 

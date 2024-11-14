@@ -299,10 +299,10 @@ return [
         // Sidebar items:
         [
             'type'    => 'sidebar-menu-search',
-            'text'    => 'Buscar Menu',
+            'text'    => 'Buscar Módulo',
         ],
         
-        //Lista Telefônica
+        //Almoxarifado
         [
             'text'    => 'Almoxarifado',
             'classes' => 'btn-sm',
@@ -311,53 +311,13 @@ return [
             'can'     => ['inventory_store_room','sysadmin','admin'],
         ],
         
-        //Lista Telefônica
+        //Controle de Frota
         [
-            'text'    => 'Lista Telefônica',
+            'text'    => 'Controle de Frota',
             'classes' => 'btn-sm',
-            'route'   => 'contacts.index',
-            'icon'    => 'fas fa-phone-volume pr-2',
-        ],        
-
-        //Perfil
-        [
-            'text'    => 'Perfil',
-            'classes' => 'btn-sm',
-            'icon'    => 'fas fa-user-circle pr-2',
-            'can'     => 'user',
-            'submenu' => [
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Dados dos Usuários',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editProfile',
-                    'icon'    => 'fas fa-user pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Dados dos Profissionais',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editProfessional',
-                    'icon'    => 'fas fa-id-badge pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-
-                //Dados dos Usuários e Permissões dos Módulos
-                [
-                    'text'    => 'Alterar Senha',
-                    'classes' => 'btn-sm',
-                    'route'   => 'profiles.editPassword',
-                    'icon'    => 'fas fa-key pr-2',
-                    'icon_color' => 'teal',
-                    'can'     => 'user',
-                ],
-            ]
-        ],      
+            'route'   => 'fleet_vehicles.index',
+            'icon'    => 'fas fa-car pr-2',
+        ],
 
         //Configurações de Perfil
         [
@@ -543,6 +503,54 @@ return [
                     ]
                 ],
             ],
+        ],
+        
+        //Lista Telefônica
+        [
+            'text'    => 'Lista Telefônica',
+            'classes' => 'btn-sm',
+            'route'   => 'contacts.index',
+            'icon'    => 'fas fa-phone-volume pr-2',
+        ],  
+
+        //Perfil
+        [
+            'text'    => 'Perfil',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-user-circle pr-2',
+            'can'     => 'user',
+            'submenu' => [
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Dados dos Usuários',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editProfile',
+                    'icon'    => 'fas fa-user pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Dados dos Profissionais',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editProfessional',
+                    'icon'    => 'fas fa-id-badge pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+
+                //Dados dos Usuários e Permissões dos Módulos
+                [
+                    'text'    => 'Alterar Senha',
+                    'classes' => 'btn-sm',
+                    'route'   => 'profiles.editPassword',
+                    'icon'    => 'fas fa-key pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+            ]
         ],
 
     ],    

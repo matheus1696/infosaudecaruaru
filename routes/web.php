@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
-use App\Http\Controllers\FleetModelsController;
+use App\Http\Controllers\Admin\Fleet\FleetModelsController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Fleet;
 
-use App\Models\Fleet\FleetOdometer;
-use App\Http\Requests\StoreFleetOdometerRequest;
-use App\Http\Requests\UpdateFleetOdometerRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Fleet\FleetVehicles;
+use App\Http\Requests\StoreFleetVehiclesRequest;
+use App\Http\Requests\UpdateFleetVehiclesRequest;
 
-class FleetOdometerController extends Controller
+class FleetVehiclesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class FleetOdometerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFleetOdometerRequest $request)
+    public function store(StoreFleetVehiclesRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class FleetOdometerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FleetOdometer $fleetOdometer)
+    public function show(FleetVehicles $fleetVehicles)
     {
         //
     }
@@ -43,7 +44,7 @@ class FleetOdometerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FleetOdometer $fleetOdometer)
+    public function edit(FleetVehicles $fleetVehicles)
     {
         //
     }
@@ -51,7 +52,7 @@ class FleetOdometerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFleetOdometerRequest $request, FleetOdometer $fleetOdometer)
+    public function update(UpdateFleetVehiclesRequest $request, FleetVehicles $fleetVehicles)
     {
         //
     }
@@ -59,7 +60,7 @@ class FleetOdometerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FleetOdometer $fleetOdometer)
+    public function destroy(FleetVehicles $fleetVehicles)
     {
         //
     }

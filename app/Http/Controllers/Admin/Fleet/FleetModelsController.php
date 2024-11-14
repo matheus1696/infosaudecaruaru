@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Fleet;
 
+use App\Http\Controllers\Controller;
 use App\Models\Fleet\FleetModels;
 use App\Http\Requests\StoreFleetModelsRequest;
 use App\Http\Requests\UpdateFleetModelsRequest;
@@ -15,7 +16,7 @@ class FleetModelsController extends Controller
     public function index()
     {
         //
-        $db = FleetModels::paginate();
+        $db = FleetModels::orderBy('manufacturer_id')->orderBy('model')->orderBy('engine')->paginate();
 
         return view('admin.fleet.fleet_model.fleet_model_index', compact('db'));
     }
@@ -37,7 +38,7 @@ class FleetModelsController extends Controller
     public function store(StoreFleetModelsRequest $request)
     {
         //
-        FleetModels::create($request->all);
+        FleetModels::create($request->all());
 
         return redirect()->route('fleet_models.index')->with('sucess','Modelo de Veículo cadastrado com sucesso.');
     }
@@ -65,9 +66,13 @@ class FleetModelsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFleetModelsRequest $request, FleetModels $fleetModels)
+    public function update(UpdateFleetModelsRequest $request, string $id)
     {
         //
+        $db = FleetModels::find($id);
+        $db->update($request->all());
+
+        return redirect()->back()->with('success','Modelo do veículo alterado com sucesso');
     }
 
     /**

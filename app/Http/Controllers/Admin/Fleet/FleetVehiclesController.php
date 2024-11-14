@@ -29,7 +29,7 @@ class FleetVehiclesController extends Controller
     public function create()
     {
         //
-        $dbFleetModels = FleetModels::all();
+        $dbFleetModels = FleetModels::orderBy('manufacturer_id')->orderBy('model')->orderBy('engine')->get();
         $dbEstablishments = CompanyEstablishment::all();
         $dbFinancialBlocks = CompanyFinancialBlock::all();
 

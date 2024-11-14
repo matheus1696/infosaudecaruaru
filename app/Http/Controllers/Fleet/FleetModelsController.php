@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Fleet;
+namespace App\Http\Controllers\Fleet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fleet\FleetModels;
@@ -18,7 +18,7 @@ class FleetModelsController extends Controller
         //
         $db = FleetModels::orderBy('manufacturer_id')->orderBy('model')->orderBy('engine')->paginate();
 
-        return view('admin.fleet.fleet_model.fleet_model_index', compact('db'));
+        return view('fleet.fleet_model.fleet_model_index', compact('db'));
     }
 
     /**
@@ -29,7 +29,7 @@ class FleetModelsController extends Controller
         //
         $dbFleetManufacturers = FleetManufacturer::all();
 
-        return view('admin.fleet.fleet_model.fleet_model_create', compact('dbFleetManufacturers'));
+        return view('fleet.fleet_model.fleet_model_create', compact('dbFleetManufacturers'));
     }
 
     /**
@@ -60,7 +60,7 @@ class FleetModelsController extends Controller
         $db = FleetModels::find($id);
         $dbFleetManufacturers = FleetManufacturer::all();
 
-        return view('admin.fleet.fleet_model.fleet_model_edit', compact('db','dbFleetManufacturers'));
+        return view('fleet.fleet_model.fleet_model_edit', compact('db','dbFleetManufacturers'));
     }
 
     /**

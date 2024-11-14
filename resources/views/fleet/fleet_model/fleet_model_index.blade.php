@@ -8,6 +8,6 @@
         
     <!-- Slot Body -->
     @slot('body')
-        @include('admin.fleet.fleet_model.partials.fleet_model_table')
+        @include('fleet.fleet_model.partials.fleet_model_table')
     @endslot
 </x-pages.index>

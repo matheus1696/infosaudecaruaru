@@ -9,7 +9,7 @@
     @slot('body')
         <x-conteiner>
             <x-form.form method="edit" route="{{route('fleet_models.update',['fleet_model'=>$db->id])}}">
-                @include('admin.fleet.fleet_model.partials.fleet_model_form')
+                @include('fleet.fleet_model.partials.fleet_model_form')
             </x-form.form>
         </x-conteiner>
     @endslot

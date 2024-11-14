@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Fleet;
+namespace App\Http\Controllers\Fleet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fleet\FleetVehicles;

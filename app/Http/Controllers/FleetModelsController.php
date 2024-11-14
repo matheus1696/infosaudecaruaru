@@ -37,6 +37,9 @@ class FleetModelsController extends Controller
     public function store(StoreFleetModelsRequest $request)
     {
         //
+        FleetModels::create($request->all);
+
+        return redirect()->route('fleet_models.index')->with('sucess','Modelo de Veículo cadastrado com sucesso.');
     }
 
     /**

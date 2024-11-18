@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('odometer');
             $table->date('date_registration');
+            $table->timestamp('hour_registration');
             $table->unsignedBigInteger('vehicle_id');
             $table->timestamps();
 

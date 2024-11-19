@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Fleet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFleetOdometerRequest;
 use App\Models\Fleet\FleetVehicles;
 use App\Http\Requests\StoreFleetVehiclesRequest;
 use App\Http\Requests\UpdateFleetVehiclesRequest;
 use App\Models\Company\CompanyEstablishment;
 use App\Models\Company\CompanyFinancialBlock;
 use App\Models\Fleet\FleetModels;
+use App\Models\Fleet\FleetOdometer;
 
 class FleetVehiclesController extends Controller
 {
@@ -96,5 +98,34 @@ class FleetVehiclesController extends Controller
     public function destroy(FleetVehicles $fleetVehicles)
     {
         //
+    }    
+
+    /**
+     * 
+     */
+    public function create_category(string $id, string $category)
+    {
+        //
+        $db = FleetVehicles::find($id);
+
+        return view('fleet.fleet_vehicle.fleet_vehicle_create_fuel',compact('db'));
+    } 
+
+    /**
+     * 
+     */
+    public function store_category(StoreFleetOdometerRequest $request, string $id, string $category)
+    {
+        //
+        $request['vehicle_id'] = $id;
+        $request['category_service'] = $category;
+
+        FleetOdometer::create($request->all());
+
+        $dbFleetVehicle = FleetVehicles::find($id);
+        $dbFleetVehicle->current_odometer = $request['odometer'];
+        $dbFleetVehicle->save();
+
+        return redirect()->route('fleet_vehicles.show',['fleet_vehicle'=>$id]);
     }
 }

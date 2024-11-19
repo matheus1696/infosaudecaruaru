@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('fleet_odometers', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->time('hour');
             $table->string('odometer');
-            $table->date('date_registration');
-            $table->timestamp('hour_registration');
+            $table->float('value_unit')->nullable();
+            $table->float('value_total')->nullable();
+            $table->string('category_service'); // Cadastros de Abastecimento, Vistoria, Serviços e Despesas
+            $table->string('category_description'); // Tipo de Combustível, Vistorias, Serviços e Despesas
+            $table->string('establishment')->nullable(); //Posto, Oficina, Local da Despesa
+            $table->string('driver')->nullable();
+            $table->string('motive')->nullable();
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('vehicle_id');
             $table->timestamps();
 

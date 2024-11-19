@@ -6,6 +6,6 @@
         
     <!-- Slot Body -->
     @slot('body')
-        @include('fleet.fleet_vehicle.partials.fleet_vehicle_table')
+        @include('fleet.fleet_vehicle.partials.fleet_vehicle_list_vehicle')
     @endslot
 </x-pages.index>

@@ -8,7 +8,7 @@
     @slot('body')
         <x-conteiner>
             <x-form.form method="create" route="{{route('fleet_vehicles.store')}}">
-                @include('fleet.fleet_vehicle.partials.fleet_vehicle_form')
+                @include('fleet.fleet_vehicle.partials.fleet_vehicle_form_add_vehicle')
             </x-form.form>
         </x-conteiner>
     @endslot

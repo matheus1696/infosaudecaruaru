@@ -139,7 +139,9 @@ Route::middleware('auth')->group(function () {
         //Grupo de Rotas - Configuração de Frotas
         Route::prefix('fleet')->group(function (){
             //Rota - Controle das Frotas
-                Route::resource('fleet_vehicles',FleetVehiclesController::class);
+                Route::resource('fleet_vehicles',FleetVehiclesController::class);                
+                Route::get('fleet_vehicles/{fleet_vehicle}/{create_category}',[FleetVehiclesController::class,'create_category'])->name('fleet_vehicles.create_category');
+                Route::post('fleet_vehicles/{fleet_vehicle}/{store_category}',[FleetVehiclesController::class,'store_category'])->name('fleet_vehicles.store_category');
         });
     });
 

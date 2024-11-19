@@ -28,26 +28,42 @@
 
             <hr>
 
-            <div class="flex justify-center items-center gap-3 text-sm mt-4 mb-2">
-                <div class="py-5 h-14 w-28 bg-yellow-600 flex flex-col justify-center items-center gap-2 rounded shadow hover:bg-yellow-500 text-gray-100">
+            <div class="grid grid-cols-5 justify-center items-center gap-3 lg:gap-5 text-xs mt-4 mb-2">
+                <a 
+                    href="{{route('fleet_vehicles.create_category',['fleet_vehicle'=>$db->id, 'create_category'=>'fuel'])}}" 
+                    class="h-[70px] bg-yellow-500 flex flex-col justify-center items-center gap-2 rounded hover:bg-yellow-600 text-gray-100 hover:text-gray-100"
+                >
                     <i class="fas fa-gas-pump text-lg"></i>
-                    <p>Abastecimento</p>
-                </div>
+                    <p>Abastec.</p>
+                </a>
                 
-                <div class="py-5 h-14 w-28 bg-amber-800 flex flex-col justify-center items-center gap-2 rounded shadow hover:bg-amber-700 text-gray-100">
+                <a 
+                    href="{{route('fleet_vehicles.create_category',['fleet_vehicle'=>$db->id, 'create_category'=>'service'])}}" 
+                    class="h-[70px] bg-amber-800 flex flex-col justify-center items-center gap-2 rounded shadow-lg hover:bg-amber-700 text-gray-100 hover:text-gray-100">
                     <i class="fas fa-oil-can text-lg"></i>
-                    <p>Manutenção</p>
-                </div>
+                    <p>Serviços</p>
+                </a>
                 
-                <div class="py-5 h-14 w-28 bg-red-600 flex flex-col justify-center items-center gap-2 rounded shadow hover:bg-red-700 text-gray-100">
+                <a 
+                    href="{{route('fleet_vehicles.create_category',['fleet_vehicle'=>$db->id, 'create_category'=>'costs'])}}"  
+                    class="h-[70px] bg-red-600 flex flex-col justify-center items-center gap-2 rounded shadow-lg hover:bg-red-700 text-gray-100 hover:text-gray-100">
                     <i class="fas fa-receipt text-lg"></i>
                     <p>Despesas</p>
-                </div>
+                </a>
                 
-                <div class="py-5 h-14 w-28 bg-sky-700 flex flex-col justify-center items-center gap-2 rounded shadow hover:bg-sky-600 text-gray-100">
+                <a 
+                    href="{{route('fleet_vehicles.create_category',['fleet_vehicle'=>$db->id, 'create_category'=>'inspection'])}}" 
+                    class="h-[70px] bg-sky-700 flex flex-col justify-center items-center gap-2 rounded shadow-lg hover:bg-sky-600 text-gray-100 hover:text-gray-100">
                     <i class="fas fa-check text-lg"></i>
                     <p>Vistoria</p>
-                </div>
+                </a>
+                
+                <a 
+                    href="{{route('fleet_vehicles.edit',['fleet_vehicle'=>$db->id])}}" 
+                    class="h-[70px] bg-gray-700 flex flex-col justify-center items-center gap-2 rounded shadow-lg hover:bg-gray-600 text-gray-100 hover:text-gray-100">
+                    <i class="fas fa-pen text-lg"></i>
+                    <p>Editar</p>
+                </a>
             </div>
         </x-conteiner>
 
@@ -56,13 +72,15 @@
                 <div class="h-96">
                     <h2 class="text-lg mb-3">Gráficos</h2>
                     <div>
-                        gráfico de Odomêtro por dia <br>
-                        gráfico de gasto por dia (Com Abastecimento, Serviços e Despesas)
+                        gráfico de evolução do Odomêtro <br>
+                        gráfico de gasto por Odomêtro Abastecimento, <br> 
+                        gráfico de gasto por Odomêtro Serviços <br> 
+                        gráfico de gasto por Odomêtro Despesas
                     </div>
                 </div>
             </x-conteiner>
             <x-conteiner>
-                <div class="h-[600px] lg:h-96 overflow-y-scroll">
+                <div class="h-max-[600px] lg:h-96 overflow-y-scroll">
                     <h2 class="text-lg mb-3">Histórico</h2>
                     <div class="pl-2 flex">
                         <div class="flex rounded-full overflow-hidden">

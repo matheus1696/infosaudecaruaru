@@ -1,5 +1,5 @@
 <x-form.input col="2" type="date" label="Data" id="date" name="date" value="{{$db->date ?? date('Y-m-d')}}" />
-<x-form.input col="2" type="time" label="Hora" id="hour" name="hour" value="{{$db->hour ?? date('G:i')}}" />
+<x-form.input col="2" type="time" label="Hora" id="hour" name="hour" value="{{$db->hour ?? date('H:i')}}" />
 <x-form.input col="2" type="number" label="Odomêtro" id="odometer" name="odometer" min="{{$db->current_odometer}}" value="{{$db->current_odometer ?? ''}}" />
 
 <x-form.select col="6" label="Local" id="establishment" name="establishment">
@@ -16,12 +16,6 @@
 <x-form.input col="2" type="number" label="Preço/L" id="value_unit" name="value_unit" value="{{$db->value_unit ?? ''}}" />
 
 <x-form.input col="2" type="number" label="Valor" id="value_total" name="value_total" value="{{$db->value_total ?? ''}}" />
-    
-
-
-<x-form.select col="4" label="Motorista" id="drive" name="drive">
-    <option value="Alugado" @isset($db) @if ($db->drive == 'Alugado') selected @endif @endisset>Alugado</option>
-</x-form.select>
 
 <x-form.input col="12" label="Motivo" id="motive" name="motive" value="{{$db->motive ?? ''}}" />
     

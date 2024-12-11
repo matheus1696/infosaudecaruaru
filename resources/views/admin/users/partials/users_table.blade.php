@@ -12,8 +12,6 @@
     <!-- Inicio Slot TBody -->
     @slot('tbody')
         @foreach ($db as $item)
-            @if ($item->id != 1)
-                @if (Auth::User()->id != $item->id)
                 <x-table.tr>
                     <x-table.td>{{$item->name}}</x-table.td>
                     <x-table.td>{{$item->email}}</x-table.td>
@@ -123,8 +121,6 @@
                         </x-button.minButtonModalUserPermission>
                     </x-table.td>
                 </x-table.tr>
-                @endif
-            @endif
         @endforeach
     @endslot
 

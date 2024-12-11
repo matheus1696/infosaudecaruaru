@@ -10,7 +10,7 @@
 @endif
 
 <!-- Inicio do Formulário -->
-<form method="POST" action="{{$route}}" class="preventForms">
+<form method="POST" action="{{$route}}">
     @csrf @if($method == "edit") @method('PUT') @endif
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-12">

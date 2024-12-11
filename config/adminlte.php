@@ -198,6 +198,21 @@ return [
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
+    /* 
+    |--------------------------------------------------------------------------
+    | Classes Buttons Colors
+    |--------------------------------------------------------------------------
+    | Estilos personalizados para diferentes tipos de botões.
+    |
+    | Variáveis no arquivo .env que impactam esta configuração:
+    | - THEME_BTN_PRIMARY_BG: Cor de fundo padrão do botão principal.
+    | - THEME_BTN_PRIMARY_TEXT: Cor do texto padrão do botão principal.
+    */
+
+    'class_btn_primary' => 'bg-green-800 hover:bg-green-700',
+    'class_btn_secondary' => 'bg-sky-600 hover:bg-sky-700',
+    'class_btn_tertiary' => 'bg-gray-600 hover:bg-gray-700',
+
     /*
     |--------------------------------------------------------------------------
     | Sidebar

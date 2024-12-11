@@ -1,5 +1,4 @@
 <div class="col-span-12 md:col-span-{{$col ?? '12'}}">
-    @include('components.form.label')
     <textarea
         name="{{$name}}"
         id="{{$id ?? $name}}"

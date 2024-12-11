@@ -60,7 +60,12 @@ class FleetVehiclesController extends Controller
         //
         $db = FleetVehicles::find($id);
 
-        return view('fleet.fleet_vehicle.fleet_vehicle_show', compact('db'));
+        if ($db) {
+            $dbOdometers = FleetOdometer::where('vehicle_id',$id)->orderBy('odometer','DESC')->get();
+            return view('fleet.fleet_vehicle.fleet_vehicle_show', compact('db', 'dbOdometers'));
+        }else {
+            return redirect()->route('fleet_vehicles.index');
+        }
 
     }
 
@@ -71,11 +76,16 @@ class FleetVehiclesController extends Controller
     {
         //
         $db = FleetVehicles::find($id);
-        $dbFleetModels = FleetModels::all();
-        $dbEstablishments = CompanyEstablishment::all();
-        $dbFinancialBlocks = CompanyFinancialBlock::all();
 
-        return view('fleet.fleet_vehicle.fleet_vehicle_edit', compact('db','dbFleetModels','dbEstablishments','dbFinancialBlocks'));
+        if ($db) {
+            $dbFleetModels = FleetModels::all();
+            $dbEstablishments = CompanyEstablishment::all();
+            $dbFinancialBlocks = CompanyFinancialBlock::all();
+
+            return view('fleet.fleet_vehicle.fleet_vehicle_edit', compact('db','dbFleetModels','dbEstablishments','dbFinancialBlocks'));
+        }else {
+            return redirect()->route('fleet_vehicles.index');
+        }   
     }
 
     /**
@@ -106,9 +116,14 @@ class FleetVehiclesController extends Controller
     public function create_category(string $id, string $category)
     {
         //
-        $db = FleetVehicles::find($id);
+        if ($category === 'abastecimento' || $category === 'serviços' || $category === 'despesas' || $category === 'vistoria') {
+            
+            $db = FleetVehicles::find($id);
 
-        return view('fleet.fleet_vehicle.fleet_vehicle_create_fuel',compact('db'));
+            return view('fleet.fleet_vehicle.fleet_vehicle_create_service',compact('db', 'category'));
+        }
+
+        return redirect()->back();
     } 
 
     /**

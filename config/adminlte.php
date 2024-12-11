@@ -15,7 +15,7 @@ return [
     */
 
     'title' => '',
-    'title_prefix' => 'InfoSaúde Caruaru',
+    'title_prefix' => env('APP_NAME', 'Laravel'),
     'title_postfix' => '',
 
     /*
@@ -68,7 +68,7 @@ return [
     'logo_img_class' => 'brand-image img-circle',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'InfoSaúde Caruaru',
+    'logo_img_alt' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------

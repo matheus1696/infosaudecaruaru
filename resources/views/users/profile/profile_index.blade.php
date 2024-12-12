@@ -27,7 +27,7 @@
                                 <x-form.form-label for="sex_id" value="Sexo"/>
                                 <x-form.form-select name="sex_id">
                                     @foreach ($dbUserSex as $UserSex)
-                                        <option  value="{{$UserSex->id}}" @if ($db->sex_id == $UserSex->id) selected @endif >
+                                        <option class="hover:bg-green-600" value="{{$UserSex->id}}" @if ($db->sex_id == $UserSex->id) selected @endif >
                                             {{$UserSex->sex}}
                                         </option>
                                     @endforeach

@@ -29,9 +29,12 @@ class ProfileController extends Controller
     public function editProfile()
     {
         //Listando Dados
-        $db = Profile::find(Auth::user()->id);
+        $db = Auth::user();
         $dbUserSex = UserSex::where('status',true)->orderBy('sex')->get();
+
+        //Log do Sistema
         Logger::editUserProfile($db->name);
+
         return view('users.profile.profile_index', compact('db','dbUserSex'));
     }
 
@@ -41,8 +44,11 @@ class ProfileController extends Controller
     public function editProfessional()
     {
         //Listando Dados
-        $db = Profile::find(Auth::user()->id);
+        $db = Auth::user();
+
+        //Log do Sistema
         Logger::editUserProfessional($db->name);
+
         return view('users.profile.profile_professional', compact('db'));
     }
 
@@ -51,9 +57,12 @@ class ProfileController extends Controller
      */
     public function editPassword()
     {
-        //   
-        $db = Profile::find(Auth::user()->id);
+        //Listando Dados
+        $db = Auth::user();
+
+        //Log do Sistema
         Logger::editUserPassword($db->name);
+
         return view('users.profile.profile_password', compact('db'));
     }
 
@@ -84,7 +93,6 @@ class ProfileController extends Controller
         $db = Profile::find(Auth::user()->id);
         
         //Alterando Dados do Usuário
-        trim($request['name']);
         $db->update($request->all());
             
         //Log do Sistema

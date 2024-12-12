@@ -24,18 +24,6 @@
     $(document).ready(function() {
         $('.select2-multiple').select2();
     });
-
-    $('body').on('shown.bs.modal', '.modal', function() {
-  $(this).find('select').each(function() {
-        var dropdownParent = $(document.body);
-        if ($(this).parents('.modal.in:first').length !== 0)
-        dropdownParent = $(this).parents('.modal.in:first');
-        $(this).select2({
-        dropdownParent: dropdownParent
-        // ...
-        });
-    });
-    });
 </script>
 
 <!-- Configuração do Summernote -->

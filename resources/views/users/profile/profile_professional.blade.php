@@ -15,7 +15,7 @@
                         <x-form.form-group>
                             <div class="col-span-12">
                                 <x-form.form-label for="matriculation" value="Matricula"/>
-                                <x-form.form-input name="matriculation" value="{{ old('matriculation') ?? $db->matriculation }}" placeholder="99.999-2" maxlength="8" minlength="8" required />
+                                <x-form.form-input name="matriculation" value="{{ old('matriculation') ?? $db->matriculation }}" placeholder="99.999-2" maxlength="8" minlength="8"  onkeyup="handleMatriculation(event)" required />
                                 <x-form.error-message for="matriculation" />
                             </div>
                             <div class="col-span-12">                                    

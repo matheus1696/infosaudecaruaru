@@ -3,6 +3,3 @@
 
 <!-- Configuração do Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Estilo Próprio -->
-<link rel="stylesheet" href="assets/css/style.css">

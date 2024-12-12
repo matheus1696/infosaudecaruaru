@@ -2,21 +2,44 @@
 <x-pages.index>
     @slot('body')
         <div class="flex justify-center items-center min-h-96 md:mt-20">
-            <div class="w-full md:w-2/4 xl:w-1/3">
+            <div class="w-full md:w-2/4 xl:w-2/3">
                 <!-- Inicio de Componentização do Conteiner -->
                 <x-conteiner>
                     <h3 class="mb-3 text-lg font-semibold text-center">Alteração de Senha</h3>
 
-                    <x-form.form method="edit" route="{{route('profiles.updatePassword')}}">
+                    <x-form.form-erros />
+
+                    <form action="{{route('profiles.updatePassword')}}" method="post">
                         @csrf @method('PUT')
 
-                        <!-- Inicio de Componentização de Input e Select -->
-                        <x-form.inputDisabled col="12" label="Email" value="{{$db->email}}"/>
-                        <x-form.input col="12" label="Senha Atual" type="password" name="password_current" id="password_current" placeholder="********"/>
-                        <x-form.input col="12" label="Senha" type="password" name="password" id="password" placeholder="********"/>
-                        <x-form.input col="12" label="Confirmar Senha" type="password" name="password_confirmation" id="password_confirmation" placeholder="********" />
-                            
-                    </x-form.form>
+                        <x-form.form-group>
+                            <div class="col-span-12">                                    
+                                <x-form.form-label for="name" value="Nome"/>
+                                <x-form.form-input value="{{ $db->name }}" disabled />
+                            </div>
+                            <div class="col-span-12">                                    
+                                <x-form.form-label for="email" value="Email"/>
+                                <x-form.form-input value="{{ $db->email }}" disabled />
+                            </div>
+                            <div class="col-span-12">
+                                <x-form.form-label for="password_current" value="Senha Atual"/>
+                                <x-form.form-input type="password" name="password_current" placeholder="**********" required />
+                                <x-form.error-message for="password_current" />
+                            </div>
+                            <div class="col-span-6">
+                                <x-form.form-label for="password" value="Nova Senha"/>
+                                <x-form.form-input type="password" name="password" placeholder="**********" required />
+                                <x-form.error-message for="password" />
+                            </div>
+                            <div class="col-span-6">
+                                <x-form.form-label for="password_confirmation" value="Confirme Nova Senha"/>
+                                <x-form.form-input type="password" name="password_confirmation" placeholder="**********" required />
+                                <x-form.error-message for="password_confirmation" />
+                            </div>
+                        </x-form.form-group>
+
+                        <x-button.btn-primary value="Salvar Alteração"/>
+                    </form>
                 </x-conteiner>
             </div>
         </div>

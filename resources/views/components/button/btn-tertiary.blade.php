@@ -1,5 +1,5 @@
 <button 
-    {{ $attributes->merge(['type' => 'submit','class' => 'w-full px-4 py-2 tracking-widest rounded-lg text-sm text-white uppercase shadow-md transition ease-in-out duration-300 preventSubmitBtn ' . (config('adminlte.class_btn_tertiary') ?? '') ]) }}
+    {{ $attributes->merge(['type' => 'submit','class' => 'w-full px-2 py-1.5 rounded-lg text-sm text-white shadow-md transition ease-in-out duration-300 ' . (config('adminlte.class_btn_tertiary') ?? '') ]) }}
 >
     {{ $value ?? 'Enviar' }}
 </button>

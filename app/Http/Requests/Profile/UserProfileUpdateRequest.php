@@ -22,9 +22,6 @@ class UserProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        $before = Date('Y-m-d', strtotime('-16 years'));
-
         return [            
             'name' => 'nullable|min:1|max:50',
             'cpf' => 'nullable|cpf|formato_cpf',

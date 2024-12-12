@@ -3,6 +3,7 @@
 <script src="{{asset('assets/js/maskcpf.js')}}"></script>
 <script src="{{asset('assets/js/maskregistration.js')}}"></script>
 <script src="{{asset('assets/js/maskrmatriculation.js')}}"></script>
+<script src="{{asset('assets/js/maskInput.js')}}"></script>
 
 <!-- Scripts Proteção de envio do formulário -->
 <script>
@@ -59,6 +60,3 @@
                 });
             });
 </script>
-
-<!-- Configuração do Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>

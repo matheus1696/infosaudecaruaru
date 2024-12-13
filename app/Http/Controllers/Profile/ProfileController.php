@@ -81,7 +81,7 @@ class ProfileController extends Controller
         //Log do Sistema
         Logger::updateUserProfile($db->name);
 
-        return redirect()->back()->with('success','Alteração dos dados realizada com sucesso.');
+        return redirect()->back()->with('success','Tudo certo! Suas informações pessoais foram atualizadas com sucesso!');
     }    
 
     /**
@@ -99,7 +99,7 @@ class ProfileController extends Controller
         //Log do Sistema
         Logger::updateUserProfessional($db->name);
 
-        return redirect()->back()->with('success','Alteração dos dados realizada com sucesso.');
+        return redirect()->back()->with('success','Tudo pronto! Suas informações profissionais foram atualizadas com sucesso!');
     }
 
     /**
@@ -117,6 +117,6 @@ class ProfileController extends Controller
         // Log do Sistema
         Logger::updateUserPassword($db->name);
 
-        return redirect()->back()->with('success','Alteração de senha realizada com sucesso.');
+        return redirect()->back()->with('success','Pronto! Sua senha foi alterada com sucesso!');
     }
 }

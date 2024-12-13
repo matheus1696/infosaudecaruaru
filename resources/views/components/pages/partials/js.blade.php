@@ -1,8 +1,4 @@
 <!-- Scripts Próprios, Máscaras de Inputs -->
-<script src="{{asset('assets/js/maskphone.js')}}"></script>
-<script src="{{asset('assets/js/maskcpf.js')}}"></script>
-<script src="{{asset('assets/js/maskregistration.js')}}"></script>
-<script src="{{asset('assets/js/maskrmatriculation.js')}}"></script>
 <script src="{{asset('assets/js/maskInput.js')}}"></script>
 
 <!-- Scripts Proteção de envio do formulário -->

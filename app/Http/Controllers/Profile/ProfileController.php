@@ -93,7 +93,8 @@ class ProfileController extends Controller
         $db = Profile::find(Auth::user()->id);
         
         //Alterando Dados do Usuário
-        $db->update($request->all());
+        $db['matriculation'] = $request['matriculation'];
+        $db->save();
             
         //Log do Sistema
         Logger::updateUserProfessional($db->name);

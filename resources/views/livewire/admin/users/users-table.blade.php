@@ -109,7 +109,9 @@
                                             <div class="input-group"><input type="email" name="email" value="{{$item->email}}" hidden></div>
                                         </x-form.form>
                                     </div>
-                                </div>                        
+                                </div>
+
+                                
                                 
                             </x-button.minButtonModalEdit>
 

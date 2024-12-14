@@ -35,7 +35,7 @@ class UsersTable extends Component
         }
 
         // Paginando os resultados
-        $dbUsers = $query->paginate($this->perPage);
+        $dbUsers = $query->orderBy('name')->paginate($this->perPage);
         $dbPermissions = UserPermissions::all();
         $dbHasPermissions = UserHasPermissions::all();
         $dbCompanyOrganizational = CompanyOrganization::where('status', true)->orderBy('order')->get();

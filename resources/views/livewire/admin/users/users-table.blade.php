@@ -2,7 +2,7 @@
     <x-table.table :paginate="$dbUsers">
         @slot('search')     
             
-            <div class="flex justify-between p-3">
+            <div class="flex justify-between py-3">
                 <div class="w-32">
                     <x-form.form-select wire:model.live="perPage">
                         <option value="10">10 por página</option>
@@ -13,9 +13,9 @@
                     </x-form.form-select>
                 </div>
             
-                <div class="w-60">
+                <div class="flex items-center gap-2 w-60">
                     <!-- Filtros de Pesquisa -->
-                    <x-form.form-input type="text" wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
+                    <span class="text-sm">Pesquisa:</span> <x-form.form-input type="text" wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
                 </div>
             </div>
             

@@ -6,8 +6,8 @@
     @endslot
     
     <!-- Slot Body -->
-    @slot('body')
-        @include('admin.users.partials.users_search')
-        @include('admin.users.partials.users_table')
+    @slot('body')        
+        <livewire:admin.users.users-table />
     @endslot
+    
 </x-pages.index>

@@ -1,6 +1,11 @@
 <div class="overflow-x-auto shadow-md rounded-xl lg:overflow-hidden">
-    <table class="w-full bg-white border table-auto">
-        <thead class="text-sm text-center bg-{{$color ?? 'green'}}-200 border-b-2 border-{{$color ?? 'green'}}-800">
+
+    <div class="bg-green-200">
+        {{ $search }}
+    </div>
+
+    <table class="w-full bg-white">
+        <thead class="text-sm text-center bg-green-200 border-b-2 border-green-800">
             <tr>
                 {{$thead ?? ""}}
             </tr>
@@ -12,18 +17,8 @@
     </table>
 </div>
 
-@isset($db)
-    <div>
-        @if ($db->count() == 0)
-            <p class="py-3 text-xs text-center text-secondary">Nenhum dado cadastrado</p> 
-        @else
-            <p class="py-3 text-xs text-center text-secondary">Total de {{ $db->count() ?? ""}} cadastrados</p> 
-        @endif
-    </div>
-    
-    <div class="flex items-center justify-center px-3 py-2">
-        <div class="text-sm">
-            {{ $db->appends($_GET)->links() }}
-        </div>
+@isset($paginate)    
+    <div class="px-3 py-5">
+        {{ $paginate->links() }}
     </div>
 @endisset

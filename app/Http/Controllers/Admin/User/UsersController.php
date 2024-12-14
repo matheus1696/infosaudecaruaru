@@ -27,42 +27,10 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        //Listando Dados
-        $db = User::orderBy('name')->with('SexualOrientation')->paginate(20);
-        $dbUsers = User::select()->orderBy('name')->get();
-        $dbPermissions= UserPermissions::all();
-        $dbHasPermissions = UserHasPermissions::all();
-        $dbCompanyOrganizational = CompanyOrganization::where('status',true)->orderBy('order')->get();
-        $dbCompanyOccupations = CompanyOccupation::where('status',true)->orderBy('title')->get();
-        $dbEstablishments = CompanyEstablishment::where('status',true)->orderBy('title')->get();
-
-        //Pesquisa de Dados
-        $search = $request->all();
-        
-        if (isset($search['searchName']) || isset($search['searchEmail'])) {
-
-            $query = User::query();
-
-            if (!empty($search['searchName'])) { $query->where('name', $search['searchName']);}
-
-            if (!empty($search['searchEmail'])) {$query->where('email', $search['searchEmail']);}
-
-            $db = $query->orderBy('name')->paginate(20);
-        }      
-
         //Log do Sistema
         Logger::access();
 
-        return view('admin.users.users_index',[
-            'search'=>$search,
-            'db'=>$db,
-            'dbUsers'=>$dbUsers,
-            'dbPermissions'=>$dbPermissions,
-            'dbHasPermissions'=>$dbHasPermissions,
-            'dbCompanyOrganizational'=>$dbCompanyOrganizational,
-            'dbCompanyOccupations'=>$dbCompanyOccupations,
-            'dbEstablishments'=>$dbEstablishments,
-        ]);
+        return view('admin.users.users_index');
     }
 
     /**

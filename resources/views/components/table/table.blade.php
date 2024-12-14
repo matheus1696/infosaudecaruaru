@@ -1,7 +1,7 @@
 <div class="overflow-x-auto shadow-md rounded-xl lg:overflow-hidden">
 
     <div class="bg-green-200">
-        {{ $search }}
+        {{ $search ?? ""}}
     </div>
 
     <table class="w-full bg-white">

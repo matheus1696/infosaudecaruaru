@@ -4,12 +4,7 @@ namespace App\Http\Controllers\Admin\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Company\CompanyEstablishment;
-use App\Models\Company\CompanyOccupation;
-use App\Models\Company\CompanyOrganization;
 use App\Models\User;
-use App\Models\User\UserHasPermissions;
-use App\Models\User\UserPermissions;
 use App\Services\Logger;
 
 class UsersController extends Controller
@@ -88,44 +83,15 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function permission(Request $request, string $id)
+    public function permission(Request $request, User $user)
     {
-        //Listando Dados Usuário
-        $db = User::find($id);
+        // Obtém as permissões enviadas no formulário
+        $permissions = $request->input('permissions', []);
 
-        //Alterando Permissão do Usuário
-            //Listando Permissões
-            $dbPermissions = UserPermissions::all();
+        // Sincroniza as permissões com o usuário
+        $user->syncPermissions($permissions);
 
-            //Sicronizando Permissões (Exclusão de Permissões Cadastradas)
-            UserHasPermissions::where('model_id', $id)->delete();
-
-            //Atribundo FALSE nas permissões vazias encaminhadas pelo POST (Input Checked)
-            foreach ($dbPermissions as $Permission) {
-                if (empty($request[$Permission->name])) {
-                    $request[$Permission->name] = false;
-                };
-            }
-
-            //Atribuindo a permissão com TRUE em USER
-            $userPermission = UserPermissions::select()->where('name','user')->first();
-            $request['user'] = $userPermission->id;
-
-            //Realizando a atualização das permissões
-            foreach ($dbPermissions as $Permission) {
-                if ($request[$Permission->name]) {
-                    $data = new UserHasPermissions;
-                    $data->permission_id = $request[$Permission->name];
-                    $data->model_id = $id;
-                    $data->save();
-
-                    //Log do Sistema
-                    Logger::updateUserPermission($db->name);
-                }
-            }
-
-        return(redirect(route('users.index'))
-            ->with('success',`Permissão do Usuário Alteradas`));
+        return redirect()->back()->with('success', 'Permissões atualizadas com sucesso!');
     }
 
     /**

@@ -1,7 +1,6 @@
 <div>
     <x-table.table :paginate="$dbUsers">
-        @slot('search')     
-            
+        @slot('search')
             <div class="flex justify-between py-3">
                 <div class="w-32">
                     <x-form.form-select wire:model.live="perPage">
@@ -12,13 +11,13 @@
                         <option value="50">50 por página</option>
                     </x-form.form-select>
                 </div>
-            
+
                 <div class="flex items-center gap-2 w-60">
                     <!-- Filtros de Pesquisa -->
-                    <span class="text-sm">Pesquisa:</span> <x-form.form-input type="text" wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
+                    <span class="text-sm">Pesquisa:</span> <x-form.form-input type="text"
+                        wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
                 </div>
             </div>
-            
         @endslot
         <!-- Inicio Slot THead -->
         @slot('thead')
@@ -31,116 +30,126 @@
         <!-- Inicio Slot TBody -->
         @slot('tbody')
             @foreach ($dbUsers as $item)
-                    <x-table.tr>
-                        <x-table.td>{{$item->name}}</x-table.td>
-                        <x-table.td>{{$item->email}}</x-table.td>
-                        <x-table.td class="hidden md:table-cell">
-                            <span 
-                                class="px-2 py-1 text-xs font-semibold text-white bg-{{$item->email_verified_at ? 'green' : 'yellow' }}-700 rounded-lg shadow-md"
-                            >
-                                {{$item->email_verified_at ? "Verificado" : "Aguardando"}}
-                            </span>
-                        </x-table.td>
+                <x-table.tr>
+                    <x-table.td>{{ $item->name }}</x-table.td>
+                    <x-table.td>{{ $item->email }}</x-table.td>
+                    <x-table.td class="hidden md:table-cell">
+                        <span
+                            class="px-2 py-1 text-xs font-semibold text-white bg-{{ $item->email_verified_at ? 'green' : 'yellow' }}-700 rounded-lg shadow-md">
+                            {{ $item->email_verified_at ? 'Verificado' : 'Aguardando' }}
+                        </span>
+                    </x-table.td>
 
-                        <x-table.td>
-                            <!-- Inicio de Componentização do ModalShow -->
-                            <x-modal.modal id="UserModal{{$item->id}}" title="Dados do Perfil" icon="fas fa-pen" class="bg-yellow-500">
-                                <div class="grid grid-cols-1 gap-3 mb-3 md:grid-cols-2">
-                                    <p><strong>Nome: </strong>{{$item->name}}</p>
-                                    <p><strong>Email: </strong>{{$item->email}}</p>
-                                    <p><strong>Data de Nascimento: </strong>@if($item->birthday)
-                                        {{date('d/m/Y',strtotime($item->birthday))}} @endif
-                                    </p>
-                                    <p><strong>Sexo: </strong>{{$item->SexualOrientations->sex ?? ""}}</p>
-                                    <p><strong>Contato: </strong>{{$item->contact_1}}</p>
-                                    <p><strong>Contato: </strong>{{$item->contact_2}}</p>
-                                </div>
-                                <hr>
-                                <div>
-                                    <!-- Inicio de Componentização de Formulário -->
-                                    <form action="{{route('users.update',['user'=>$item->id])}}" method="post">
-                                        <x-form.form-group>
-                                            <x-form.select col="12" label="Setor" name="organization_id" id="organization_id{{$item}}">
-                                                @foreach ($dbCompanyOrganizational as $dbCompanyOrganization)
-                                                    <option 
-                                                        value="{{$dbCompanyOrganization->id}}" 
-                                                        @if ($item->organization_id == $dbCompanyOrganization->id) selected @endif>
-                                                            @for ($i = 0; $i < $dbCompanyOrganization->number_hierarchy; $i++) <span> - </span> @endfor
-                                                            {{$dbCompanyOrganization->acronym}} - {{$dbCompanyOrganization->title}}
-                                                    </option>
-                                                @endforeach
-                                            </x-form.select>
-                                            
-
-                                            <!-- Inicio de Componentização de Select -->
-                                            <x-form.select col="12" label="Cargo" name="occupation_id" id="occupation_id_{{$item}}">
-                                                @foreach ($dbCompanyOccupations as $dbCompanyOccupation)
-                                                    <option
-                                                        value="{{$dbCompanyOccupation->id}}"
-                                                        @if ($item->occupation_id == $dbCompanyOccupation->id) selected @endif>
-                                                            {{$dbCompanyOccupation->code}} - {{$dbCompanyOccupation->title}}
-                                                    </option>
-                                                @endforeach
-                                            </x-form.select>
-
-                                            <!-- Inicio de Componentização de Select -->
-                                            <x-form.select col="12" label="Estabelecimento" name="establishment_id" id="establishment_id_{{$item}}">
-                                                @foreach ($dbEstablishments as $dbEstablishment)
-                                                    <option 
-                                                        value="{{$dbEstablishment->id}}"
-                                                        @if ($item->establishment_id == $dbEstablishment->id) selected @endif>
-                                                            {{$dbEstablishment->title}}
-                                                    </option>
-                                                @endforeach
-                                            </x-form.select>
-                                        </x-form.form-group>                                        
-
-                                        <x-button.btn-primary value="Salvar Alteração"/>
-                                    </form>
-                                </div>
-                                
-                                <div class="grid items-center grid-cols-1 gap-3 md:grid-cols-2">
-
-                                    <a href="{{route('users.verify',['user'=>$item->id])}}" class="w-full">
-                                        <div class="w-full py-2 text-sm text-center text-white transition duration-300 bg-gray-600 rounded-lg shadow-md hover:bg-gray-700">
-                                            Solicitar Verificação de Conta
-                                        </div>
-                                    </a>
-        
-                                    <div class="w-full">
-                                        <x-form.form method="create" route="{{route('password.email')}}" title="Enviar Recuperação de Senha">
-                                            {{-- Email field --}}
-                                            <div class="input-group"><input type="email" name="email" value="{{$item->email}}" hidden></div>
-                                        </x-form.form>
-                                    </div>
-                                </div>
-                            </x-button.minButtonModalEdit>
-
-                            <!-- Inicio de Componentização do Modal Permissões -->
-                            <x-button.minButtonModalUserPermission id="UserPermissionModal{{$item->id}}" title="Permissões">
-
-                                <x-form.form method="edit" route="{{route('users.permission',['user'=>$item->id])}}">
+                    <x-table.td>
+                        <!-- Modal Detalhamento dos Dados do Perfil -->
+                        <x-modal.modal id="UserModal{{ $item->id }}" title="Dados do Perfil" icon="fas fa-pen"
+                            class="bg-yellow-400">
+                            <div class="grid grid-cols-1 gap-3 mb-3 md:grid-cols-2">
+                                <p><strong>Nome: </strong>{{ $item->name }}</p>
+                                <p><strong>Email: </strong>{{ $item->email }}</p>
+                                <p><strong>Data de Nascimento: </strong>
+                                    @if ($item->birthday)
+                                        {{ date('d/m/Y', strtotime($item->birthday)) }}
+                                    @endif
+                                </p>
+                                <p><strong>Sexo: </strong>{{ $item->SexualOrientations->sex ?? '' }}</p>
+                                <p><strong>Contato: </strong>{{ $item->contact_1 }}</p>
+                                <p><strong>Contato: </strong>{{ $item->contact_2 }}</p>
+                            </div>
+                            <hr>
+                            <div class="py-3">
+                                <form action="{{ route('users.update', ['user' => $item->id]) }}" method="post">
                                     @csrf @method('PUT')
-                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 col-span-12 gap-3">
-                                            @foreach ($dbPermissions as $permission)
-                                                <div>
-                                                    <input type="checkbox" id="permission_{{$permission->id}}" name={{$permission->name}} value="{{$permission->id}}"
-                                                        @foreach ($dbHasPermissions as $hasPermission)
-                                                            @if ($hasPermission->permission_id == $permission->id)
-                                                                @if ($item->id == $hasPermission->model_id)
-                                                                    checked
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    >
-                                                    <label for="permission_{{$permission->id}}">{{$permission->name}}</label>
-                                                </div>
-                                            @endforeach
+                                    <x-form.form-group>
+                                        <div class="col-span-12">
+                                            <x-form.form-label for="organization_id" value="Setor" />
+                                            <x-form.form-select name="organization_id">
+                                                @foreach ($dbCompanyOrganizational as $dbCompanyOrganization)
+                                                    <option class="hover:bg-green-600"
+                                                        value="{{ $dbCompanyOrganization->id }}"
+                                                        @if ($item->organization_id == $dbCompanyOrganization->id) selected @endif>
+                                                        {{ $dbCompanyOrganization->acronym }} -
+                                                        {{ $dbCompanyOrganization->title }}
+                                                    </option>
+                                                @endforeach
+                                            </x-form.form-select>
+                                            <x-form.error-message for="organization_id" />
                                         </div>
-                                </x-form.form>
-                            </x-button.minButtonModalUserPermission>
-                        </x-table.td>
-                    </x-table.tr>
+
+                                        <div class="col-span-12">
+                                            <x-form.form-label for="occupation_id" value="Cargo" />
+                                            <x-form.form-select name="occupation_id">
+                                                @foreach ($dbCompanyOccupations as $dbCompanyOccupation)
+                                                    <option class="hover:bg-green-600"
+                                                        value="{{ $dbCompanyOccupation->id }}"
+                                                        @if ($item->occupation_id == $dbCompanyOccupation->id) selected @endif>
+                                                        {{ $dbCompanyOccupation->acronym }} -
+                                                        {{ $dbCompanyOccupation->title }}
+                                                    </option>
+                                                @endforeach
+                                            </x-form.form-select>
+                                            <x-form.error-message for="occupation_id" />
+                                        </div>
+
+                                        <div class="col-span-12">
+                                            <x-form.form-label for="establishment_id" value="Estabelecimento" />
+                                            <x-form.form-select name="establishment_id">
+                                                @foreach ($dbEstablishments as $dbEstablishment)
+                                                    <option class="hover:bg-green-600" value="{{ $dbEstablishment->id }}"
+                                                        @if ($item->establishment_id == $dbEstablishment->id) selected @endif>
+                                                        {{ $dbEstablishment->title }}
+                                                    </option>
+                                                @endforeach
+                                            </x-form.form-select>
+                                            <x-form.error-message for="establishment_id" />
+                                        </div>
+                                    </x-form.form-group>
+
+                                    <x-button.btn-primary value="Salvar Alteração" />
+                                </form>
+                            </div>
+
+                            <hr class="pb-3">
+
+                            <div class="grid items-center grid-cols-1 gap-3 md:grid-cols-2">
+                                <x-button.link-secondary value="Solicitar Verificação de Conta"
+                                    href="{{ route('users.verify', ['user' => $item->id]) }}" class="w-full" />
+
+                                <form action="{{ route('password.email') }}" method="post">
+                                    @csrf
+                                    <input name="email" value="{{ $item->email }}" hidden />
+                                    <x-button.btn-tertiary value="Enviar Recuperação de Senha" />
+                                </form>
+                            </div>
+                        </x-modal.modal>
+
+                        <!-- Modal Permissões -->
+                        <x-modal.modal id="UserPermissionModal{{ $item->id }}" title="Permissões" icon="fas fa-lock"
+                            class="bg-yellow-400">
+
+                            <form action="{{ route('users.permission', ['user' => $item->id]) }}" method="post">
+                                @csrf @method('PUT')
+
+                                <x-form.form-group>
+                                    @foreach ($dbPermissions as $permission)
+                                        <div class="col-span-3 flex items-center gap-2">
+                                            <input type="checkbox" id="permission_{{ $permission->id }}"
+                                                name="permissions[]" value="{{ $permission->id }}" class="hidden peer"
+                                                {{ $item->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+                                            <label for="permission_{{ $permission->id }}"
+                                                class="flex items-center justify-center w-full px-3 py-1 text-sm font-medium text-gray-700 border rounded-lg cursor-pointer peer-checked:bg-green-700 peer-checked:text-white peer-checked:border-green-700 hover:border-green-700">
+                                                {{ $permission->translator }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </x-form.form-group>
+
+                                <x-button.btn-secondary value="Alterar Permissões" />
+                            </form>
+
+                        </x-modal.modal>
+                    </x-table.td>
+                </x-table.tr>
             @endforeach
         @endslot
 

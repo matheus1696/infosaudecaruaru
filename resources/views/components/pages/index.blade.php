@@ -12,12 +12,12 @@
         @include('components.alert.alert')
 
         <!-- Inicio de Componentização do Search -->
-        <div class="pt-2">
+        <div>
             {{$search ?? ""}}
         </div>
 
         <!-- Inicio de Componentização do Conteiner -->
-        <div class="pt-2">
+        <div>
             {{$body ?? ""}} 
         </div>
     </section>

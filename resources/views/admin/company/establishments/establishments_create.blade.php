@@ -14,7 +14,7 @@
         <x-conteiner>
             <form action="{{route('establishments.store')}}" method="post">
                 @csrf
-                @include('admin.company.establishments.partials.form.establishment_form')
+                <livewire:admin.company.establishments.establishments-form />
             </form>
         </x-conteiner>
     @endslot

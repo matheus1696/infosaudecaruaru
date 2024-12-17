@@ -22,6 +22,7 @@ class CompanyEstablishment extends Model
         'number',
         'district',
         'city_id',
+        'state_id',
         'latitude',
         'longitude',
         'type_establishment_id',

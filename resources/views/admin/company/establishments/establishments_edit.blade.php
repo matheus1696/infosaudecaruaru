@@ -14,7 +14,7 @@
         <x-conteiner>
             <form action="{{route('establishments.update',['establishment'=>$db->id])}}" method="post">
                 @csrf @method('PUT')
-                @include('admin.company.establishments.partials.form.establishment_form')
+                <livewire:admin.company.establishments.establishments-form dbEstablishment="{{$db->id}}"/>
             </form>
         </x-conteiner>
     @endslot

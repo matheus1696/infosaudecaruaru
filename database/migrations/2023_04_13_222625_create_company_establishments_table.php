@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('number');
             $table->string('district');
             $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('state_id');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->unsignedBigInteger('type_establishment_id');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('city_id')->references('id')->on('region_cities');
+            $table->foreign('state_id')->references('id')->on('region_states');
             $table->foreign('type_establishment_id')->references('id')->on('company_type_establishments');
             $table->foreign('financial_block_id')->references('id')->on('company_financial_blocks');
         });

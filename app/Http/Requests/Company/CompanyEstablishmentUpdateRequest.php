@@ -36,6 +36,7 @@ class CompanyEstablishmentUpdateRequest extends FormRequest
             'number' => 'required',
             'district' => 'required',
             'city_id' => 'required',
+            'state_id' => 'required',
             'type_establishment_id' => 'required',
             'financial_block_id' => 'required',
         ];

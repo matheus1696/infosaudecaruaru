@@ -35,7 +35,7 @@
         <x-form.error-message for="district" />
     </div>
     
-    <div class="col-span-4">
+    <div class="col-span-12 md:col-span-4">
         <x-form.form-label for="city_id" value="Cidade"/>
         <x-form.form-select name="city_id">
             @foreach ($dbRegionCities as $dbRegionCity)

@@ -6,7 +6,7 @@
     @endslot
     
     <!-- Slot Body -->
-    @slot('body')        
+    @slot('body')
         <livewire:admin.users.users-table />
     @endslot
     

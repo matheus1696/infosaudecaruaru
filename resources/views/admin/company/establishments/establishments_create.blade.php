@@ -12,9 +12,10 @@
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            <x-form.form method="create" route="{{route('establishments.store')}}">
+            <form action="{{route('establishments.store')}}" method="post">
+                @csrf
                 @include('admin.company.establishments.partials.form.establishment_form')
-            </x-form.form>
+            </form>
         </x-conteiner>
     @endslot
 </x-pages.index>

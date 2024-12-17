@@ -4,7 +4,7 @@
             <div class="flex justify-between py-3">
                 <div class="w-32">
                     <x-form.form-select wire:model.live="perPage">
-                        <option value="10">10 por página</option>
+                        <option value="10" selected>10 por página</option>
                         <option value="20">20 por página</option>
                         <option value="30">30 por página</option>
                         <option value="40">40 por página</option>
@@ -12,10 +12,9 @@
                     </x-form.form-select>
                 </div>
 
-                <div class="flex items-center gap-2 w-60">
+                <div class="flex items-center gap-2 w-60 md:w-96">
                     <!-- Filtros de Pesquisa -->
-                    <span class="text-sm">Pesquisa:</span> <x-form.form-input type="text"
-                        wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
+                    <x-form.form-input type="text" wire:model.live.debounce.300ms="search" placeholder="Pesquisar nome ou email" />
                 </div>
             </div>
         @endslot
@@ -132,7 +131,7 @@
 
                                 <x-form.form-group>
                                     @foreach ($dbPermissions as $permission)
-                                        <div class="col-span-3 flex items-center gap-2">
+                                        <div class="col-span-6 md:col-span-4 flex items-center gap-2">
                                             <input type="checkbox" id="permission_{{ $permission->id }}"
                                                 name="permissions[]" value="{{ $permission->id }}" class="hidden peer"
                                                 {{ $item->hasPermissionTo($permission->name) ? 'checked' : '' }}>

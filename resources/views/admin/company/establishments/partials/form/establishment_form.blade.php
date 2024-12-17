@@ -1,33 +1,85 @@
-<x-form.input col="2" label="Código" id="code" name="code" required="required" value="{{$db->code ?? ''}}" />
-<x-form.input col="10" label="Nome do Estabelecimento" id="title" name="title" required="required" value="{{$db->title ?? ''}}" />    
-<x-form.input col="12" label="Nome Fantasia do Estabelecimento (Apelido)" id="surname" name="surname" required="required" value="{{$db->surname ?? ''}}" />
-<x-form.input col="10" label="Logradouro" id="address" name="address" required="required" value="{{$db->address ?? ''}}" />
-<x-form.input col="2" label="Número" id="number" name="number" required="required" value="{{$db->number ?? ''}}" />
-<x-form.input col="4" label="Bairro" id="district" name="district" required="required" value="{{$db->district ?? ''}}" />
-
-<x-form.select col="4" label="Cidade" id="city_id" name="city_id" required="required">
-    @foreach ($dbRegionCities as $item)
-        <option value="{{$item->id}}" @isset($db) @if ($db->city_id == $item->id) selected @endif @endisset>
-            {{$item->code_ibge}} | {{$item->city}} - {{$item->RegionState->acronym}}
-        </option>
-    @endforeach
-</x-form.select>
-
-<x-form.input col="2" label="Latitude" id="latitude" name="latitude" value="{{$db->latitude ?? ''}}" />
-<x-form.input col="2" label="Longitude" id="longitude" name="longitude" value="{{$db->longitude ?? ''}}" />
-
-<x-form.select col="6" label="Tipo de Estabelecimento" id="type_establishment_id" name="type_establishment_id" required="required">
-    @foreach ($dbCompanyTypeEstablishments as $item)
-        <option value="{{$item->id}}" @isset($db)  @if ($db->type_establishment_id == $item->id) selected @endif @endisset>
-            {{$item->title}}
-        </option>
-    @endforeach
-</x-form.select>
-
-<x-form.select col="6" label="Bloco Financeiro" id="financial_block_id" name="financial_block_id" required="required">
-    @foreach ($dbCompanyFinancialBlocks as $item)
-        <option value="{{$item->id}}" @isset($db)  @if ($db->financial_block_id == $item->id) selected @endif @endisset>
-            {{$item->title}}
-        </option>
-    @endforeach
-</x-form.select>
+<x-form.form-group>
+    <div class="col-span-12 md:col-span-2">
+        <x-form.form-label for="code" value="Código"/>
+        <x-form.form-input name="code" value="{{ old('code') ?? $db->code ?? ''}}" placeholder="123456" required />
+        <x-form.error-message for="code" />
+    </div>
+    
+    <div class="col-span-12 md:col-span-10">
+        <x-form.form-label for="title" value="Nome da Unidade"/>
+        <x-form.form-input name="title" value="{{ old('title') ?? $db->title ?? ''}}" placeholder="Nome Completo" required />
+        <x-form.error-message for="title" />
+    </div>
+    
+    <div class="col-span-12">
+        <x-form.form-label for="surname" value="Nome Fantasia (Apelido)"/>
+        <x-form.form-input name="surname" value="{{ old('surname') ?? $db->surname ?? '' }}" placeholder="Nome Fantasia" />
+        <x-form.error-message for="surname" />
+    </div>
+    
+    <div class="col-span-10">
+        <x-form.form-label for="address" value="Endereço"/>
+        <x-form.form-input name="address" value="{{ old('address') ?? $db->address ?? '' }}" placeholder="Endereço" required />
+        <x-form.error-message for="address" />
+    </div>
+    
+    <div class="col-span-2">
+        <x-form.form-label for="number" value="Nº"/>
+        <x-form.form-input name="number" value="{{ old('number') ?? $db->number ?? '' }}" placeholder="123" required />
+        <x-form.error-message for="number" />
+    </div>
+    
+    <div class="col-span-12 md:col-span-4">
+        <x-form.form-label for="district" value="Bairro"/>
+        <x-form.form-input name="district" value="{{ old('district') ?? $db->district ?? '' }}" placeholder="Bairro" required />
+        <x-form.error-message for="district" />
+    </div>
+    
+    <div class="col-span-4">
+        <x-form.form-label for="city_id" value="Cidade"/>
+        <x-form.form-select name="city_id">
+            @foreach ($dbRegionCities as $dbRegionCity)
+                <option class="hover:bg-green-600" value="{{$dbRegionCity->id}}" @isset($db) @if ($db->city_id == $dbRegionCity->id) selected @endif @endisset >
+                    {{$dbRegionCity->code_ibge}} | {{$dbRegionCity->city}} - {{$dbRegionCity->RegionState->acronym}}
+                </option>
+            @endforeach
+        </x-form.form-select>
+        <x-form.error-message for="city_id" />
+    </div>
+    
+    <div class="col-span-12 md:col-span-2">
+        <x-form.form-label for="latitude" value="Latitude"/>
+        <x-form.form-input name="latitude" value="{{ old('latitude') ?? $db->latitude ?? '' }}" placeholder="Latitude" required />
+        <x-form.error-message for="latitude" />
+    </div>
+    
+    <div class="col-span-12 md:col-span-2">
+        <x-form.form-label for="longitude" value="Longitude"/>
+        <x-form.form-input name="longitude" value="{{ old('longitude') ?? $db->longitude ?? '' }}" placeholder="Longitude" required />
+        <x-form.error-message for="longitude" />
+    </div>
+    
+    <div class="col-span-6">
+        <x-form.form-label for="type_establishment_id" value="Tipo de Estabelecimento"/>
+        <x-form.form-select name="type_establishment_id">
+            @foreach ($dbCompanyTypeEstablishments as $dbCompanyTypeEstablishment)
+                <option class="hover:bg-green-600" value="{{$dbCompanyTypeEstablishment->id}}" @isset($db) @if ($db->type_establishment_id == $dbCompanyTypeEstablishment->id) selected @endif @endisset >
+                    {{$dbCompanyTypeEstablishment->title}}
+                </option>
+            @endforeach
+        </x-form.form-select>
+        <x-form.error-message for="type_establishment_id" />
+    </div>
+    
+    <div class="col-span-6">
+        <x-form.form-label for="financial_block_id" value="Bloco Financeiro"/>
+        <x-form.form-select name="financial_block_id">
+            @foreach ($dbCompanyFinancialBlocks as $dbCompanyFinancialBlock)
+                <option class="hover:bg-green-600" value="{{$dbCompanyFinancialBlock->id}}" @isset($db) @if ($db->financial_block_id == $dbCompanyFinancialBlock->id) selected @endif @endisset >
+                    {{$dbCompanyFinancialBlock->title}}
+                </option>
+            @endforeach
+        </x-form.form-select>
+        <x-form.error-message for="financial_block_id" />
+    </div>
+</x-form.form-group>

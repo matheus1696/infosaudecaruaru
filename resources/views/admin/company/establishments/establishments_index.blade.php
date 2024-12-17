@@ -7,8 +7,7 @@
     
     <!-- Slot Body -->
     @slot('body')
-        @include('admin.company.establishments.partials.index.establishment_search')
-        @include('admin.company.establishments.partials.index.establishment_table')
+        <livewire:admin.company.establishments.establishments-table />
     @endslot
     
 </x-pages.index>

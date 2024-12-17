@@ -12,9 +12,10 @@
     <!-- Slot Body -->
     @slot('body')
         <x-conteiner>
-            <x-form.form method="edit" route="{{route('establishments.update',['establishment'=>$db->id])}}">
+            <form action="{{route('establishments.update',['establishment'=>$db->id])}}" method="post">
+                @csrf @method('PUT')
                 @include('admin.company.establishments.partials.form.establishment_form')
-            </x-form.form>
+            </form>
         </x-conteiner>
     @endslot
 </x-pages.index>

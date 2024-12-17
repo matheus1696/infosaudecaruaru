@@ -29,35 +29,12 @@ class CompanyEstablishmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        //Listagem de Dados
-        $db = CompanyEstablishment::select()
-            ->orderBy('status','DESC')
-            ->orderBy('title')
-            ->with('FinancialBlock')
-            ->with('TypeEstablishment')
-            ->with('RegionCity')
-            ->paginate(100);
-
-        //Utilizado para Search
-        $dbEstablishments = CompanyEstablishment::select()->orderBy('title')->get();
-        
-        //Lista de Ramais
-        $dbDepartments = CompanyEstablishmentDepartment::all();
-
-        //Pesquisar Dados
-        $search = $request->all();
-        if (isset($search['searchName'])) {
-            $db = CompanyEstablishment::where('filter','LIKE','%'.strtolower($search['searchName']).'%')
-                ->orderBy('title')
-                ->paginate(100);
-        }
-
         //Log do Sistema
         Logger::access();
 
-        return view('admin.company.establishments.establishments_index', compact('search', 'db', 'dbEstablishments', 'dbDepartments'));
+        return view('admin.company.establishments.establishments_index');
     }
 
     /**

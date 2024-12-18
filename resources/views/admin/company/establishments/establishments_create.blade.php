@@ -15,6 +15,8 @@
             <form action="{{route('establishments.store')}}" method="post">
                 @csrf
                 <livewire:admin.company.establishments.establishments-form />
+
+                <x-button.btn-primary />
             </form>
         </x-conteiner>
     @endslot

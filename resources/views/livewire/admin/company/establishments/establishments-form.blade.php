@@ -100,6 +100,4 @@
             <x-form.error-message for="financial_block_id" />
         </div>
     </x-form.form-group>
-
-    <x-button.btn-primary />
 </div>

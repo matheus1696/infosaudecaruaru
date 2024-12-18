@@ -14,7 +14,9 @@
         <x-conteiner>
             <form action="{{route('establishments.update',['establishment'=>$db->id])}}" method="post">
                 @csrf @method('PUT')
-                <livewire:admin.company.establishments.establishments-form dbEstablishment="{{$db->id}}"/>
+                <livewire:admin.company.establishments.establishments-form :dbEstablishment='$db->id' />
+
+                <x-button.btn-secondary value="Salvar Alterações"/>
             </form>
         </x-conteiner>
     @endslot

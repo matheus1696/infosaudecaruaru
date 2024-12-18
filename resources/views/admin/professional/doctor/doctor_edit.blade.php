@@ -4,8 +4,8 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header 
-            title="Alterar dados Médicos"
-            routeBack="{{route('professional_doctors.show',['professional_doctor'=>$dbDoctors->id])}}"
+            title="Dados do Médico"
+            routeBack="{{route('professional_doctors.index')}}"
         />
     @endslot
 

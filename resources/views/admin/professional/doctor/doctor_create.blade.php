@@ -4,7 +4,7 @@
     <!-- Slot Header -->
     @slot('header')
         <x-header 
-            title="Cadastrar Dados Médicos"
+            title="Cadastro do Médico"
             routeBack="{{route('professional_doctors.index')}}"
         />
     @endslot

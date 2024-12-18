@@ -12,12 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(10000)->create();
+        //Factory
+        if (env('DEBUG') != TRUE) {
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+            // Cria 50 médicos fictícios
+            \App\Models\User::factory(1000)->create();
+
+            // Cria 100 usuários
+            \App\Models\Professional\ProfessionalDoctor::factory()->count(100)->create();
+        }
 
         $this->call([
             UserPermissionsSeeder::class,

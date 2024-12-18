@@ -21,7 +21,7 @@
         <!-- Inicio Slot THead -->
         @slot('thead')
             <x-table.th class="w-16 md:w-24">CRM</x-table.th>
-            <x-table.th class="w-32">Nome</x-table.th>
+            <x-table.th>Nome</x-table.th>
             <x-table.th>Especialidade</x-table.th>
             <x-table.th class="w-24">Status</x-table.th>
             <x-table.th class="w-16"></x-table.th>

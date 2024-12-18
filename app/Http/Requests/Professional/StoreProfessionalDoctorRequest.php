@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Profile;
+namespace App\Http\Requests\Professional;
 
-use App\Rules\UserProfileRequestBirthdayDateFormat;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserProfileUpdateRequest extends FormRequest
+class StoreProfessionalDoctorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +21,10 @@ class UserProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [            
-            'name' => 'nullable|min:1|max:50',
-            'cpf' => 'nullable|cpf|formato_cpf',
-            'registration' => 'nullable|min:9|max:10',
-            'birthday' => ['nullable', 'date', new UserProfileRequestBirthdayDateFormat],
+        return [
+            'name' => 'nullable|min:5|max:50',
+            'crm' => 'nullable|min:4',
+            'specialty' => 'required',
             'contact_1' => 'nullable|celular_com_ddd',
             'contact_2' => 'nullable|celular_com_ddd',
         ];

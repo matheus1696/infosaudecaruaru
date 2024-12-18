@@ -42,19 +42,10 @@ class CompanyEstablishmentController extends Controller
      */
     public function create()
     {
-        //Listagem de Dados
-        $dbRegionCities = RegionCity::where('status',true)->orderBy('city')->get();
-        $dbCompanyTypeEstablishments = CompanyTypeEstablishment::where('status',true)->orderBy('title')->get();
-        $dbCompanyFinancialBlocks = CompanyFinancialBlock::where('status',true)->orderBy('title')->get();
-
         //Log do Sistema
         Logger::create();
 
-        return view('admin.company.establishments.establishments_create',[
-            'dbRegionCities'=>$dbRegionCities,
-            'dbCompanyTypeEstablishments'=>$dbCompanyTypeEstablishments,
-            'dbCompanyFinancialBlocks'=>$dbCompanyFinancialBlocks,
-        ]);
+        return view('admin.company.establishments.establishments_create');
     }
 
     /**
@@ -104,19 +95,11 @@ class CompanyEstablishmentController extends Controller
     {
         //Listagem de Dados
         $db = CompanyEstablishment::find($id);
-        $dbRegionCities = RegionCity::where('status',true)->orderBy('city')->get();
-        $dbCompanyTypeEstablishments = CompanyTypeEstablishment::where('status',true)->orderBy('title')->get();
-        $dbCompanyFinancialBlocks = CompanyFinancialBlock::where('status',true)->orderBy('title')->get();
 
         //Log do Sistema
         Logger::edit($db->establishment);
 
-        return view('admin.company.establishments.establishments_edit',[
-            'db'=>$db,
-            'dbRegionCities'=>$dbRegionCities,
-            'dbCompanyTypeEstablishments'=>$dbCompanyTypeEstablishments,
-            'dbCompanyFinancialBlocks'=>$dbCompanyFinancialBlocks,
-        ]);
+        return view('admin.company.establishments.establishments_edit', compact('db'));
     }
 
     /**

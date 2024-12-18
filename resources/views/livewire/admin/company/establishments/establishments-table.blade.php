@@ -1,8 +1,8 @@
 <div>
     <x-table.table :paginate="$dbEstablishments">
         @slot('search')
-            <div class="flex justify-between py-3">
-                <div class="w-32">
+            <div class="flex justify-between gap-2 py-3">
+                <div class="w-44 md:w-32">
                     <x-form.form-select wire:model.live="perPage">
                         <option value="10" selected>10 por página</option>
                         <option value="20">20 por página</option>
@@ -12,7 +12,7 @@
                     </x-form.form-select>
                 </div>
 
-                <div class="flex items-center gap-2 w-60 md:w-96">
+                <div class="w-full md:w-80">
                     <!-- Filtros de Pesquisa -->
                     <x-form.form-input type="text" wire:model.live.debounce.300ms="search" placeholder="Pesquisar cnes, unidade" />
                 </div>

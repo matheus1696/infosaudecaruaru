@@ -54,3 +54,27 @@ const matriculationMask = (value) => {
     value = value.replace(/^(\d{2})(\d{3})(\d)/g,"$1.$2-$3");
     return value;
 }
+
+const handleCRM = (event) => {
+    let input = event.target;
+    input.value = crmMask(input.value);
+}
+
+const crmMask = (value) => {
+    if (!value) return "";
+    value = value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+
+    if (value.length === 4) {
+        return value.replace(/^(\d{1})(\d{3})$/, '$1.$2');
+    }
+
+    if (value.length === 5) {
+        return value.replace(/^(\d{2})(\d{3})$/, '$1.$2');
+    }
+
+    if (value.length === 6) {
+        return value.replace(/^(\d{3})(\d{3})$/, '$1.$2');
+    }
+
+    return value;
+}

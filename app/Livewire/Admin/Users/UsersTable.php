@@ -19,7 +19,7 @@ class UsersTable extends Component
     public $search = '';
     public $perPage = 10;
 
-    public function rendering(){
+    public function updatedSearch(){
         $this->resetPage();
     }
 

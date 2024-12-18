@@ -566,6 +566,25 @@ return [
                             'can'     => ['sysadmin','admin'],
                         ],
                     ]
+                ],                
+
+                //Configuração de Profissionais
+                [
+                    'text'    => 'Profissionais',
+                    'classes' => 'btn-sm',
+                    'icon'    => 'fas fa-user-tie pr-2',
+                    'icon_color' => 'info',
+                    'can'     => ['sysadmin','admin'],
+                    'submenu' => [
+                        
+                        [
+                            'text'    => 'Médicos Plantonistas',
+                            'classes' => 'btn-sm',
+                            'route'   => 'professional_doctors.index',
+                            'icon'    => 'fas fa-user-md pr-2',
+                            'can'     => ['sysadmin','admin'],
+                        ],
+                    ]
                 ],
             ],
         ],

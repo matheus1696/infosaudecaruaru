@@ -15,17 +15,12 @@ class EstablishmentsForm extends Component
     public $selectedState = 0;
     public $selectedCity = 0;
 
-    public function mount($dbEstablishment = null)
-    {
-        $this->dbEstablishment = $dbEstablishment;
-
-        // Inicializa os valores do estado e cidade com base no banco, se aplicável
-        if ($this->dbEstablishment) {
+    public function mount(){
+        // Aplica as informações do estabelecimento caso existam.
+        if ($this->dbEstablishment != NULL) {
             $db = CompanyEstablishment::find($this->dbEstablishment);
-            if ($db) {
-                $this->selectedState = $db->state_id;
-                $this->selectedCity = $db->city_id;
-            }
+            $this->selectedState = $db->state_id;
+            $this->selectedCity = $db->city_id;
         }
     }
 
@@ -36,22 +31,25 @@ class EstablishmentsForm extends Component
 
     public function render()
     {
-        // Obtém as cidades relacionadas ao estado selecionado
-        $dbRegionCities = [];
-        if (!empty($this->selectedState)) {
-            $dbRegionCities = RegionCity::where('state_id', $this->selectedState)->orderBy('city')->get();
+        //Listagem de Dados
+        $db = NULL; 
+
+        // Aplica as informações do estabelecimento caso existam.
+        if ($this->dbEstablishment != NULL) {
+            $db = CompanyEstablishment::find($this->dbEstablishment);
         }
 
-        // Obtém os outros dados necessários para a view
-        $dbRegionStates = RegionState::where('status', true)->orderBy('state')->get();
-        $dbCompanyTypeEstablishments = CompanyTypeEstablishment::where('status', true)->orderBy('title')->get();
-        $dbCompanyFinancialBlocks = CompanyFinancialBlock::where('status', true)->orderBy('title')->get();
+        $dbRegionCities = [];
 
-        return view('livewire.admin.company.establishments.establishments-form', compact(
-            'dbRegionStates',
-            'dbRegionCities',
-            'dbCompanyTypeEstablishments',
-            'dbCompanyFinancialBlocks'
-        ));
+        // Aplica os filtros do estado selecionado.
+        if (!empty($this->selectedState)) {
+            $dbRegionCities = RegionCity::where('state_id', $this->selectedState)->orderBy('city')->get();
+        }        
+
+        $dbRegionStates = RegionState::where('status',true)->orderBy('state')->get();
+        $dbCompanyTypeEstablishments = CompanyTypeEstablishment::where('status',true)->orderBy('title')->get();
+        $dbCompanyFinancialBlocks = CompanyFinancialBlock::where('status',true)->orderBy('title')->get();
+
+        return view('livewire..admin.company.establishments.establishments-form', compact('db', 'dbRegionStates', 'dbRegionCities', 'dbCompanyTypeEstablishments', 'dbCompanyFinancialBlocks'));
     }
 }

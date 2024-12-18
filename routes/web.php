@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
 use App\Http\Controllers\Admin\Consumable\ConsumableUnitController;
+use App\Http\Controllers\Admin\Professional\ProfessionalDoctorController;
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
@@ -115,6 +116,13 @@ Route::middleware('auth')->group(function () {
                 //Rota - Dados dos Modelos das Frotas
                     Route::resource('fleet_models',FleetModelsController::class);
                     Route::resource('fleet_vehicles',FleetVehiclesController::class);
+            });
+
+            //Grupo de Rotas - Configuração de Frotas
+            Route::prefix('professional')->group(function (){
+                //Rota - Dados dos Modelos das Frotas
+                    Route::put('professional_doctors/status/{professional_doctor}',[ProfessionalDoctorController::class,'status'])->name('professional_doctors.status');
+                    Route::resource('professional_doctors',ProfessionalDoctorController::class);
             });
         });
 

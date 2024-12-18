@@ -14,7 +14,7 @@ class EstablishmentsTable extends Component
     public $search = '';
     public $perPage = 10;
 
-    public function updatedSearch(){
+    public function updating(){
         $this->resetPage();
     }
 

@@ -18,5 +18,6 @@ class UserPermissionsSeeder extends Seeder
         UserPermissions::create(['name'=>'user','guard_name'=>'web','translator'=>'Usuário Comum']);
         UserPermissions::create(['name'=>'inventory_store_room','guard_name'=>'web','translator'=>'Almoxarifado']);
         UserPermissions::create(['name'=>'inventory_center','guard_name'=>'web','translator'=>'Almoxarifado Central']);
+        UserPermissions::create(['name'=>'shift_medical','guard_name'=>'web','translator'=>'Plantão Médico']);
     }
 }

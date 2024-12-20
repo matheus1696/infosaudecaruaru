@@ -27,6 +27,7 @@ use App\Http\Controllers\Inventory\InventoryStoreRoomController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
+use App\Http\Controllers\Shift\ShiftMedicalController;
 
 Route::get('/',function(){return redirect()->route('login');});
 
@@ -150,6 +151,12 @@ Route::middleware('auth')->group(function () {
                 Route::resource('fleet_vehicles',FleetVehiclesController::class);                
                 Route::get('fleet_vehicles/{fleet_vehicle}/{create_category}',[FleetVehiclesController::class,'create_category'])->name('fleet_vehicles.create_category');
                 Route::post('fleet_vehicles/{fleet_vehicle}/{store_category}',[FleetVehiclesController::class,'store_category'])->name('fleet_vehicles.store_category');
+        });
+
+        //Grupo de Rotas - Configuração de Frotas
+        Route::prefix('shift')->group(function (){
+            //Rota - Plantões Médicos
+                Route::resource('shift_medicals',ShiftMedicalController::class);
         });
     });
 

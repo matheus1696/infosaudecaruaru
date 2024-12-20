@@ -16,6 +16,7 @@
     <!-- Modal -->
     <div 
         x-show="open" 
+        @click.outside="open = false" 
         x-cloak 
         x-transition:enter="transition ease-out duration-300 transform"
         x-transition:enter-start="opacity-0 translate-y-4"
@@ -23,7 +24,6 @@
         x-transition:leave="transition ease-in duration-200 transform"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-4"
-        @click.outside="open = false" 
         class="fixed inset-0 z-[9999] flex items-start justify-center bg-gray-900 bg-opacity-80 pt-16 px-5"
     >
         <!-- Evitar que o clique no corpo do modal feche o modal -->

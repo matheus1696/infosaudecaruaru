@@ -332,9 +332,28 @@ return [
             'classes' => 'btn-sm',
             'route'   => 'fleet_vehicles.index',
             'icon'    => 'fas fa-car pr-2',
-        ],
+            'can'     => 'user',
+        ],        
 
-        
+        //Plantões
+        [
+            'text'    => 'Plantões',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-spinner pr-2',
+            'can'     => 'user',
+            'submenu' => [
+
+                //Plantões Médicos
+                [
+                    'text'    => 'Plantões Médicos',
+                    'classes' => 'btn-sm',
+                    'route'   => 'shift_medicals.index',
+                    'icon'    => 'fas fa-user-md pr-2',
+                    'icon_color' => 'teal',
+                    'can'     => 'user',
+                ],
+            ]
+        ],
         
         //Lista Telefônica
         [

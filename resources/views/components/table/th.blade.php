@@ -1,3 +1,3 @@
-<th class="py-3 {{$class ?? ''}}">
+<th {{ $attributes->merge(['class' => 'p-3 truncate' ]) }}> 
     {{$slot}}
 </th>

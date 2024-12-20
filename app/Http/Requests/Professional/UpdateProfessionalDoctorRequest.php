@@ -25,7 +25,7 @@ class UpdateProfessionalDoctorRequest extends FormRequest
             'name' => 'nullable|min:5|max:50',
             'crm' => 'nullable|min:4',
             'specialty' => 'required',
-            'contact_1' => 'nullable|celular_com_ddd',
+            'contact_1' => 'required|celular_com_ddd',
             'contact_2' => 'nullable|celular_com_ddd',
         ];
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Shift\StoreShiftMedicalRequest;
 use App\Http\Requests\Shift\UpdateShiftMedicalRequest;
 use App\Models\Shifts\ShiftMedical;
+use App\Services\Logger;
 
 class ShiftMedicalController extends Controller
 {
@@ -14,7 +15,10 @@ class ShiftMedicalController extends Controller
      */
     public function index()
     {
-        //
+        //Log do Sistema
+        Logger::access();
+
+        return view('shift.shift_medical.shift_medical_index');
     }
 
     /**
@@ -31,6 +35,9 @@ class ShiftMedicalController extends Controller
     public function store(StoreShiftMedicalRequest $request)
     {
         //
+        ShiftMedical::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -55,6 +62,9 @@ class ShiftMedicalController extends Controller
     public function update(UpdateShiftMedicalRequest $request, ShiftMedical $shiftMedical)
     {
         //
+        $shiftMedical->update($request->all());
+
+        return redirect()->back();
     }
 
     /**

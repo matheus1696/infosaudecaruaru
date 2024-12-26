@@ -2,6 +2,7 @@
     <x-form.form-group>
 
         <div class="col-span-12 flex justify-end items-center gap-2 text-white text-xs">
+            <p>Turno: </p>
             <div class="px-2 py-1.5 bg-yellow-500 hover:bg-yellow-600 rounded-lg shadow-lg" wire:click="goToDiurnal"><i class="fas fa-sun"></i></div>
             <div class="px-2 py-1.5 bg-gray-700 hover:bg-gray-800 rounded-lg shadow-lg" wire:click="goToNocturnal"><i class="fas fa-moon"></i></div>
         </div>

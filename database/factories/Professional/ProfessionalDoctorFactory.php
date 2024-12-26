@@ -18,7 +18,7 @@ class ProfessionalDoctorFactory extends Factory
     public function definition(): array
     {
         $name = fake()->name();
-        $specialties = ['Clínico Geral', 'Pediatra', 'Cardiologista', 'Neurologista', 'Ortopedista', 'Ginecologista', 'Oftalmologista'];
+        $specialties = ['Clínico Geral', 'Pediatra'];
 
         return [
             'name' => $name, // Nome do médico

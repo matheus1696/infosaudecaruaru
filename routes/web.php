@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Region\RegionCountryController;
 use App\Http\Controllers\Admin\Region\RegionStateController;
 use App\Http\Controllers\Admin\Supply\SupplyCompanyController;
 use App\Http\Controllers\Admin\User\UsersController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Fleet\FleetModelsController;
 use App\Http\Controllers\Fleet\FleetVehiclesController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomController;
@@ -157,6 +158,12 @@ Route::middleware('auth')->group(function () {
         Route::prefix('shift')->group(function (){
             //Rota - Plantões Médicos
                 Route::resource('shift_medicals',ShiftMedicalController::class);
+        });
+
+        //Grupo de Rotas - Configuração de Frotas
+        Route::prefix('dashbords')->group(function (){
+            //Rota - Plantões Médicos
+                Route::get('shift_medical',[DashboardController::class,'dashboard_shift_medical'])->name('dashboards.shift_medical');
         });
     });
 

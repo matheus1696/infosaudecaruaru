@@ -316,6 +316,24 @@ return [
             'type'    => 'sidebar-menu-search',
             'text'    => 'Buscar Módulo',
         ],
+
+        //Dashboards
+        [
+            'text'    => 'Dashboards',
+            'classes' => 'btn-sm',
+            'icon'    => 'fas fa-chart-line pr-2',
+            'submenu' => [
+
+                //Plantões Médicos
+                [
+                    'text'    => 'Plantões Médicos',
+                    'classes' => 'btn-sm',
+                    'route'   => 'dashboards.shift_medical',
+                    'icon'    => 'fas fa-user-md pr-2',
+                    'icon_color' => 'teal',
+                ],
+            ]
+        ],
         
         //Almoxarifado
         [

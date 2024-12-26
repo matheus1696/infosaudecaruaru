@@ -14,12 +14,12 @@ class UserPermissionsSeeder extends Seeder
     public function run(): void
     {
         UserPermissions::create(['name'=>'sysadmin','guard_name'=>'web','translator'=>'Super Usuário']);
-        UserPermissions::create(['name'=>'admin','guard_name'=>'web','translator'=>'Usuário Administrador']);
-        UserPermissions::create(['name'=>'user','guard_name'=>'web','translator'=>'Usuário Comum']);
-        UserPermissions::create(['name'=>'inventory_store_room','guard_name'=>'web','translator'=>'Almoxarifado']);
-        UserPermissions::create(['name'=>'inventory_center','guard_name'=>'web','translator'=>'Almoxarifado Central']);
-        UserPermissions::create(['name'=>'shift_medical','guard_name'=>'web','translator'=>'Plantão Médico']);
-        UserPermissions::create(['name'=>'dashboard_shift_medical','guard_name'=>'web','translator'=>'Painel Plantão Médico']);
-        UserPermissions::create(['name'=>'professional_doctor','guard_name'=>'web','translator'=>'Profissionais Médicos']);
+        UserPermissions::create(['name'=>'admin','guard_name'=>'web','translator'=>'Administrador de Sistema']);
+        UserPermissions::create(['name'=>'user','guard_name'=>'web','translator'=>'Usuário Padrão']);
+        UserPermissions::create(['name'=>'inventory_store_room','guard_name'=>'web','translator'=>'Gestão de Almoxarifado']);
+        UserPermissions::create(['name'=>'inventory_center','guard_name'=>'web','translator'=>'Centro de Armazenamento']);
+        UserPermissions::create(['name'=>'shift_medical','guard_name'=>'web','translator'=>'Gestão de Plantões Médicos']);
+        UserPermissions::create(['name'=>'dashboard_shift_medical','guard_name'=>'web','translator'=>'Painel Plantões Médicos']);
+        UserPermissions::create(['name'=>'professional_doctor','guard_name'=>'web','translator'=>'Gestão de Profissionais Médicos']);
     }
 }

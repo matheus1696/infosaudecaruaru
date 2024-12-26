@@ -322,6 +322,7 @@ return [
             'text'    => 'Dashboards',
             'classes' => 'btn-sm',
             'icon'    => 'fas fa-chart-line pr-2',
+            'can'     => ['dashboard_shift_medical','sysadmin','admin'],
             'submenu' => [
 
                 //Plantões Médicos
@@ -329,6 +330,7 @@ return [
                     'text'    => 'Plantões Médicos',
                     'classes' => 'btn-sm',
                     'route'   => 'dashboards.shift_medical',
+                    'can'     => 'dashboard_shift_medical',
                     'icon'    => 'fas fa-user-md pr-2',
                     'icon_color' => 'teal',
                 ],
@@ -446,7 +448,7 @@ return [
             'text'    => 'Configurações do Sistema',
             'classes' => 'btn-sm',
             'icon'    => 'fas fa-cogs pr-2',
-            'can'     => ['sysadmin','admin'],
+            'can'     => ['professional_doctor','sysadmin','admin'],
             'submenu' => [
 
                 //Configurações de Empresas
@@ -611,15 +613,15 @@ return [
                     'classes' => 'btn-sm',
                     'icon'    => 'fas fa-user-tie pr-2',
                     'icon_color' => 'info',
-                    'can'     => ['sysadmin','admin'],
+                    'can'     => ['professional_doctor','sysadmin','admin'],
                     'submenu' => [
                         
                         [
-                            'text'    => 'Médicos Plantonistas',
+                            'text'    => 'Médicos',
                             'classes' => 'btn-sm',
                             'route'   => 'professional_doctors.index',
                             'icon'    => 'fas fa-user-md pr-2',
-                            'can'     => ['sysadmin','admin'],
+                            'can'     => ['professional_doctor','sysadmin','admin'],
                         ],
                     ]
                 ],

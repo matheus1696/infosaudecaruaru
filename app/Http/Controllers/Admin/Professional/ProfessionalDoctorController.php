@@ -16,7 +16,7 @@ class ProfessionalDoctorController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:sysadmin|admin']);
+        $this->middleware(['permission:professional_doctor|sysadmin|admin']);
     }
 
     /**

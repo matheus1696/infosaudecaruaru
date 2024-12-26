@@ -1,7 +1,7 @@
 <!-- Inicio de Componentização da Página Index -->
 <x-pages.index>
     @slot('body')
-        <div class="flex justify-center items-center min-h-96 md:mt-20">
+        <div class="flex justify-center items-center min-h-96 md:pt-20">
             <div class="w-full md:w-2/4 xl:w-2/3">
                 <!-- Inicio de Componentização do Conteiner -->
                 <x-conteiner>

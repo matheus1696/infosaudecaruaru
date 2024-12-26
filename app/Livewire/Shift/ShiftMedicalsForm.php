@@ -12,6 +12,12 @@ class ShiftMedicalsForm extends Component
     public $dbShiftMedical;    
     public $startDate;
 
+    public function mount()
+    {
+        // Defina o valor de start_date, usando valores antigos, db ou outro padrão
+        $this->startDate = old('start_date') ?? '';
+    }
+
     public function render()
     {
         //Listagem de Dados

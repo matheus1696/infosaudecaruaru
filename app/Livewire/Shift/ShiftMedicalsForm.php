@@ -11,11 +11,24 @@ class ShiftMedicalsForm extends Component
 {
     public $dbShiftMedical;    
     public $startDate;
+    public $endDate;
 
     public function mount()
     {
-        // Defina o valor de start_date, usando valores antigos, db ou outro padrão
         $this->startDate = old('start_date') ?? '';
+        $this->endDate = old('end_date') ?? '';
+    }    
+
+    public function goToDiurnal()
+    {
+        $this->startDate = now()->format('Y-m-d 08:00');
+        $this->endDate = now()->format('Y-m-d 20:00');
+    }
+
+    public function goToNocturnal()
+    {
+        $this->startDate = now()->format('Y-m-d 20:00');
+        $this->endDate = now()->addDay()->format('Y-m-d 08:00');
     }
 
     public function render()

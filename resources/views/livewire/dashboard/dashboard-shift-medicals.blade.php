@@ -14,8 +14,9 @@
                     @foreach ($dbShiftMedicals as $dbShiftMedical)
                         @if ($dbEstablishment->id === $dbShiftMedical->establishment_id)
                             <div class="bg-white rounded-lg shadow-md p-6 mb-4 transition-transform transform hover:scale-105 hover:shadow-xl">
-                                <div class="flex items-center justify-between mb-4">
+                                <div class="mb-4">
                                     <h3 class="text-xl font-semibold text-gray-800 line-clamp-1">{{ $dbShiftMedical->ProfessionalDoctor->name }}</h3>
+                                    <p class="text-xs text-gray-700">{{ $dbShiftMedical->ProfessionalDoctor->specialty }}</p>
                                 </div>
     
                                 <div class="space-y-2 mb-4">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Shift;
 
+use App\Rules\ShiftMedicalRequestEndDateAfterStartDate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreShiftMedicalRequest extends FormRequest
@@ -22,12 +23,10 @@ class StoreShiftMedicalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => '',
-            'start_time' => '',
-            'end_date' => '',
-            'end_time' => '',
-            'establishment_id' => '',
-            'doctor_id' => '',
+            'start_date' => 'required|date',
+            'end_date' => ['required', 'date', new ShiftMedicalRequestEndDateAfterStartDate()],
+            'establishment_id' => 'required',
+            'doctor_id' => 'required',
         ];
     }
 }

@@ -3,13 +3,13 @@
         
         <div class="col-span-12 md:col-span-3 lg:col-span-2">
             <x-form.form-label for="start_date" value="Data de Entrada"/>
-            <x-form.form-input type="datetime-local" name="start_date" value="{{ old('start_date') ?? $db->start_date ?? now()->format('Y-m-d\T00:00') }}" min="2025-01-01T00:00"/>
+            <x-form.form-input type="datetime-local" name="start_date" value="{{ old('start_date') ?? $db->start_date ?? '' }}" min="{{ now()->subDays(7)->format('Y-m-d\TH:i') }}" wire:model.live="startDate"/>
             <x-form.error-message for="start_date"/>
         </div>
         
         <div class="col-span-12 md:col-span-3 lg:col-span-2">
             <x-form.form-label for="end_date" value="Data de Saída"/>
-            <x-form.form-input type="datetime-local" name="end_date" value="{{ old('end_date') ?? $db->end_date ?? now()->format('Y-m-d\T00:00') }}"/>
+            <x-form.form-input type="datetime-local" name="end_date" value="{{ old('end_date') ?? $db->end_date ?? '' }}" min="{{$startDate}}"/>
             <x-form.error-message for="end_date" />
         </div>
 

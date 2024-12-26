@@ -9,7 +9,8 @@ use Livewire\Component;
 
 class ShiftMedicalsForm extends Component
 {
-    public $dbShiftMedical;
+    public $dbShiftMedical;    
+    public $startDate;
 
     public function render()
     {

@@ -30,10 +30,10 @@
         @endslot
         <!-- Inicio Slot THead -->
         @slot('thead')
-            <x-table.th class="w-16 md:w-20">Data de Entrada</x-table.th>
-            <x-table.th class="w-16 md:w-20">Data Saída</x-table.th>
-            <x-table.th>Unidade</x-table.th>
-            <x-table.th>Nome do Profissional</x-table.th>
+            <x-table.th class="min-w-32">Data de Entrada</x-table.th>
+            <x-table.th class="min-w-32">Data Saída</x-table.th>
+            <x-table.th class="min-w-60">Unidade</x-table.th>
+            <x-table.th class="min-w-60">Nome do Profissional</x-table.th>
             <x-table.th class="w-16"></x-table.th>
         @endslot
 

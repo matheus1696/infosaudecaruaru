@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('shift_medicals', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date'); // Data do plantão
-            $table->time('start_time'); // Horário de início
-            $table->date('end_date'); // Data do plantão
-            $table->time('end_time'); // Horário de término
+            $table->dateTime('start_date'); // Data do plantão
+            $table->dateTime('end_date'); // Data do plantão
             $table->unsignedBigInteger('doctor_id'); // Profissional Médico
             $table->unsignedBigInteger('establishment_id'); // Relacionado à unidade
             $table->timestamps();

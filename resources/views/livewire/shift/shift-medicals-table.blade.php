@@ -19,7 +19,7 @@
                         <i class="fas fa-angle-left"></i>
                     </button>
 
-                    <x-form.form-input type="date" wire:model.live.debounce.500ms="searchDate" />
+                    <x-form.form-input type="date" wire:model.live.debounce.200ms="searchDate" />
 
                     <button class="px-3.5 text-sm rounded-md shadow-sm bg-white text-gray-800  border border-solid-300"
                         wire:click="goToNextDate">
@@ -30,8 +30,8 @@
         @endslot
         <!-- Inicio Slot THead -->
         @slot('thead')
-            <x-table.th class="w-16 md:w-20" colspan="2">Data de Entrada</x-table.th>
-            <x-table.th class="w-16 md:w-20" colspan="2">Data Saída</x-table.th>
+            <x-table.th class="w-16 md:w-20">Data de Entrada</x-table.th>
+            <x-table.th class="w-16 md:w-20">Data Saída</x-table.th>
             <x-table.th>Unidade</x-table.th>
             <x-table.th>Nome do Profissional</x-table.th>
             <x-table.th class="w-16"></x-table.th>
@@ -41,10 +41,8 @@
         @slot('tbody')
             @foreach ($dbShiftMedicals as $dbShiftMedical)
                 <x-table.tr>
-                    <x-table.td>{{ date('d/m/Y', strtotime($dbShiftMedical->start_date)) }}</x-table.td>
-                    <x-table.td>{{ date('H:i', strtotime($dbShiftMedical->start_time)) }}</x-table.td>
-                    <x-table.td>{{ date('d/m/Y', strtotime($dbShiftMedical->end_date)) }}</x-table.td>
-                    <x-table.td>{{ date('H:i', strtotime($dbShiftMedical->end_time)) }}</x-table.td>
+                    <x-table.td>{{ date('d/m/Y H:i', strtotime($dbShiftMedical->start_date)) }}</x-table.td>
+                    <x-table.td>{{ date('d/m/Y H:i', strtotime($dbShiftMedical->end_date)) }}</x-table.td>
                     <x-table.td>{{ $dbShiftMedical->CompanyEstablishment->title }}</x-table.td>
                     <x-table.td>{{ $dbShiftMedical->ProfessionalDoctor->name }}</x-table.td>
                     <x-table.td>
@@ -54,31 +52,19 @@
                                 @csrf @method('PUT')                                
                                 <x-form.form-group>
                                     
-                                    <div class="col-span-12 md:col-span-2">
+                                    <div class="col-span-12 md:col-span-3">
                                         <x-form.form-label for="start_date" value="Data de Entrada"/>
-                                        <x-form.form-input type="date" name="start_date" value="{{ old('start_date') ?? $dbShiftMedical->start_date ?? '' }}" />
+                                        <x-form.form-input type="datetime-local" name="start_date" value="{{ old('start_date') ?? $dbShiftMedical->start_date ?? '' }}" />
                                         <x-form.error-message for="start_date" />
                                     </div>
-
-                                    <div class="col-span-12 md:col-span-2">
-                                        <x-form.form-label for="start_time" value="H. Entrada"/>
-                                        <x-form.form-input type="time" name="start_time" value="{{ old('start_time') ?? $dbShiftMedical->start_time ?? '' }}" />
-                                        <x-form.error-message for="start_time" />
-                                    </div>
                                     
-                                    <div class="col-span-12 md:col-span-2">
+                                    <div class="col-span-12 md:col-span-3">
                                         <x-form.form-label for="end_date" value="Data de Saída"/>
-                                        <x-form.form-input type="date" name="end_date" value="{{ old('end_date') ?? $dbShiftMedical->end_date ?? '' }}"/>
+                                        <x-form.form-input type="datetime-local" name="end_date" value="{{ old('end_date') ?? $dbShiftMedical->end_date ?? '' }}"/>
                                         <x-form.error-message for="end_date" />
                                     </div>
 
-                                    <div class="col-span-12 md:col-span-2">
-                                        <x-form.form-label for="end_time" value="H. Saída"/>
-                                        <x-form.form-input type="time" name="end_time" value="{{ old('end_time') ?? $dbShiftMedical->end_time ?? '20:00' }}" />
-                                        <x-form.error-message for="end_time" />
-                                    </div>
-
-                                    <div class="col-span-12 md:col-span-2">
+                                    <div class="col-span-12 md:col-span-3">
                                         <x-form.form-label for="establishment_id" value="Unidade"/>
                                         <x-form.form-select name="establishment_id">
                                             @foreach ($dbEstablishments as $dbEstablishment)                    
@@ -90,7 +76,7 @@
                                         <x-form.error-message for="establishment_id" />
                                     </div>
 
-                                    <div class="col-span-12 md:col-span-2">
+                                    <div class="col-span-12 md:col-span-3">
                                         <x-form.form-label for="doctor_id" value="Profissional"/>
                                         <x-form.form-select name="doctor_id">
                                             @foreach ($dbDoctors as $dbDoctor)                    

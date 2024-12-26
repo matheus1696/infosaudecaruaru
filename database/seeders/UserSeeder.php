@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'birthday'=>'1990-12-31',
             'email_verified_at'=>now(),
             'password'=> Hash::make('sysadmin'),
-        ])->givePermissionTo('user','admin','sysadmin');
+        ])->givePermissionTo('user','admin','sysadmin','shift_medical');
 
         User::create([
             'name'=>'Administrador',
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'birthday'=>'1990-12-31',
             'email_verified_at'=>now(),
             'password'=> Hash::make('admin'),
-        ])->givePermissionTo('user','admin');
+        ])->givePermissionTo('user','admin','shift_medical');
 
         User::create([
             'name'=>'Usuário',

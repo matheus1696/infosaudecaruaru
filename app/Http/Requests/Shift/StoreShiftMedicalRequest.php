@@ -22,7 +22,12 @@ class StoreShiftMedicalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'start_date' => '',
+            'start_time' => '',
+            'end_date' => '',
+            'end_time' => '',
+            'establishment_id' => '',
+            'doctor_id' => '',
         ];
     }
 }

@@ -13,9 +13,7 @@ class ShiftMedical extends Model
 
     protected $fillable = [
         'start_date',
-        'start_time',
         'end_date',
-        'end_time',
         'doctor_id',
         'establishment_id',
     ];

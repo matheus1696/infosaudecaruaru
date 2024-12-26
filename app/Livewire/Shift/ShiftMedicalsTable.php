@@ -59,9 +59,7 @@ class ShiftMedicalsTable extends Component
 
         // Ordenação
         $dbShiftMedicals = $queryShift->orderBy('start_date')
-            ->orderBy('start_time')
             ->orderBy('end_date')
-            ->orderBy('end_time')
             ->get();
 
         //Listagem de Médicos

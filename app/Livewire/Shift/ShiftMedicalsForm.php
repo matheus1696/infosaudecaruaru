@@ -33,7 +33,7 @@ class ShiftMedicalsForm extends Component
             ->get();
 
         //Listagem de Profissionais Médicos
-        $dbDoctors = ProfessionalDoctor::orderBy('name')->get();
+        $dbDoctors = ProfessionalDoctor::where('status',TRUE)->orderBy('name')->get();
         
         return view('livewire.shift.shift-medicals-form', compact('db','dbEstablishments', 'dbDoctors'));
     }

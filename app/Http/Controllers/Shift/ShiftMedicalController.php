@@ -10,6 +10,14 @@ use App\Services\Logger;
 
 class ShiftMedicalController extends Controller
 {
+    /*
+     * Controller access permission resource.
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:shift_medical|sysadmin|admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */

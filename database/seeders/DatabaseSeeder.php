@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
             SupplyCompanySeeder::class,
             FleetManufacturerSeeder::class,
             FleetModelsSeeder::class,
+            HospitalRoomClassificationSeeder::class,
+            HospitalBedStatusSeeder::class,
         ]);
     }
 }

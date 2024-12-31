@@ -132,10 +132,10 @@
                                 <x-form.form-group>
                                     @foreach ($dbPermissions as $permission)
                                         <div class="col-span-6 md:col-span-4 flex items-center gap-2">
-                                            <input type="checkbox" id="permission_{{ $permission->id }}"
+                                            <input type="checkbox" id="permission_{{ $permission->id }}_{{$item->id}}"
                                                 name="permissions[]" value="{{ $permission->id }}" class="hidden peer"
                                                 {{ $item->hasPermissionTo($permission->name) ? 'checked' : '' }}>
-                                            <label for="permission_{{ $permission->id }}"
+                                            <label for="permission_{{ $permission->id }}_{{$item->id}}"
                                                 class="flex items-center justify-center w-full px-3 py-1 text-sm font-medium text-gray-700 border rounded-lg cursor-pointer peer-checked:bg-green-700 peer-checked:text-white peer-checked:border-green-700 hover:border-green-700">
                                                 {{ $permission->translator }}
                                             </label>

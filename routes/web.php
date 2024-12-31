@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
 use App\Http\Controllers\Admin\Consumable\ConsumableUnitController;
+use App\Http\Controllers\Admin\Hospital\HospitalBedController;
+use App\Http\Controllers\Admin\Hospital\HospitalBedStatusController;
+use App\Http\Controllers\Admin\Hospital\HospitalRoomClassificationController;
 use App\Http\Controllers\Admin\Professional\ProfessionalDoctorController;
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
@@ -125,6 +128,19 @@ Route::middleware('auth')->group(function () {
                 //Rota - Dados dos Modelos das Frotas
                     Route::put('professional_doctors/status/{professional_doctor}',[ProfessionalDoctorController::class,'status'])->name('professional_doctors.status');
                     Route::resource('professional_doctors',ProfessionalDoctorController::class);
+            });
+
+            //Grupo de Rotas - Configuração Hospitalares
+            Route::prefix('hospital')->group(function (){
+                //Rota - Leitos
+
+                Route::put('hospital_room_classifications/status/{hospital_room_classification}',[HospitalRoomClassificationController::class,'status'])->name('hospital_room_classifications.status');
+                Route::resource('hospital_room_classifications',HospitalRoomClassificationController::class);
+
+                Route::put('hospital_bed_statuses/status/{hospital_bed_status}',[HospitalRoomClassificationController::class,'status'])->name('hospital_bed_statuses.status');
+                Route::resource('hospital_bed_statuses',HospitalBedStatusController::class);
+
+                Route::resource('hospital_beds',HospitalBedController::class);
             });
         });
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Hospital\Bed\StoreHospitalBedRequest;
 use App\Http\Requests\Hospital\Bed\UpdateHospitalBedRequest;
 use App\Models\Hospital\Bed\HospitalBed;
+use Illuminate\Http\Request;
 
 class HospitalBedController extends Controller
 {
@@ -15,6 +16,7 @@ class HospitalBedController extends Controller
     public function index()
     {
         //
+        return view( 'admin.hospital.bed.bed_index');
     }
 
     /**
@@ -63,5 +65,16 @@ class HospitalBedController extends Controller
     public function destroy(HospitalBed $hospitalBed)
     {
         //
+    }  
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function status(Request $request, HospitalBed $hospitalBed)
+    {
+        //
+        $hospitalBed->update($request->all());
+
+        return redirect()->back()->with('success','Status alterado com sucesso');
     }
 }

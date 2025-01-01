@@ -140,6 +140,7 @@ Route::middleware('auth')->group(function () {
                 Route::put('hospital_bed_statuses/status/{hospital_bed_status}',[HospitalBedStatusController::class,'status'])->name('hospital_bed_statuses.status');
                 Route::resource('hospital_bed_statuses',HospitalBedStatusController::class);
 
+                Route::put('hospital_beds/status/{hospital_bed}',[HospitalBedController::class,'status'])->name('hospital_beds.status');
                 Route::resource('hospital_beds',HospitalBedController::class);
             });
         });

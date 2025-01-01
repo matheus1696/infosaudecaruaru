@@ -9,14 +9,14 @@
     @slot('body')
 
         <x-conteiner>
-            <form action="{{route('hospital_room_classifications.store')}}" method="post">
+            <form action="{{route('hospital_bed_classifications.store')}}" method="post">
                 @csrf
-                <livewire:admin.hospital.room-classification-form />
+                <livewire:admin.hospital.bed.classification.bed-classification-form />
                 <x-button.btn-primary value="Salvar"/>
             </form>
         </x-conteiner>
 
-        <livewire:admin.hospital.room-classification-table />
+        <livewire:admin.hospital.bed.classification.bed-classification-table />
     
     @endslot
     

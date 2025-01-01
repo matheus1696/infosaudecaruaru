@@ -633,20 +633,20 @@ return [
                     'icon'    => 'fas fa-user-tie pr-2',
                     'icon_color' => 'info',
                     'can'     => ['hospital_configuration','sysadmin','admin'],
-                    'submenu' => [
-                        
-                        [
-                            'text'    => 'Classificação dos Ambientes',
-                            'classes' => 'btn-sm',
-                            'route'   => 'hospital_room_classifications.index',
-                            'icon'    => 'fas fa-user-md pr-2',
-                            'can'     => ['hospital_configuration','sysadmin','admin'],
-                        ],                        
+                    'submenu' => [                        
                                 
                         [
                             'text'    => 'Leitos',
                             'classes' => 'btn-sm',
                             'route'   => 'hospital_beds.index',
+                            'icon'    => 'fas fa-user-md pr-2',
+                            'can'     => ['hospital_configuration','sysadmin','admin'],
+                        ],
+                        
+                        [
+                            'text'    => 'Classificação dos Ambientes',
+                            'classes' => 'btn-sm',
+                            'route'   => 'hospital_bed_classifications.index',
                             'icon'    => 'fas fa-user-md pr-2',
                             'can'     => ['hospital_configuration','sysadmin','admin'],
                         ],

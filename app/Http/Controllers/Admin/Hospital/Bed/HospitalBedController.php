@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Hospital;
+namespace App\Http\Controllers\Admin\Hospital\Bed;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hospital\HospitalBed;
-use App\Http\Requests\StoreHospitalBedRequest;
-use App\Http\Requests\UpdateHospitalBedRequest;
+use App\Http\Requests\Hospital\Bed\StoreHospitalBedRequest;
+use App\Http\Requests\Hospital\Bed\UpdateHospitalBedRequest;
+use App\Models\Hospital\Bed\HospitalBed;
 
 class HospitalBedController extends Controller
 {

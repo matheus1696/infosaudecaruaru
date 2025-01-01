@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Hospital;
+namespace App\Models\Hospital\Bed;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HospitalRoomClassification extends Model
+class HospitalBedStatus extends Model
 {
     use HasFactory;
 

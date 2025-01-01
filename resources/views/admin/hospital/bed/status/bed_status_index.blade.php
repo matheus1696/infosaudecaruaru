@@ -11,12 +11,12 @@
         <x-conteiner>
             <form action="{{route('hospital_bed_statuses.store')}}" method="post">
                 @csrf
-                <livewire:admin.hospital.bed-status-form />
+                <livewire:admin.hospital.bed.status.bed-status-form />
                 <x-button.btn-primary value="Salvar"/>
             </form>
         </x-conteiner>
 
-        <livewire:admin.hospital.bed-status-table />
+        <livewire:admin.hospital.bed.status.bed-status-table />
     
     @endslot
     

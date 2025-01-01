@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             SupplyCompanySeeder::class,
             FleetManufacturerSeeder::class,
             FleetModelsSeeder::class,
-            HospitalRoomClassificationSeeder::class,
+            HospitalBedClassificationSeeder::class,
             HospitalBedStatusSeeder::class,
         ]);
     }

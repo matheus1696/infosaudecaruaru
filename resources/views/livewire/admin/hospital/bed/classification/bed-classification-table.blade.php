@@ -9,11 +9,11 @@
 
         <!-- Inicio Slot TBody -->
         @slot('tbody')
-            @foreach ($dbRoomClassifications as $dbRoomClassification)
+            @foreach ($dbBedClassifications as $dbBedClassification)
                 <x-table.tr>
-                    <x-table.td>{{ $dbRoomClassification->title }}</x-table.td>
+                    <x-table.td>{{ $dbBedClassification->title }}</x-table.td>
                     <x-table.td>                        
-                        <x-button.btn-status condition="{{$dbRoomClassification->status}}" route="{{route('hospital_room_classifications.status',['hospital_room_classification'=>$dbRoomClassification->id])}}" />
+                        <x-button.btn-status condition="{{$dbBedClassification->status}}" route="{{route('hospital_bed_classifications.status',['hospital_bed_classification'=>$dbBedClassification->id])}}" />
                     </x-table.td>
                 </x-table.tr>
             @endforeach

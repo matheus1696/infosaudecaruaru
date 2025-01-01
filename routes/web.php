@@ -15,9 +15,9 @@ use App\Http\Controllers\Admin\Consumable\ConsumableClassificationController;
 use App\Http\Controllers\Admin\Consumable\ConsumableController;
 use App\Http\Controllers\Admin\Consumable\ConsumableTypeController;
 use App\Http\Controllers\Admin\Consumable\ConsumableUnitController;
-use App\Http\Controllers\Admin\Hospital\HospitalBedController;
-use App\Http\Controllers\Admin\Hospital\HospitalBedStatusController;
-use App\Http\Controllers\Admin\Hospital\HospitalRoomClassificationController;
+use App\Http\Controllers\Admin\Hospital\Bed\HospitalBedController;
+use App\Http\Controllers\Admin\Hospital\Bed\HospitalBedStatusController;
+use App\Http\Controllers\Admin\Hospital\Bed\HospitalBedClassificationController;
 use App\Http\Controllers\Admin\Professional\ProfessionalDoctorController;
 use App\Http\Controllers\Admin\Region\RegionCityController;
 use App\Http\Controllers\Admin\Region\RegionCountryController;
@@ -134,10 +134,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('hospital')->group(function (){
                 //Rota - Leitos
 
-                Route::put('hospital_room_classifications/status/{hospital_room_classification}',[HospitalRoomClassificationController::class,'status'])->name('hospital_room_classifications.status');
-                Route::resource('hospital_room_classifications',HospitalRoomClassificationController::class);
+                Route::put('hospital_bed_classifications/status/{hospital_bed_classification}',[HospitalBedClassificationController::class,'status'])->name('hospital_bed_classifications.status');
+                Route::resource('hospital_bed_classifications',HospitalBedClassificationController::class);
 
-                Route::put('hospital_bed_statuses/status/{hospital_bed_status}',[HospitalRoomClassificationController::class,'status'])->name('hospital_bed_statuses.status');
+                Route::put('hospital_bed_statuses/status/{hospital_bed_status}',[HospitalBedStatusController::class,'status'])->name('hospital_bed_statuses.status');
                 Route::resource('hospital_bed_statuses',HospitalBedStatusController::class);
 
                 Route::resource('hospital_beds',HospitalBedController::class);

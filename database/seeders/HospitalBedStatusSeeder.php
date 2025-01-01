@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Hospital\HospitalBedStatus;
+use App\Models\Hospital\Bed\HospitalBedStatus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

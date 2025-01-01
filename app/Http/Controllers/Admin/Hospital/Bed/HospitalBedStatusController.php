@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Hospital;
+namespace App\Http\Controllers\Admin\Hospital\Bed;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hospital\HospitalBedStatus;
-use App\Http\Requests\StoreHospitalBedStatusRequest;
-use App\Http\Requests\UpdateHospitalBedStatusRequest;
+use App\Http\Requests\Hospital\Bed\StoreHospitalBedStatusRequest;
+use App\Http\Requests\Hospital\Bed\UpdateHospitalBedStatusRequest;
+use App\Models\Hospital\Bed\HospitalBedStatus;
 use Illuminate\Http\Request;
 
 class HospitalBedStatusController extends Controller
@@ -16,7 +16,7 @@ class HospitalBedStatusController extends Controller
     public function index()
     {
         //
-        return view('admin.hospital.bed_status.bed_status_index');
+        return view('admin.hospital.bed.status.bed_status_index');
 
     }
 
@@ -34,6 +34,9 @@ class HospitalBedStatusController extends Controller
     public function store(StoreHospitalBedStatusRequest $request)
     {
         //
+        HospitalBedStatus::create($request->all());
+
+        return redirect()->back()->with('success','Status criado com sucesso');
     }
 
     /**

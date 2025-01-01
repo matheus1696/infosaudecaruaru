@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('title');
-            $table->unsignedInteger('room_classification_id');
+            $table->unsignedInteger('bed_classification_id');
             $table->unsignedInteger('establishment_id');
             $table->timestamps();
 
-            $table->foreign('room_classification_id')->references('id')->on('hospital_room_classifications');
+            $table->foreign('bed_classification_id')->references('id')->on('hospital_bed_classifications');
             $table->foreign('establishment_id')->references('id')->on('company_establishments');
         });
     }

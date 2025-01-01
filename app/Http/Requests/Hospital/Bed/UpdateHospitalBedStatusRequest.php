@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Hospital\Bed;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHospitalRoomClassificationRequest extends FormRequest
+class UpdateHospitalBedStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StoreHospitalRoomClassificationRequest extends FormRequest
     {
         return [
             //
+            'title'=>'required|min:6'
         ];
     }
 }

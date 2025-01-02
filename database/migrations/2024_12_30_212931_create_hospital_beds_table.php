@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('title');
+            $table->string('filter');
             $table->boolean('status')->default(TRUE);
             $table->unsignedInteger('operational_status_id');
             $table->unsignedInteger('classification_id');

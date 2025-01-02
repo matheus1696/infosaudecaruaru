@@ -560,6 +560,7 @@ return [
                                     'classes' => 'btn-sm',
                                     'route'   => 'consumables.index',
                                     'icon'    => 'fas fa-screwdriver pr-2',
+                                    'icon_color' => 'teal',
                                     'can'     => ['sysadmin','admin'],
                                 ],
                                 [
@@ -567,6 +568,7 @@ return [
                                     'classes' => 'btn-sm',
                                     'route'   => 'consumable_types.index',
                                     'icon'    => 'fas fa-list-ol pr-2',
+                                    'icon_color' => 'teal',
                                     'can'     => ['sysadmin','admin'],
                                 ],
                                 [
@@ -574,6 +576,7 @@ return [
                                     'classes' => 'btn-sm',
                                     'route'   => 'consumable_classifications.index',
                                     'icon'    => 'fas fa-stream pr-2',
+                                    'icon_color' => 'teal',
                                     'can'     => ['sysadmin','admin'],
                                 ],
                                 [
@@ -581,6 +584,7 @@ return [
                                     'classes' => 'btn-sm',
                                     'route'   => 'consumable_units.index',
                                     'icon'    => 'fas fa-ruler pr-2',
+                                    'icon_color' => 'teal',
                                     'can'     => ['sysadmin','admin'],
                                 ],
                             ]
@@ -602,6 +606,7 @@ return [
                             'classes' => 'btn-sm',
                             'route'   => 'fleet_models.index',
                             'icon'    => 'fas fa-border-style pr-2',
+                            'icon_color' => 'teal',
                             'can'     => ['sysadmin','admin'],
                         ],
                     ]
@@ -621,43 +626,55 @@ return [
                             'classes' => 'btn-sm',
                             'route'   => 'professional_doctors.index',
                             'icon'    => 'fas fa-user-md pr-2',
+                            'icon_color' => 'teal',
                             'can'     => ['professional_doctor','sysadmin','admin'],
                         ],
                     ]
                 ],
 
-                //Configurações Hospitalares
+                //Gestão Hospitalar
                 [
-                    'text'    => 'Configuração Hospitalar',
+                    'text'    => 'Gestão Hospitalar',
                     'classes' => 'btn-sm',
-                    'icon'    => 'fas fa-user-tie pr-2',
+                    'icon'    => 'fas fa-hospital pr-2',
                     'icon_color' => 'info',
-                    'can'     => ['hospital_configuration','sysadmin','admin'],
-                    'submenu' => [                        
+                    'can'     => ['hospital_management','sysadmin','admin'],
+                    'submenu' => [
+                        
+                        [
+                            'text'    => 'Gestão de Leitos',
+                            'classes' => 'btn-sm',
+                            'icon'    => 'fas fa-procedures pr-2',
+                            'icon_color' => 'teal',
+                            'can'     => ['hospital_management','sysadmin','admin'],
+                            'submenu' => [                        
+                                        
+                                [
+                                    'text'    => 'Leitos',
+                                    'classes' => 'btn-sm',
+                                    'route'   => 'hospital_beds.index',
+                                    'icon'    => 'fas fa-procedures pr-2',
+                                    'can'     => ['hospital_management','sysadmin','admin'],
+                                ],
                                 
-                        [
-                            'text'    => 'Leitos',
-                            'classes' => 'btn-sm',
-                            'route'   => 'hospital_beds.index',
-                            'icon'    => 'fas fa-user-md pr-2',
-                            'can'     => ['hospital_configuration','sysadmin','admin'],
+                                [
+                                    'text'    => 'Classificação dos Leitos',
+                                    'classes' => 'btn-sm',
+                                    'route'   => 'hospital_bed_classifications.index',
+                                    'icon'    => 'fas fa-stream pr-2',
+                                    'can'     => ['hospital_management','sysadmin','admin'],
+                                ],
+                                
+                                [
+                                    'text'    => 'Status dos Leitos',
+                                    'classes' => 'btn-sm',
+                                    'route'   => 'hospital_bed_statuses.index',
+                                    'icon'    => 'fas fa-list-ul pr-2',
+                                    'can'     => ['hospital_management','sysadmin','admin'],
+                                ],
+                            ]
                         ],
-                        
-                        [
-                            'text'    => 'Classificação dos Ambientes',
-                            'classes' => 'btn-sm',
-                            'route'   => 'hospital_bed_classifications.index',
-                            'icon'    => 'fas fa-user-md pr-2',
-                            'can'     => ['hospital_configuration','sysadmin','admin'],
-                        ],
-                        
-                        [
-                            'text'    => 'Status dos Leitos',
-                            'classes' => 'btn-sm',
-                            'route'   => 'hospital_bed_statuses.index',
-                            'icon'    => 'fas fa-user-md pr-2',
-                            'can'     => ['hospital_configuration','sysadmin','admin'],
-                        ],
+
                     ]
                 ],
             ],

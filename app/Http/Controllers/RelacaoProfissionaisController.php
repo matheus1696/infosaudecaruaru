@@ -58,9 +58,7 @@ class RelacaoProfissionaisController extends Controller
             'apto_extra' => !$db->apto_extra,
         ]);
 
-        $dbProfessionais = RelacaoProfissionais::where('cpf', $db->cpf)->get();
-
-        return view('extra.show', compact('dbProfessionais'));
+        return redirect()->route('extras.show', $db->cpf);
     }
 
     /**

@@ -11,11 +11,12 @@
 <body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-green-600 px-4">
     <!-- Logo -->
     <div class="flex justify-center mb-10">
-        <img src="assets/img/logo_sms_mono_branco.png" alt="Prefeitura de Caruaru" class="w-96 h-auto">
+        <img src="https://infosaude.saudecaruaru.pe.gov.br/assets/img/logo_sms_mono_branco.png" alt="Prefeitura de Caruaru" class="w-96 h-auto">
     </div>   
     
     <div class="w-full max-w-sm p-8 bg-white rounded-2xl shadow-xl transition-all duration-500 transform">
-        <h1 class="text-2xl font-bold text-center text-green-700">Plantão Extra</h1>
+        <h1 class="text-2xl font-bold text-center text-green-700 mb-2">Cadastro de Intensão </h1>
+        <h2 class="text-lg font-medium text-center text-green-600">Plantão Extra</h2>
         <h2 class="text-lg font-medium text-center text-green-600 mb-4">Secretaria de Saúde de Caruaru</h2>
 
         <p class="text-center text-gray-600 mb-6 text-sm">

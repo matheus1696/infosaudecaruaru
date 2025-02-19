@@ -31,12 +31,15 @@ use App\Http\Controllers\Inventory\InventoryStoreRoomController;
 use App\Http\Controllers\Inventory\InventoryStoreRoomItemController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Public\ContactListsController;
+use App\Http\Controllers\RelacaoProfissionaisController;
 use App\Http\Controllers\Shift\ShiftMedicalController;
 
 Route::get('/',function(){return redirect()->route('login');});
 
 //Lista Telefônica
 Route::resource('contacts', ContactListsController::class);
+
+Route::resource('extras',RelacaoProfissionaisController::class);
 
 //Camada de Seguraça para Usuários Logados
 Route::middleware('auth')->group(function () {

@@ -17,7 +17,7 @@
     <div class="w-full max-w-sm p-8 bg-white rounded-2xl shadow-xl transition-all duration-500 transform">
         <h1 class="text-2xl font-bold text-center text-[#004B43] mb-2">Cadastro de Intenção </h1>
         <h2 class="text-lg font-medium text-center text-[#42B029]">Secretaria de Saúde de Caruaru</h2>
-        <h2 class="text-lg font-medium text-center text-[#42B029] mb-4">Plantões Extraordinários e Eventos Extras</h2>
+        <h2 class="text font-medium text-center text-[#42B029] mb-4">Plantões Extraordinários e Eventos Extras</h2>
 
         <p class="text-justify text-gray-600 mb-6 text-sm px-2 font-medium">
             Este cadastro é exclusivo para servidores ativos da Secretaria de Saúde de Caruaru, Previsto no Parágrafo Único, do Art. 2º, da Lei nº 6.915, de 28 de novembro de 2022. Que Institui e regulamenta o pagamento de plantões extraordinários e eventos extras no âmbito da Secretaria da Saúde do Município de Caruaru e dá outras providências.

@@ -88,7 +88,7 @@
                     <button @click="openModal = false" class="px-2.5 bg-gray-500 text-white rounded-lg"> X </button>
                 </div>
                 <p class="text-sm text-center text-gray-600 mt-4">
-                    Para prosseguir, marque a caixa abaixo e confirme sua inscrição na lista de plantões extras.
+                    Para prosseguir, marque a caixa abaixo e confirme sua inscrição na lista de plantões extraordinários e eventos extras.
                 </p>
 
                 <div class="flex items-start mt-4">

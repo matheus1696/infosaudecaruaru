@@ -28,7 +28,7 @@
             <div class="mb-4">
                 <label class="pl-2 block text-[#42B029] font-medium mb-1" for="cpf">CPF:</label>
                 <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" 
-                    class="w-full p-2 border border-[#42B029] focus:border-[#004B43] rounded-lg outline-none transition-all duration-300 shadow-sm @error('cpf') border-red-500 ring-red-500 @enderror" 
+                    class="w-full p-2 border border-[#42B029] focus:border-[#004B43] rounded-lg outline-none transition-all duration-300 shadow-sm @error('cpf') border-red-500 focus:border-red-700 @enderror" 
                     maxlength="14" inputmode="numeric" aria-label="Digite seu CPF" autofocus
                     oninput="handleCPF(event)" value="{{ old('cpf') }}">
 

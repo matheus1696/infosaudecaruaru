@@ -96,11 +96,10 @@
                         class="w-5 h-5 text-[#004B43] border-gray-300 rounded focus:ring-[#42B029]">
                     <label for="confirmCheckbox" class="ml-2 text-sm text-gray-700">
                         <p class="text-justify">
-                            Declaro estar ciente do disposto na <strong>Lei nº 6.915, de 28 de novembro de 2022</strong> e manifesto interesse em integrar a lista de plantões extraordinários e eventos extras da Secretaria Municipal de Saúde.
+                            Declaro estar ciente do disposto na <strong>Lei nº 6.915, de 28 de novembro de 2022</strong> e manifesto interesse em integrar a lista de plantões extraordinários e eventos extras da Secretaria Municipal de Saúde e dá outras providências.
                         </p>
-                        <p>
-                            <a href="https://leismunicipais.com.br/a/pe/c/caruaru/lei-ordinaria/2022/692/6915/lei-ordinaria-n-6915-2022-institui-e-regulamenta-o-pagamento-de-plantoes-extraordinarios-e-eventos-extras-no-ambito-da-secretaria-da-saude-do-municipio-de-caruaru-e-da-outras-providencias"
-                                class="text-green-700 underline">Acesse a Lei nº 6.915</a>
+                        <p class="mt-2">
+                            <a href="https://leismunicipais.com.br/a/pe/c/caruaru/lei-ordinaria/2022/692/6915/lei-ordinaria-n-6915-2022-institui-e-regulamenta-o-pagamento-de-plantoes-extraordinarios-e-eventos-extras-no-ambito-da-secretaria-da-saude-do-municipio-de-caruaru-e-da-outras-providencias" class="text-green-700 underline" target="_blank">Acesse a Lei nº 6.915</a>
                         </p>
                     </label>
                 </div>

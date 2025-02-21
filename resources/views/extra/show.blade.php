@@ -29,7 +29,7 @@
         
             <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg shadow-md">
                 <p class="font-semibold">Atenção:</p>
-                <p>No momento, você não está apto a participar dos plantões extras.</p>
+                <p>No momento, você não está apto a participar dos plantões extraordinários e eventos extras.</p>
             </div>
         
         @else    

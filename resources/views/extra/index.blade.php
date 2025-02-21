@@ -15,7 +15,7 @@
     </div>   
     
     <div class="w-full max-w-sm p-8 bg-white rounded-2xl shadow-xl transition-all duration-500 transform">
-        <h1 class="text-2xl font-bold text-center text-[#004B43] mb-2">Cadastro de Intensão </h1>
+        <h1 class="text-2xl font-bold text-center text-[#004B43] mb-2">Cadastro de Intenção </h1>
         <h2 class="text-lg font-medium text-center text-[#42B029]">Plantão Extra</h2>
         <h2 class="text-lg font-medium text-center text-[#42B029] mb-4">Secretaria de Saúde de Caruaru</h2>
 

@@ -34,7 +34,7 @@
 
                 <!-- Mensagem de erro -->
                 @error('cpf')
-                    <p class="mt-2 text-sm text-red-500 text-center">{{ $message }}</p>
+                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                 @enderror
             </div>
 

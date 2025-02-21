@@ -16,7 +16,7 @@
     
     <div class="w-full max-w-sm p-8 bg-white rounded-2xl shadow-xl transition-all duration-500 transform">
         <h1 class="text-2xl font-bold text-center text-[#004B43] mb-2">Cadastro de Intenção </h1>
-        <h2 class="text-lg font-medium text-center text-[#42B029]">Plantões e Eventos Extraordinários</h2>
+        <h2 class="text-lg font-medium text-center text-[#42B029]">Plantões Extraordinários e Eventos Extras</h2>
         <h2 class="text-lg font-medium text-center text-[#42B029] mb-4">Secretaria de Saúde de Caruaru</h2>
 
         <p class="text-justify text-gray-600 mb-6 text-sm px-2 font-medium">

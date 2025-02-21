@@ -19,9 +19,9 @@
             alt="Prefeitura de Caruaru" class="w-96 h-auto">
     </div>
 
-    <h1 class="text-2xl font-bold text-center text-[#004B43] mb-2">Cadastro de Intenção </h1>
-    <h2 class="text-lg font-medium text-center text-[#42B029]">Secretaria de Saúde de Caruaru</h2>
-    <h2 class="text font-medium text-center text-[#42B029] mb-4">Plantões Extraordinários e Eventos Extras</h2>
+    <h1 class="text-2xl font-bold text-center mb-2">Cadastro de Intenção </h1>
+    <h2 class="text-lg font-medium text-center">Secretaria de Saúde de Caruaru</h2>
+    <h2 class="text font-medium text-center mb-4">Plantões Extraordinários e Eventos Extras</h2>
 
     <div class="grid grid-cols-1 gap-6 w-full max-w-4xl">
 

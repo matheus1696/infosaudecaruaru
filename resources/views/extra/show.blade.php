@@ -81,7 +81,7 @@
 
     <!-- Modal -->
     <div>
-        <div x-show="openModal" class="fixed inset-0 bg-black bg-opacity-[.90] flex items-center justify-center">
+        <div x-show="openModal" class="fixed inset-0 bg-black bg-opacity-[.90] flex items-center justify-center px-2">
             <div class="bg-white p-6 rounded-lg shadow-lg max-w-xl w-full">
                 <div class="flex justify-between border-b border-gray-200 pb-2.5">
                     <h2 class="text-lg font-semibold text-gray-800">Confirmação</h2>

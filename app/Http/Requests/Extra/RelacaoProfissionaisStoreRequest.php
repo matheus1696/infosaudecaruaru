@@ -22,7 +22,7 @@ class RelacaoProfissionaisStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cpf' => 'formato_cpf',
+            'cpf' => 'required|min:14|max:14|formato_cpf|cpf',
         ];
     }
 }
